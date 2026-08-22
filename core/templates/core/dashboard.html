@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+<p>Bienvenido a SISADMI ERP</p>
+
+<p>Usuario: {{ request.user.username }}</p>
+
+<p>Empresa: {{ current_company }}</p>
+
+<p>Sucursal: {{ current_branch }}</p>
+
+{% endblock %}

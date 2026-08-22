@@ -1,0 +1,19 @@
+<!-- templates/core/select_company.html -->
+
+<h1>Seleccione Empresa</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <select name="company_id">
+        {% for company in companies %}
+            <option value="{{ company.id }}">
+                {{ company.commercial_name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">
+        Continuar
+    </button>
+</form>

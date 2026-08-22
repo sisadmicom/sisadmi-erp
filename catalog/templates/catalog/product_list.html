@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h1>Productos</h1>
+
+<a href="{% url 'product_create' %}">
+    Nuevo producto
+</a>
+
+<table border="1">
+
+    <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Precio</th>
+        <th></th>
+    </tr>
+
+    {% for p in products %}
+
+    <tr>
+
+        <td>{{ p.code }}</td>
+
+        <td>{{ p.name }}</td>
+
+        <td>{{ p.brand }}</td>
+
+        <td>{{ p.sale_price }}</td>
+
+        <td>
+
+            <a href="{% url 'product_update' p.id %}">
+                Editar
+            </a>
+
+        </td>
+
+        <td>
+            <a href="{% url 'product_delete' p.id %}">
+                Eliminar
+            </a>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

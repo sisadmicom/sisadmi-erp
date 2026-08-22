@@ -1,0 +1,2 @@
+class ReleaseStock:
+    pass

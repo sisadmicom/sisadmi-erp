@@ -1,0 +1,97 @@
+<!--base.html-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SISADMI ERP</title>
+</head>
+
+<body>
+
+<div style="width:220px; float:left; min-height:100vh; border-right:1px solid #ccc;">
+
+    <h3>SISADMI ERP</h3>
+
+    <hr>
+
+    <p>
+        <strong>Usuario:</strong><br>
+        {{ request.user.username }}
+    </p>
+
+    <p>
+        <strong>Empresa:</strong><br>
+        {{ current_company }}
+    </p>
+
+    <p>
+        <strong>Sucursal:</strong><br>
+        {{ current_branch }}
+    </p>
+
+    <hr>
+
+    <a href="{% url 'dashboard' %}">
+        Dashboard
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Clientes
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Proveedores
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Marcas
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Grupos
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Subgrupos
+    </a>
+
+    <br><br>
+
+    <a href="{% url 'product_list' %}">
+        Productos
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Ventas
+    </a>
+
+    <br><br>
+
+    <a href="#">
+        Compras
+    </a>
+
+</div>
+
+
+<div style="margin-left:240px; padding:20px;">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>

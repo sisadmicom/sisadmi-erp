@@ -1,0 +1,17 @@
+<h1>Seleccione Sucursal</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <select name="branch_id">
+        {% for branch in branches %}
+            <option value="{{ branch.id }}">
+                {{ branch }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">
+        Continuar
+    </button>
+</form>

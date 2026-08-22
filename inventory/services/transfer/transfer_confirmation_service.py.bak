@@ -1,0 +1,64 @@
+from django.db import transaction
+
+from core.services.document_service import DocumentService
+
+from inventory.constants.movement_type import MovementType
+from inventory.services.stock.decrease_stock import DecreaseStock
+from inventory.services.stock.increase_stock import IncreaseStock
+
+from inventory.validators.transfer_validator import TransferValidator
+
+
+class TransferConfirmationService:
+
+    @staticmethod
+    @transaction.atomic
+    def confirm(
+        transfer,
+        user=None,
+    ):
+
+        TransferValidator.validate_confirmation(
+            transfer
+        )
+
+        decrease_stock = DecreaseStock()
+        increase_stock = IncreaseStock()
+
+        # Primero validamos y ejecutamos todas las salidas
+        # de la bodega origen.
+        for detail in transfer.details.all():
+
+            decrease_stock.execute(
+                company=transfer.company,
+                branch=transfer.branch,
+                warehouse=transfer.source_warehouse,
+                product=detail.product,
+                quantity=detail.quantity,
+                movement_type=MovementType.TRANSFER_OUT,
+                document=transfer,
+                notes=f"Transferencia salida {transfer.number}",
+                user=user,
+            )
+
+        # Luego ingresamos las cantidades en destino.
+        for detail in transfer.details.all():
+
+            increase_stock.execute(
+                company=transfer.company,
+                branch=transfer.branch,
+                warehouse=transfer.destination_warehouse,
+                product=detail.product,
+                quantity=detail.quantity,
+                movement_type=MovementType.TRANSFER_IN,
+                document=transfer,
+                notes=f"Transferencia entrada {transfer.number}",
+                user=user,
+            )
+
+        # La numeración y confirmación se hacen al final.
+        return DocumentService.confirm(
+            document=transfer,
+            sequence_code="TRF",
+            user=user,
+        )

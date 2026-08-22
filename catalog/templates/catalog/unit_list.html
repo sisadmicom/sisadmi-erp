@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h1>Unidades de Medida</h1>
+
+<a href="{% url 'unit_create' %}">
+    Nuevo
+</a>
+
+<table border="1">
+
+    <tr>
+
+        <th>ID</th>
+
+        <th>Codigo</th>
+
+        <th>Nombre</th>
+
+        <th>Acciones</th>
+
+    </tr>
+
+    {% for unit in units %}
+
+    <tr>
+
+        <td>{{ unit.id }}</td>
+
+        <td>{{ unit.code }}</td>
+
+        <td>{{ unit.name }}</td>
+
+        <td>
+
+            <a href="{% url 'unit_update' unit.id %}">
+                Editar
+            </a>
+
+            |
+
+            <a href="{% url 'unit_delete' unit.id %}">
+                Eliminar
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
