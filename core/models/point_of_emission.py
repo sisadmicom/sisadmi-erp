@@ -1,3 +1,4 @@
+#core/models/point_of_emission.py
 from django.db import models
 
 from core.models.base import BaseModel

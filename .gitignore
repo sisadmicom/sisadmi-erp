@@ -182,3 +182,9 @@ build/
 # ------------------------------------------------------------
 
 .history/
+
+# Certificados SRI / archivos privados
+certificates/development/*.key
+certificates/development/*.p12
+certificates/development/*.pfx
+/var/private/
