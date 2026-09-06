@@ -84,12 +84,30 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get(
+            "DJANGO_DB_NAME",
+            "sisadmi_erp_dev",
+        ),
+        "USER": os.environ.get(
+            "DJANGO_DB_USER",
+            "sisadmi_erp",
+        ),
+        "PASSWORD": os.environ.get(
+            "DJANGO_DB_PASSWORD",
+            "",
+        ),
+        "HOST": os.environ.get(
+            "DJANGO_DB_HOST",
+            "127.0.0.1",
+        ),
+        "PORT": os.environ.get(
+            "DJANGO_DB_PORT",
+            "5432",
+        ),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
