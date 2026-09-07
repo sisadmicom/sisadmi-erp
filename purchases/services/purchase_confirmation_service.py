@@ -31,7 +31,6 @@ class PurchaseConfirmationService:
         # PRIMERO confirmar el documento para obtener el número definitivo
         purchase = DocumentService.confirm(
             document=purchase,
-            sequence_code="PUR",
             user=user,
         )
 

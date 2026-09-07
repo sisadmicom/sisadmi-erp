@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models.document_type import DocumentType
 from catalog.models import Product
 from core.constants.document_status import DocumentStatus
@@ -62,7 +63,8 @@ class DocumentServiceTest(TestCase):
         Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            code="TEST",
+            document_type=DocumentType.objects.get(code=DocumentTypeCodes.SALES_INVOICE),
+            code="CUSTOM-TEST",
             name="Pruebas",
             prefix="TST-",
             series="001",
@@ -105,7 +107,6 @@ class DocumentServiceTest(TestCase):
 
         DocumentService.confirm(
             document=document,
-            sequence_code="TEST",
             user=None,
         )
 
@@ -127,7 +128,6 @@ class DocumentServiceTest(TestCase):
 
         DocumentService.confirm(
             document=document,
-            sequence_code="TEST",
             user=None,
         )
 
@@ -144,14 +144,13 @@ class DocumentServiceTest(TestCase):
 
         DocumentService.confirm(
             document=document,
-            sequence_code="TEST",
             user=None,
         )
 
         sequence = Sequence.objects.get(
             company=self.company,
             branch=self.branch,
-            code="TEST",
+            document_type=document.document_type,
         )
 
         self.assertEqual(
@@ -165,7 +164,6 @@ class DocumentServiceTest(TestCase):
 
         DocumentService.confirm(
             document=document1,
-            sequence_code="TEST",
             user=None,
         )
 
@@ -173,7 +171,6 @@ class DocumentServiceTest(TestCase):
 
         DocumentService.confirm(
             document=document2,
-            sequence_code="TEST",
             user=None,
         )
 

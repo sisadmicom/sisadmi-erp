@@ -3,6 +3,8 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.constants.document_status import DocumentStatus
 from core.models import Branch, Company, Sequence
 
@@ -49,7 +51,8 @@ class CancelTransferTest(TestCase):
         Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            code="TRF",
+            document_type=DocumentType.objects.get(code=DocumentTypeCodes.INVENTORY_TRANSFER),
+            code="CUSTOM-TRF",
             name="Transferencias",
             prefix="TRF-",
             series="001",

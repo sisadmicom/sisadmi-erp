@@ -4,6 +4,8 @@ from decimal import Decimal
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.constants.document_status import DocumentStatus
 from core.constants.movement_types import MovementTypes
 from core.models import Branch, Company, Sequence
@@ -55,7 +57,8 @@ class ConfirmSaleTest(TestCase):
         Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            code="SAL",
+            document_type=DocumentType.objects.get(code=DocumentTypeCodes.SALES_INVOICE),
+            code="CUSTOM-SAL",
             name="Ventas",
             prefix="VEN-",
             series="001",

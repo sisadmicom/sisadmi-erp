@@ -4,6 +4,7 @@ from django.conf import settings
 from core.models.base import BaseModel
 from .company import Company
 from .branch import Branch
+from .document_type import DocumentType
 
 
 class Sequence(BaseModel):
@@ -16,6 +17,13 @@ class Sequence(BaseModel):
     branch = models.ForeignKey(
         Branch,
         on_delete=models.PROTECT
+    )
+
+    document_type = models.ForeignKey(
+        DocumentType,
+        on_delete=models.PROTECT,
+        null=True,
+        related_name="sequences",
     )
 
     code = models.CharField(
@@ -50,6 +58,10 @@ class Sequence(BaseModel):
             models.UniqueConstraint(
                 fields=["company", "branch", "code"],
                 name="unique_sequence_company_branch_code"
+            ),
+            models.UniqueConstraint(
+                fields=["company", "branch", "document_type"],
+                name="unique_sequence_company_branch_document_type",
             )
         ]
 

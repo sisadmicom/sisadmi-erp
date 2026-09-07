@@ -21,7 +21,6 @@ class SaleConfirmationService:
 
         DocumentService.confirm(
             document=sale,
-            sequence_code="SAL",
             user=user,
         )
 

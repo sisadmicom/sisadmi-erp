@@ -3,6 +3,8 @@ from datetime import date
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import Company, Branch, Sequence
 from catalog.models import Product
 from people.models import Person, Supplier
@@ -65,7 +67,8 @@ class PurchaseInventoryReceiptTest(TestCase):
         Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            code="PUR",
+            document_type=DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE),
+            code="CUSTOM-PUR",
             name="Compras",
             prefix="OC-",
             series="001",

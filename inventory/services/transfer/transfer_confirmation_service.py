@@ -26,7 +26,6 @@ class TransferConfirmationService:
         # el número oficial de la transferencia.
         transfer = DocumentService.confirm(
             document=transfer,
-            sequence_code="TRF",
             user=user,
         )
 

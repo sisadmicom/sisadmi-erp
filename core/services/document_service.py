@@ -12,7 +12,7 @@ class DocumentService:
 
     @staticmethod
     @transaction.atomic
-    def confirm(document, sequence_code, user=None):
+    def confirm(document, user=None):
 
         DocumentValidator.validate(document)
 
@@ -26,7 +26,7 @@ class DocumentService:
         document.number = SequenceService.next_number(
             company=document.company,
             branch=document.branch,
-            code=sequence_code,
+            document_type=document.document_type,
         )
 
         document.status = DocumentStatus.CONFIRMED

@@ -5,6 +5,8 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import Company, Branch, Sequence
 from core.constants.movement_types import MovementTypes
 
@@ -53,7 +55,8 @@ class StockMovementTest(TestCase):
         Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            code="PUR",
+            document_type=DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE),
+            code="CUSTOM-PUR",
             name="Compras",
             prefix="COM-",
             series="001",

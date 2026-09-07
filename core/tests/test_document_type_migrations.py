@@ -14,6 +14,15 @@ class DocumentTypeMigrationTest(TransactionTestCase):
             ("core", "0004_seed_document_types"),
         ]
         try:
+            apps = executor.loader.project_state(latest).apps
+            for code, category in (
+                ("SALES_INVOICE", "SALES"),
+                ("PURCHASE_INVOICE", "PURCHASES"),
+                ("INVENTORY_TRANSFER", "INVENTORY"),
+            ):
+                apps.get_model("core", "DocumentType").objects.get_or_create(
+                    code=code, defaults={"name": code, "category": category},
+                )
             executor.migrate(before)
             apps = executor.loader.project_state(before).apps
             person = apps.get_model("people", "Person").objects.create(
