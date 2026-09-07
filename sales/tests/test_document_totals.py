@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
 from catalog.models import Product
 from core.models import Branch, Company
 from core.services.document_totals_service import (
@@ -62,6 +63,7 @@ class DocumentTotalsServiceTest(TestCase):
     def test_calculate_sale_totals_from_details(self):
 
         sale = Sale.objects.create(
+            document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=self.company,
             branch=self.branch,
             warehouse=self.warehouse,

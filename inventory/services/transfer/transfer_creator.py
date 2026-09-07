@@ -1,5 +1,6 @@
 from django.db import transaction
 
+from core.models.document_type import DocumentType
 from catalog.models import Product
 
 from core.models import Branch, Company
@@ -38,6 +39,7 @@ class TransferCreator:
         )
 
         transfer = Transfer.objects.create(
+            document_type=DocumentType.objects.get(code=Transfer.DOCUMENT_TYPE_CODE),
             company=company,
             branch=branch,
             source_warehouse=source,

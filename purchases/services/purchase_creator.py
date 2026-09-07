@@ -2,6 +2,7 @@
 
 from django.db import transaction
 
+from core.models.document_type import DocumentType
 from catalog.models import Product
 from core.models import Branch, Company
 from core.services.document_totals_service import DocumentTotalsService
@@ -40,6 +41,7 @@ class PurchaseCreator:
         )
 
         purchase = Purchase.objects.create(
+            document_type=DocumentType.objects.get(code=Purchase.DOCUMENT_TYPE_CODE),
             company=company,
             branch=branch,
             supplier=supplier,

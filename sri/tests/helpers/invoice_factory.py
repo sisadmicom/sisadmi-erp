@@ -1,5 +1,6 @@
 from decimal import Decimal
 from datetime import date
+from core.models.document_type import DocumentType
 from core.constants.document_status import DocumentStatus
 from core.constants.sri import (
     SriEmissionType,
@@ -173,6 +174,7 @@ def create_test_invoice_environment():
     # --------------------------------------------------
 
     sale = Sale.objects.create(
+        document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
         company=company,
         branch=branch,
         customer=customer,

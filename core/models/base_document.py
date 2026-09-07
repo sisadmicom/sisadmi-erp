@@ -27,6 +27,13 @@ class BaseDocument(BaseModel):
         related_name="%(class)s_documents"
     )
 
+    document_type = models.ForeignKey(
+        "core.DocumentType",
+        on_delete=models.PROTECT,
+        related_name="%(app_label)s_%(class)s_documents",
+        editable=False,
+    )
+
     number = models.CharField(
         max_length=30,
         db_index=True,

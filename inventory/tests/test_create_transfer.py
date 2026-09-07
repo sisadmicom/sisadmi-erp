@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from inventory.services.transfer.transfer_creator import TransferCreator
 from core.constants.document_status import DocumentStatus
 from core.models import Branch, Company
 
@@ -81,6 +82,11 @@ class CreateTransferTest(TestCase):
                 )
             ],
         )
+
+    def test_creator_persists_document_type(self):
+        transfer = TransferCreator.create(self.create_dto())
+        transfer.refresh_from_db()
+        self.assertEqual(transfer.document_type.code, "INVENTORY_TRANSFER")
 
     def test_create_transfer(self):
 

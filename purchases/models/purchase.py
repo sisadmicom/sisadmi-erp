@@ -2,6 +2,7 @@
 
 from django.db import models
 
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import BaseDocument
 
 from core.models import Company, Branch
@@ -10,6 +11,7 @@ from people.models import Supplier
 
 
 class Purchase(BaseDocument):
+    DOCUMENT_TYPE_CODE = DocumentTypeCodes.PURCHASE_INVOICE
 
     supplier = models.ForeignKey(
         Supplier,

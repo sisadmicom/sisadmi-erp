@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
 from core.constants.document_status import DocumentStatus
 from core.constants.sri import (
     SriEmissionType,
@@ -83,6 +84,7 @@ class XmlGeneratorServiceTest(TestCase):
 
 
         self.sale = Sale.objects.create(
+            document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=self.company,
             branch=self.branch,
             customer=customer,

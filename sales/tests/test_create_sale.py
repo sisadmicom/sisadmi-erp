@@ -94,6 +94,29 @@ class CreateSaleTest(TestCase):
             self.iva
         )
 
+    def test_creator_persists_document_type(self):
+
+        dto = SaleCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            warehouse_id=self.warehouse.id,
+            customer_id=self.customer.id,
+            issue_date=date(2025, 1, 1),
+            notes="Venta de prueba",
+            details=[
+                SaleDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("5"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("0"),
+                )
+            ],
+        )
+
+        sale = CreateSale.execute(dto)
+        sale.refresh_from_db()
+        self.assertEqual(sale.document_type.code, "SALES_INVOICE")
+
     def test_create_sale(self):
 
         dto = SaleCreateDTO(

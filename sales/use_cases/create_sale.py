@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.db import transaction
 
+from core.models.document_type import DocumentType
 from core.models import Company
 from core.models import Branch
 
@@ -47,6 +48,7 @@ class CreateSale:
         )
 
         sale = Sale.objects.create(
+            document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=company,
             branch=branch,
             warehouse=warehouse,

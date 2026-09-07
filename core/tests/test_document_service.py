@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
 from catalog.models import Product
 from core.constants.document_status import DocumentStatus
 from core.models import Branch, Company, Sequence
@@ -72,6 +73,7 @@ class DocumentServiceTest(TestCase):
     def create_document(self):
 
         document = Sale.objects.create(
+            document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=self.company,
             branch=self.branch,
             customer=self.customer,

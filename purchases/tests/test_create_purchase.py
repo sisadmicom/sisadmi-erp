@@ -4,6 +4,7 @@ from datetime import date
 
 from django.test import TestCase
 
+from purchases.services.purchase_creator import PurchaseCreator
 from core.models import Company, Branch, Sequence
 from people.models import Supplier
 from catalog.models import Product
@@ -62,6 +63,28 @@ class CreatePurchaseTest(TestCase):
             next_number=1,
             padding=6,
         )
+
+    def test_creator_persists_document_type(self):
+
+        dto = PurchaseCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            supplier_id=self.supplier.id,
+            issue_date=date.today(),
+            notes="Compra de prueba",
+            details=[
+                PurchaseDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("5"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("0"),
+                )
+            ]
+        )
+
+        purchase = PurchaseCreator.create(dto)
+        purchase.refresh_from_db()
+        self.assertEqual(purchase.document_type.code, "PURCHASE_INVOICE")
 
     def test_create_purchase(self):
 

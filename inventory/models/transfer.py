@@ -1,11 +1,13 @@
 from django.db import models
 
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import BaseDocument
 
 from .warehouse import Warehouse
 
 
 class Transfer(BaseDocument):
+    DOCUMENT_TYPE_CODE = DocumentTypeCodes.INVENTORY_TRANSFER
 
     source_warehouse = models.ForeignKey(
         Warehouse,

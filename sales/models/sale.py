@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.db import models
 
+from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import BaseDocument
 
 from people.models import Customer
@@ -9,6 +10,7 @@ from inventory.models import Warehouse
 
 
 class Sale(BaseDocument):
+    DOCUMENT_TYPE_CODE = DocumentTypeCodes.SALES_INVOICE
 
     customer = models.ForeignKey(
         Customer,

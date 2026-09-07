@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
+from core.models.document_type import DocumentType
 from core.models import Company, Branch
 from people.models import Person, Customer
 from catalog.models import Product, Tax
@@ -72,6 +73,7 @@ class SaleDetailTaxTest(TestCase):
         )
 
         self.sale = Sale.objects.create(
+            document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=self.company,
             branch=self.branch,
             warehouse=self.warehouse,

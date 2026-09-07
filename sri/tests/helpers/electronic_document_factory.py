@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.contrib.contenttypes.models import ContentType
 
+from core.models.document_type import DocumentType
 from core.constants.document_status import DocumentStatus
 from core.models import Company, Branch
 
@@ -149,6 +150,7 @@ def create_test_electronic_document():
     # --------------------------------------------------
 
     sale = Sale.objects.create(
+        document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
         company=company,
         branch=branch,
         customer=customer,
