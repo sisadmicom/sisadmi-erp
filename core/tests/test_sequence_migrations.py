@@ -95,4 +95,8 @@ class SequenceMigrationTest(TransactionTestCase):
             # mapping: their manually assigned types cannot survive column removal.
             model.objects.filter(pk__in=[reassigned.pk, custom.pk]).delete()
         finally:
+            # Historical fixtures intentionally include unclassified sequences.
+            # Remove test data before restoring the final NOT NULL schema.
+            historical_sequence = executor.loader.project_state(before).apps.get_model("core", "Sequence")
+            historical_sequence.objects.all().delete()
             MigrationExecutor(connection).migrate(latest)

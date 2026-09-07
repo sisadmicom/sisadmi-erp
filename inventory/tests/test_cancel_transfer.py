@@ -52,7 +52,6 @@ class CancelTransferTest(TestCase):
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.INVENTORY_TRANSFER),
-            code="CUSTOM-TRF",
             name="Transferencias",
             prefix="TRF-",
             series="001",

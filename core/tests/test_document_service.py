@@ -64,7 +64,6 @@ class DocumentServiceTest(TestCase):
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.SALES_INVOICE),
-            code="CUSTOM-TEST",
             name="Pruebas",
             prefix="TST-",
             series="001",

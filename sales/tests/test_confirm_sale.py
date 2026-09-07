@@ -58,7 +58,6 @@ class ConfirmSaleTest(TestCase):
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.SALES_INVOICE),
-            code="CUSTOM-SAL",
             name="Ventas",
             prefix="VEN-",
             series="001",

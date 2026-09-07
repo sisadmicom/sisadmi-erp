@@ -52,7 +52,6 @@ class SequenceServiceTest(TestCase):
         self.purchase_type = DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE)
 
         self.sequence = Sequence.objects.create(
-            code="CUSTOM-SALES",
             company=self.company,
             branch=self.branch,
             document_type=self.document_type,
@@ -207,7 +206,6 @@ class SequenceServiceTest(TestCase):
     def test_different_document_type_is_independent(self):
 
         Sequence.objects.create(
-            code="CUSTOM-TRANSFER",
             company=self.company,
             branch=self.branch,
             document_type=self.transfer_type,
@@ -304,9 +302,7 @@ class SequenceServiceTest(TestCase):
         self.sequence.refresh_from_db()
         self.assertEqual(self.sequence.next_number, 1)
 
-    def test_missing_type_does_not_use_unmapped_sequence(self):
-        self.sequence.document_type = None
-        self.sequence.save()
+    def test_missing_type_does_not_consume_sequence(self):
         with self.assertRaises(SequenceNotFound):
             SequenceService.next_number(self.company, self.branch, None)
         self.sequence.refresh_from_db()
@@ -322,7 +318,7 @@ class SequenceServiceTest(TestCase):
         for company, branch in ((other_company, other_branch), (self.company, second_branch)):
             Sequence.objects.create(
                 company=company, branch=branch, document_type=self.document_type,
-                code=self.sequence.code, name="Otra", prefix="OTHER-", next_number=40,
+                name="Otra", prefix="OTHER-", next_number=40,
             )
             self.assertEqual(
                 SequenceService.next_number(company, branch, self.document_type),
@@ -337,22 +333,15 @@ class SequenceServiceTest(TestCase):
         with self.assertRaises(IntegrityError), transaction.atomic():
             Sequence.objects.create(
                 company=self.company, branch=self.branch, document_type=self.document_type,
-                code="DIFFERENT", name="Duplicada", prefix="DUP-",
+                name="Duplicada", prefix="DUP-",
             )
 
-    def test_legacy_code_constraint_remains(self):
+    def test_document_type_cannot_be_null(self):
         with self.assertRaises(IntegrityError), transaction.atomic():
-            Sequence.objects.create(
-                company=self.company, branch=self.branch, document_type=self.transfer_type,
-                code=self.sequence.code, name="Duplicada", prefix="DUP-",
-            )
+            Sequence.objects.filter(pk=self.sequence.pk).update(document_type=None)
 
-    def test_unknown_sequences_can_coexist_without_document_type(self):
-        for code in ("LEGACY-A", "LEGACY-B"):
-            Sequence.objects.create(
-                company=self.company, branch=self.branch, code=code, name=code, prefix="OLD-",
-            )
-        self.assertEqual(Sequence.objects.filter(document_type__isnull=True).count(), 2)
+    def test_string_uses_document_type_and_numbering_configuration(self):
+        self.assertEqual(str(self.sequence), "SALES_INVOICE - VEN-001")
 
     def test_foreign_branch_cannot_consume_even_an_inconsistent_sequence(self):
         person = Person.objects.create(
@@ -361,7 +350,7 @@ class SequenceServiceTest(TestCase):
         other_company = Company.objects.create(person=person)
         inconsistent = Sequence.objects.create(
             company=other_company, branch=self.branch, document_type=self.document_type,
-            code="INCONSISTENT", name="Contexto histórico inválido", prefix="OLD-",
+            name="Contexto histórico inválido", prefix="OLD-",
             next_number=25,
         )
         with self.assertRaisesMessage(

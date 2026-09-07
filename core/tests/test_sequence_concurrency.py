@@ -25,7 +25,7 @@ class SequenceConcurrencyTest(TransactionTestCase):
         branch = Branch.objects.create(company=company, code="001", name="Matriz")
         sequence = Sequence.objects.create(
             company=company, branch=branch, document_type=document_type,
-            code="CUSTOM", name="Concurrente", prefix="ERP-", next_number=25,
+            name="Concurrente", prefix="ERP-", next_number=25,
         )
         barrier = Barrier(4)
 

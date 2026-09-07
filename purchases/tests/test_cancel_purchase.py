@@ -71,7 +71,6 @@ class CancelPurchaseTest(TestCase):
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE),
-            code="CUSTOM-PUR",
             name="Compras",
             prefix="OC-",
             series="001",

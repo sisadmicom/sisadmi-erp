@@ -22,12 +22,7 @@ class Sequence(BaseModel):
     document_type = models.ForeignKey(
         DocumentType,
         on_delete=models.PROTECT,
-        null=True,
         related_name="sequences",
-    )
-
-    code = models.CharField(
-        max_length=30
     )
 
     name = models.CharField(
@@ -56,14 +51,10 @@ class Sequence(BaseModel):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["company", "branch", "code"],
-                name="unique_sequence_company_branch_code"
-            ),
-            models.UniqueConstraint(
                 fields=["company", "branch", "document_type"],
                 name="unique_sequence_company_branch_document_type",
             )
         ]
 
     def __str__(self):
-        return f"{self.code} - {self.prefix}-{self.series}"
+        return f"{self.document_type.code} - {self.prefix}{self.series}"
