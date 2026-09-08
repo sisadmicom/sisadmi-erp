@@ -3,6 +3,7 @@ from django.db.models import Q
 
 from core.constants.document_category import DocumentCategory
 from core.constants.inventory_behavior import InventoryBehavior
+from core.constants.line_behavior import LineBehavior
 from core.models.base import BaseModel
 
 
@@ -26,6 +27,12 @@ class DocumentType(BaseModel):
     category = models.CharField(
         max_length=20,
         choices=DocumentCategory.choices,
+    )
+
+    line_behavior = models.CharField(
+        max_length=20,
+        choices=LineBehavior.choices,
+        default=LineBehavior.NONE,
     )
 
     requires_detail = models.BooleanField(
@@ -52,6 +59,10 @@ class DocumentType(BaseModel):
         verbose_name_plural = "Tipos de documento"
 
         constraints = [
+            models.CheckConstraint(
+                condition=(~Q(line_behavior=LineBehavior.NONE) | Q(requires_detail=False)),
+                name="document_type_line_behavior_consistent",
+            ),
             models.CheckConstraint(
                 condition=(
                     Q(affects_inventory=True)

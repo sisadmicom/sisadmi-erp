@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from core.constants.document_category import DocumentCategory
 from core.constants.inventory_behavior import InventoryBehavior
+from core.constants.line_behavior import LineBehavior
 from core.models import DocumentType
 
 
@@ -116,6 +117,7 @@ class DocumentTypeTest(TestCase):
                     name="Duplicado",
                     category=DocumentCategory.SALES,
                     requires_detail=True,
+                    line_behavior=LineBehavior.COMMERCIAL,
                     affects_inventory=True,
                     inventory_behavior=InventoryBehavior.OUT,
                     can_issue_electronic=True,
@@ -133,3 +135,51 @@ class DocumentTypeTest(TestCase):
                     inventory_behavior=InventoryBehavior.OUT,
                     can_issue_electronic=False,
                 )
+
+
+    def test_line_behavior_choices(self):
+        self.assertEqual(LineBehavior.choices, [
+            ("NONE", "Sin líneas"), ("QUANTITY", "Cantidad"),
+            ("VALUED", "Valorada"), ("COMMERCIAL", "Comercial"),
+        ])
+
+    def test_canonical_line_behaviors(self):
+        for code, behavior in (
+            ("SALES_INVOICE", LineBehavior.COMMERCIAL),
+            ("PURCHASE_INVOICE", LineBehavior.COMMERCIAL),
+            ("INVENTORY_TRANSFER", LineBehavior.QUANTITY),
+        ):
+            with self.subTest(code=code):
+                self.assertEqual(DocumentType.objects.get(code=code).line_behavior, behavior)
+
+    def test_none_is_default_and_valid_without_required_details(self):
+        document_type = DocumentType.objects.create(
+            code="WITHOUT_LINES", name="Sin líneas", category=DocumentCategory.SALES,
+        )
+        document_type.refresh_from_db()
+        self.assertEqual(document_type.line_behavior, LineBehavior.NONE)
+        self.assertFalse(document_type.requires_detail)
+
+    def test_none_cannot_require_details(self):
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            DocumentType.objects.create(
+                code="INVALID_LINES", name="Inválido", category=DocumentCategory.SALES,
+                line_behavior=LineBehavior.NONE, requires_detail=True,
+            )
+
+    def test_line_structures_allow_optional_or_required_details(self):
+        for behavior in (LineBehavior.QUANTITY, LineBehavior.VALUED, LineBehavior.COMMERCIAL):
+            for required in (False, True):
+                with self.subTest(behavior=behavior, required=required):
+                    document_type = DocumentType.objects.create(
+                        code=f"{behavior}_{required}", name="Tipo", category=DocumentCategory.SALES,
+                        line_behavior=behavior, requires_detail=required,
+                    )
+                    document_type.refresh_from_db()
+                    self.assertEqual(document_type.line_behavior, behavior)
+                    self.assertEqual(document_type.requires_detail, required)
+
+    def test_line_behavior_is_not_nullable(self):
+        self.assertFalse(DocumentType._meta.get_field("line_behavior").null)
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            DocumentType.objects.filter(code="SALES_INVOICE").update(line_behavior=None)
