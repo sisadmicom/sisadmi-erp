@@ -1,13 +1,13 @@
 from django.db import models
 
-from core.models.base_detail import BaseDetail
+from core.models import BaseDocumentLine, QuantityLineMixin
 
 from catalog.models import Product
 
 from .transfer import Transfer
 
 
-class TransferDetail(BaseDetail):
+class TransferDetail(BaseDocumentLine, QuantityLineMixin):
 
     transfer = models.ForeignKey(
         Transfer,

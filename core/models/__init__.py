@@ -2,7 +2,9 @@
 
 from .base import *
 from .base_document import BaseDocument
-from .base_detail import BaseDetail
+from .base_document_line import BaseDocumentLine
+from .quantity_line_mixin import QuantityLineMixin
+from .commercial_amounts_mixin import CommercialAmountsMixin
 from .branch import Branch
 from .company import Company
 from .document_type import DocumentType

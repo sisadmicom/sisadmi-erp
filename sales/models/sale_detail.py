@@ -2,13 +2,13 @@
 
 from django.db import models
 
-from core.models import BaseDetail
+from core.models import BaseDocumentLine, QuantityLineMixin, CommercialAmountsMixin
 from catalog.models import Product
 
 from .sale import Sale
 
 
-class SaleDetail(BaseDetail):
+class SaleDetail(BaseDocumentLine, QuantityLineMixin, CommercialAmountsMixin):
 
     sale = models.ForeignKey(
         Sale,

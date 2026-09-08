@@ -1,13 +1,13 @@
 from django.db import models
 
-from core.models.base_detail import BaseDetail
+from core.models import BaseDocumentLine, QuantityLineMixin, CommercialAmountsMixin
 
 from catalog.models import Product
 
 from .purchase import Purchase
 
 
-class PurchaseDetail(BaseDetail):
+class PurchaseDetail(BaseDocumentLine, QuantityLineMixin, CommercialAmountsMixin):
 
     purchase = models.ForeignKey(
         Purchase,
@@ -18,18 +18,6 @@ class PurchaseDetail(BaseDetail):
     product = models.ForeignKey(
         Product,
         on_delete=models.PROTECT
-    )
-
-    tax_amount = models.DecimalField(
-        max_digits=14,
-        decimal_places=2,
-        default=0
-    )
-
-    total = models.DecimalField(
-        max_digits=14,
-        decimal_places=2,
-        default=0
     )
 
     class Meta:
