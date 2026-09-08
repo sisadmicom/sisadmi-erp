@@ -3,8 +3,6 @@ from django.db import transaction
 from django.utils import timezone
 
 from core.constants.document_status import DocumentStatus
-from core.services.document_validator import DocumentValidator
-from core.services.document_totals_service import DocumentTotalsService
 from core.services.sequence_service import SequenceService
 
 
@@ -14,15 +12,11 @@ class DocumentService:
     @transaction.atomic
     def confirm(document, user=None):
 
-        DocumentValidator.validate(document)
+        if not document.is_draft():
+            raise ValueError(
+                "Solo se pueden confirmar documentos en borrador."
+            )
 
-        if (
-                hasattr(document, "subtotal")
-                and hasattr(document, "tax")
-                and hasattr(document, "total")
-            ):
-             DocumentTotalsService.calculate(document)
-        
         document.number = SequenceService.next_number(
             company=document.company,
             branch=document.branch,
