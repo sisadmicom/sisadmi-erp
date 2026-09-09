@@ -104,13 +104,10 @@ class PurchaseValidatorTest(SimpleTestCase):
         with self.assertRaises(InvalidPrice):
             PurchaseValidator.validate_confirmation(self.purchase(details=[self.detail(price="-0.01")]))
 
-    def test_confirmation_confirmed_keeps_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "La compra ya fue confirmada."):
-            PurchaseValidator.validate_confirmation(self.purchase(status="CONFIRMED"))
-
-    def test_confirmation_cancelled_keeps_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "La compra fue anulada."):
-            PurchaseValidator.validate_confirmation(self.purchase(status="CANCELLED"))
+    def test_confirmation_validator_does_not_own_lifecycle(self):
+        for status in ("CONFIRMED", "CANCELLED"):
+            with self.subTest(status=status):
+                PurchaseValidator.validate_confirmation(self.purchase(status=status))
 
     def test_confirmation_requires_supplier(self):
         with self.assertRaisesMessage(ValueError, "Debe seleccionar un proveedor."):

@@ -18,6 +18,7 @@ class PurchaseConfirmationService:
         user=None,
     ):
 
+        DocumentService.ensure_can_confirm(purchase)
         PurchaseValidator.validate_confirmation(
             purchase
         )

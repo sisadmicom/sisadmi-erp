@@ -70,13 +70,10 @@ class SaleValidatorTest(SimpleTestCase):
         with self.assertRaises(InvalidPrice):
             SaleValidator.validate_confirmation(self.sale(details=[self.line(price="-0.01")]))
 
-    def test_confirmation_confirmed_keeps_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "La venta ya fue confirmada."):
-            SaleValidator.validate_confirmation(self.sale(status=DocumentStatus.CONFIRMED))
-
-    def test_confirmation_cancelled_keeps_same_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "La venta ya fue confirmada."):
-            SaleValidator.validate_confirmation(self.sale(status=DocumentStatus.CANCELLED))
+    def test_confirmation_validator_does_not_own_lifecycle(self):
+        for status in (DocumentStatus.CONFIRMED, DocumentStatus.CANCELLED):
+            with self.subTest(status=status):
+                SaleValidator.validate_confirmation(self.sale(status=status))
 
     def test_cancellation_confirmed_is_valid(self):
         SaleValidator.validate_cancellation(self.sale(status=DocumentStatus.CONFIRMED))

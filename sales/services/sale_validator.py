@@ -17,11 +17,6 @@ class SaleValidator:
     @staticmethod
     def validate_confirmation(sale):
 
-        if sale.status != DocumentStatus.DRAFT:
-            raise ValueError(
-                "La venta ya fue confirmada."
-            )
-
         DocumentDetailValidator.validate_required(sale.details.exists())
 
         for detail in sale.details.all():

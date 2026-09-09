@@ -61,11 +61,6 @@ class TransferValidator:
     @staticmethod
     def validate_confirmation(transfer):
 
-        if not transfer.is_draft():
-            raise ValueError(
-                "La transferencia no está en borrador."
-            )
-
         if (
             transfer.source_warehouse_id
             == transfer.destination_warehouse_id

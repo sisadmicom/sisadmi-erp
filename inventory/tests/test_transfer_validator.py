@@ -229,9 +229,9 @@ class TransferValidatorTest(TestCase):
             with self.subTest(quantity=quantity), self.assertRaises(InvalidQuantity):
                 TransferValidator.validate_confirmation(self.make_transfer(quantity=quantity))
 
-    def test_confirmation_requires_draft(self):
+    def test_confirmation_validator_does_not_own_lifecycle(self):
         for status in (DocumentStatus.CONFIRMED, DocumentStatus.CANCELLED):
-            with self.subTest(status=status), self.assertRaisesMessage(ValueError, "La transferencia no está en borrador."):
+            with self.subTest(status=status):
                 TransferValidator.validate_confirmation(self.make_transfer(status=status))
 
     def test_confirmation_rejects_same_warehouse(self):

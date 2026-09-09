@@ -34,16 +34,6 @@ class PurchaseValidator:
     @staticmethod
     def validate_confirmation(purchase):
 
-        if purchase.is_confirmed():
-            raise ValueError(
-                "La compra ya fue confirmada."
-            )
-
-        if purchase.is_cancelled():
-            raise ValueError(
-                "La compra fue anulada."
-            )
-
         if purchase.supplier is None:
             raise ValueError(
                 "Debe seleccionar un proveedor."

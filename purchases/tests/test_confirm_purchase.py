@@ -7,6 +7,7 @@ from django.test import TestCase
 
 from core.models.document_type import DocumentType
 from core.constants.document_type_codes import DocumentTypeCodes
+from core.constants.document_status import DocumentStatus
 from core.models import Company, Branch, Sequence
 from people.models import Person, Supplier
 from catalog.models import Product
@@ -111,12 +112,17 @@ class ConfirmPurchaseTest(TestCase):
             user=None,
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
 
             ConfirmPurchase.execute(
                 purchase_id=self.purchase.id,
                 user=None,
             )
+        self.purchase.status = DocumentStatus.CANCELLED
+        self.purchase.save(update_fields=["status"])
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
+            ConfirmPurchase.execute(purchase_id=self.purchase.id, user=None)
+
 
     def test_confirm_purchase_without_details(self):
 

@@ -18,6 +18,7 @@ class TransferConfirmationService:
         user=None,
     ):
 
+        DocumentService.ensure_can_confirm(transfer)
         TransferValidator.validate_confirmation(
             transfer
         )

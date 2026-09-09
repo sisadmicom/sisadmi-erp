@@ -313,12 +313,17 @@ class ConfirmTransferTest(TestCase):
             user=None,
         )
 
-        with self.assertRaises(ValueError):
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
 
             ConfirmTransfer.execute(
                 transfer_id=transfer.id,
                 user=None,
             )
+        transfer.status = DocumentStatus.CANCELLED
+        transfer.save(update_fields=["status"])
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
+            ConfirmTransfer.execute(transfer_id=transfer.id, user=None)
+
 
         source_stock = Stock.objects.get(
             company=self.company,

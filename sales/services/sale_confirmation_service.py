@@ -17,6 +17,7 @@ class SaleConfirmationService:
         user,
     ):
 
+        DocumentService.ensure_can_confirm(sale)
         SaleValidator.validate_confirmation(sale)
 
         DocumentService.confirm(

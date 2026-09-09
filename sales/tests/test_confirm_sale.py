@@ -289,11 +289,16 @@ class ConfirmSaleTest(TestCase):
             Decimal("15"),
         )
 
-        with self.assertRaises(ValueError):
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
             ConfirmSale.execute(
                 sale_id=sale.id,
                 user=None,
             )
+        sale.status = DocumentStatus.CANCELLED
+        sale.save(update_fields=["status"])
+        with self.assertRaisesMessage(ValueError, "Solo se pueden confirmar documentos en borrador."):
+            ConfirmSale.execute(sale_id=sale.id, user=None)
+
 
         stock.refresh_from_db()
 
