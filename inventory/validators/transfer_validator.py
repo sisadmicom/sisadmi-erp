@@ -1,3 +1,6 @@
+from core.validators.document_detail_validator import DocumentDetailValidator
+from core.validators.quantity_line_validator import QuantityLineValidator
+
 from inventory.models import Warehouse
 
 
@@ -6,10 +9,7 @@ class TransferValidator:
     @staticmethod
     def validate(dto):
 
-        if not dto.details:
-            raise ValueError(
-                "La transferencia no tiene detalles."
-            )
+        DocumentDetailValidator.validate_required(bool(dto.details))
 
         if dto.source_warehouse_id == dto.destination_warehouse_id:
             raise ValueError(
@@ -20,10 +20,7 @@ class TransferValidator:
 
         for detail in dto.details:
 
-            if detail.quantity <= 0:
-                raise ValueError(
-                    "La cantidad debe ser mayor que cero."
-                )
+            QuantityLineValidator.validate(detail)
 
             if detail.product_id in product_ids:
                 raise ValueError(
@@ -79,19 +76,13 @@ class TransferValidator:
 
         details = transfer.details.all()
 
-        if not details.exists():
-            raise ValueError(
-                "La transferencia no tiene detalles."
-            )
+        DocumentDetailValidator.validate_required(details.exists())
 
         product_ids = set()
 
         for detail in details:
 
-            if detail.quantity <= 0:
-                raise ValueError(
-                    "La cantidad debe ser mayor que cero."
-                )
+            QuantityLineValidator.validate(detail)
 
             if detail.product_id in product_ids:
                 raise ValueError(
