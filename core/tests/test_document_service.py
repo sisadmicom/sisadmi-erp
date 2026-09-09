@@ -307,3 +307,61 @@ class DocumentServiceTest(TestCase):
                 self.assertEqual(document.status, status)
                 self.assertIsNone(document.cancelled_at)
                 self.assertIsNone(document.cancelled_by)
+
+
+    def test_ensure_can_confirm_checks_only_state_without_mutation_or_numbering(self):
+        user = get_user_model().objects.create_user(username="confirmation-precondition")
+        sequence = Sequence.objects.get(company=self.company, branch=self.branch)
+        initial_number = sequence.next_number
+        for status in (DocumentStatus.DRAFT, DocumentStatus.CONFIRMED, DocumentStatus.CANCELLED, "OTHER"):
+            with self.subTest(status=status):
+                document = self.create_document()
+                document.details.all().delete()
+                document.status = status
+                document.number = "EXISTING-NUMBER"
+                document.confirmed_at = timezone.now()
+                document.confirmed_by = user
+                document.save()
+                before = Sale.objects.values().get(pk=document.pk)
+                if status == DocumentStatus.DRAFT:
+                    DocumentService.ensure_can_confirm(document)
+                else:
+                    with self.assertRaises(ValueError) as error:
+                        DocumentService.ensure_can_confirm(document)
+                    self.assertEqual(str(error.exception), "Solo se pueden confirmar documentos en borrador.")
+                self.assertEqual(
+                    {field.attname: getattr(document, field.attname) for field in document._meta.concrete_fields},
+                    before,
+                )
+                self.assertEqual(Sale.objects.values().get(pk=document.pk), before)
+                sequence.refresh_from_db()
+                self.assertEqual(sequence.next_number, initial_number)
+
+    def test_ensure_can_cancel_checks_only_state_without_mutation(self):
+        user = get_user_model().objects.create_user(username="cancellation-precondition")
+        for status, message in (
+            (DocumentStatus.CONFIRMED, None),
+            (DocumentStatus.DRAFT, "Solo se pueden anular documentos confirmados."),
+            (DocumentStatus.CANCELLED, "El documento ya fue anulado."),
+            ("OTHER", "Solo se pueden anular documentos confirmados."),
+        ):
+            with self.subTest(status=status):
+                document = self.create_document()
+                document.details.all().delete()
+                document.status = status
+                document.number = "EXISTING-NUMBER"
+                document.cancelled_at = timezone.now()
+                document.cancelled_by = user
+                document.save()
+                before = Sale.objects.values().get(pk=document.pk)
+                if message is None:
+                    DocumentService.ensure_can_cancel(document)
+                else:
+                    with self.assertRaises(ValueError) as error:
+                        DocumentService.ensure_can_cancel(document)
+                    self.assertEqual(str(error.exception), message)
+                self.assertEqual(
+                    {field.attname: getattr(document, field.attname) for field in document._meta.concrete_fields},
+                    before,
+                )
+                self.assertEqual(Sale.objects.values().get(pk=document.pk), before)

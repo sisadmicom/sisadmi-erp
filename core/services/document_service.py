@@ -9,13 +9,31 @@ from core.services.sequence_service import SequenceService
 class DocumentService:
 
     @staticmethod
-    @transaction.atomic
-    def confirm(document, user=None):
-
+    def ensure_can_confirm(document):
+        """Valida el estado para confirmar sin mutar el documento."""
         if not document.is_draft():
             raise ValueError(
                 "Solo se pueden confirmar documentos en borrador."
             )
+
+    @staticmethod
+    def ensure_can_cancel(document):
+        """Valida el estado para anular sin mutar el documento."""
+        if document.is_cancelled():
+            raise ValueError(
+                "El documento ya fue anulado."
+            )
+
+        if not document.is_confirmed():
+            raise ValueError(
+                "Solo se pueden anular documentos confirmados."
+            )
+
+    @staticmethod
+    @transaction.atomic
+    def confirm(document, user=None):
+
+        DocumentService.ensure_can_confirm(document)
 
         document.number = SequenceService.next_number(
             company=document.company,
@@ -45,15 +63,7 @@ class DocumentService:
     @transaction.atomic
     def cancel(document, user=None):
 
-        if document.is_cancelled():
-            raise ValueError(
-                "El documento ya fue anulado."
-            )
-
-        if not document.is_confirmed():
-            raise ValueError(
-                "Solo se pueden anular documentos confirmados."
-            )
+        DocumentService.ensure_can_cancel(document)
 
         document.status = DocumentStatus.CANCELLED
         document.cancelled_at = timezone.now()
