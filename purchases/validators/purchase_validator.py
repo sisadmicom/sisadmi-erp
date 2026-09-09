@@ -1,9 +1,6 @@
-from core.exceptions import (
-    EmptyDocument,
-    InvalidPrice,
-    InvalidQuantity,
-    ValidationException,
-)
+from core.exceptions import ValidationException
+from core.validators.document_detail_validator import DocumentDetailValidator
+from core.validators.commercial_line_validator import CommercialLineValidator
 
 
 class PurchaseValidator:
@@ -20,19 +17,14 @@ class PurchaseValidator:
         if dto.supplier_id <= 0:
             raise ValidationException("Proveedor inválido.")
 
-        if not dto.details:
-            raise EmptyDocument()
+        DocumentDetailValidator.validate_required(bool(dto.details))
 
         for detail in dto.details:
 
             if detail.product_id <= 0:
                 raise ValidationException("Producto inválido.")
 
-            if detail.quantity <= 0:
-                raise InvalidQuantity()
-
-            if detail.unit_price < 0:
-                raise InvalidPrice()
+            CommercialLineValidator.validate(detail)
 
             if detail.discount < 0:
                 raise ValidationException(
@@ -59,22 +51,11 @@ class PurchaseValidator:
 
         details = purchase.details.all()
 
-        if not details.exists():
-            raise ValueError(
-                "La compra no tiene productos."
-            )
+        DocumentDetailValidator.validate_required(details.exists())
 
         for detail in details:
 
-            if detail.quantity <= 0:
-                raise ValueError(
-                    f"{detail.product.name}: cantidad inválida."
-                )
-
-            if detail.unit_price < 0:
-                raise ValueError(
-                    f"{detail.product.name}: precio inválido."
-                )
+            CommercialLineValidator.validate(detail)
 
     @staticmethod
     def validate_cancellation(purchase):
