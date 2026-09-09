@@ -1,6 +1,6 @@
-from decimal import Decimal
-
 from core.constants.document_status import DocumentStatus
+from core.validators.document_detail_validator import DocumentDetailValidator
+from core.validators.commercial_line_validator import CommercialLineValidator
 
 
 class SaleValidator:
@@ -8,22 +8,11 @@ class SaleValidator:
     @staticmethod
     def validate(dto):
 
-        if not dto.details:
-            raise ValueError(
-                "La venta no tiene detalles."
-            )
+        DocumentDetailValidator.validate_required(bool(dto.details))
 
         for detail in dto.details:
 
-            if detail.quantity <= 0:
-                raise ValueError(
-                    "Cantidad inválida."
-                )
-
-            if detail.unit_price < Decimal("0"):
-                raise ValueError(
-                    "Precio inválido."
-                )
+            CommercialLineValidator.validate(detail)
 
     @staticmethod
     def validate_confirmation(sale):
@@ -33,22 +22,11 @@ class SaleValidator:
                 "La venta ya fue confirmada."
             )
 
-        if not sale.details.exists():
-            raise ValueError(
-                "La venta no tiene detalles."
-            )
+        DocumentDetailValidator.validate_required(sale.details.exists())
 
         for detail in sale.details.all():
 
-            if detail.quantity <= 0:
-                raise ValueError(
-                    "Cantidad inválida."
-                )
-
-            if detail.unit_price < 0:
-                raise ValueError(
-                    "Precio inválido."
-                )
+            CommercialLineValidator.validate(detail)
 
     @staticmethod
     def validate_cancellation(sale):
