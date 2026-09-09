@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from inventory.models import Stock
@@ -21,6 +22,11 @@ class IncreaseStock:
         notes="",
         user=None,
     ):
+
+        if quantity <= 0:
+            raise ValidationError(
+                "La cantidad debe ser mayor que cero."
+            )
 
         stock, _ = Stock.objects.select_for_update().get_or_create(
             company=company,
