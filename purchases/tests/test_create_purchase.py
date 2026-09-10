@@ -14,6 +14,7 @@ from catalog.models import Product
 from purchases.dto.purchase_create_dto import PurchaseCreateDTO
 from purchases.dto.purchase_detail_dto import PurchaseDetailDTO
 from purchases.models import Purchase
+from purchases.services.purchase_service import PurchaseService
 from purchases.use_cases.create_purchase import CreatePurchase
 
 from people.models import Person
@@ -124,6 +125,105 @@ class CreatePurchaseTest(TestCase):
             purchase.total,
             Decimal("50")
         )
+
+    def test_create_purchase_calculates_discounted_commercial_amounts(self):
+
+        dto = PurchaseCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            supplier_id=self.supplier.id,
+            issue_date=date.today(),
+            notes="Compra con descuento",
+            details=[
+                PurchaseDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("3"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("4"),
+                )
+            ],
+        )
+
+        purchase = PurchaseCreator.create(dto)
+        detail = purchase.details.get()
+
+        self.assertEqual(detail.subtotal, Decimal("26"))
+        self.assertEqual(detail.tax_amount, Decimal("0"))
+        self.assertEqual(detail.total, Decimal("26"))
+        self.assertEqual(purchase.subtotal, Decimal("26"))
+        self.assertEqual(purchase.tax, Decimal("0"))
+        self.assertEqual(purchase.total, Decimal("26"))
+
+    def test_create_purchase_aggregates_multiple_lines(self):
+
+        second_product = Product.objects.create(
+            company=self.company,
+            code="P002",
+            name="Segundo producto",
+        )
+        dto = PurchaseCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            supplier_id=self.supplier.id,
+            issue_date=date.today(),
+            notes="Compra de varias líneas",
+            details=[
+                PurchaseDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("2"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("1"),
+                ),
+                PurchaseDetailDTO(
+                    product_id=second_product.id,
+                    quantity=Decimal("3"),
+                    unit_price=Decimal("5"),
+                    discount=Decimal("0"),
+                ),
+            ],
+        )
+
+        purchase = PurchaseCreator.create(dto)
+
+        self.assertEqual(purchase.details.count(), 2)
+        self.assertEqual(purchase.subtotal, Decimal("34"))
+        self.assertEqual(purchase.tax, Decimal("0"))
+        self.assertEqual(purchase.total, Decimal("34"))
+
+    def test_purchase_service_calculate_recalculates_lines_and_preserves_tax(self):
+
+        dto = PurchaseCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            supplier_id=self.supplier.id,
+            issue_date=date.today(),
+            notes="Compra para recalcular",
+            details=[
+                PurchaseDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("2"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("2"),
+                )
+            ],
+        )
+        purchase = PurchaseCreator.create(dto)
+        detail = purchase.details.get()
+        detail.subtotal = Decimal("999")
+        detail.tax_amount = Decimal("2.70")
+        detail.total = Decimal("999")
+        detail.save(update_fields=["subtotal", "tax_amount", "total", "updated_at"])
+
+        result = PurchaseService.calculate(purchase)
+        detail.refresh_from_db()
+
+        self.assertIs(result, purchase)
+        self.assertEqual(detail.subtotal, Decimal("18"))
+        self.assertEqual(detail.tax_amount, Decimal("2.70"))
+        self.assertEqual(detail.total, Decimal("20.70"))
+        self.assertEqual(result.subtotal, Decimal("18"))
+        self.assertEqual(result.tax, Decimal("2.70"))
+        self.assertEqual(result.total, Decimal("20.70"))
 
     def test_create_purchase_without_details(self):
 

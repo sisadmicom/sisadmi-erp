@@ -4,8 +4,9 @@ from django.db import transaction
 
 from purchases.models import Purchase
 
-from core.services.document_totals_service import (
-    DocumentTotalsService,
+from core.services.commercial import (
+    CommercialLineCalculator,
+    CommercialTotalsCalculator,
 )
 
 from purchases.services.purchase_confirmation_service import (
@@ -34,7 +35,41 @@ class PurchaseService:
         """
         Recalcula los totales del documento.
         """
-        return DocumentTotalsService.calculate(purchase)
+        details = list(purchase.details.all())
+
+        for detail in details:
+            detail.subtotal = CommercialLineCalculator.calculate_subtotal(
+                detail.quantity,
+                detail.unit_price,
+                detail.discount,
+            )
+            detail.total = CommercialLineCalculator.calculate_total(
+                detail.subtotal,
+                detail.tax_amount,
+            )
+            detail.save(
+                update_fields=[
+                    "subtotal",
+                    "total",
+                    "updated_at",
+                ]
+            )
+
+        totals = CommercialTotalsCalculator.calculate(details)
+        purchase.subtotal = totals.subtotal
+        purchase.tax = totals.tax
+        purchase.total = totals.total
+        purchase.save(
+            update_fields=[
+                "subtotal",
+                "tax",
+                "total",
+                "updated_at",
+            ]
+        )
+        purchase.refresh_from_db()
+
+        return purchase
 
     @staticmethod
     @transaction.atomic
