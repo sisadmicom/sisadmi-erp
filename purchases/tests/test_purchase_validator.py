@@ -125,12 +125,12 @@ class PurchaseValidatorTest(SimpleTestCase):
         with self.assertRaisesMessage(ValueError, "La compra no tiene productos."):
             PurchaseValidator.validate_cancellation(self.purchase(details=[], status="CONFIRMED"))
 
-    def test_cancellation_nonpositive_quantity_keeps_product_message(self):
+    def test_cancellation_does_not_revalidate_quantity(self):
         for quantity in ("0", "-1"):
-            line = self.detail(quantity=quantity)
-            line.product = SimpleNamespace(name="Producto de prueba")
-            with self.subTest(quantity=quantity), self.assertRaisesMessage(ValueError, "Producto de prueba: cantidad inválida."):
-                PurchaseValidator.validate_cancellation(self.purchase(details=[line], status="CONFIRMED"))
+            with self.subTest(quantity=quantity):
+                PurchaseValidator.validate_cancellation(self.purchase(
+                    details=[self.detail(quantity=quantity)], status="CONFIRMED",
+                ))
 
     def test_cancellation_does_not_add_price_or_discount_validation(self):
         PurchaseValidator.validate_cancellation(self.purchase(

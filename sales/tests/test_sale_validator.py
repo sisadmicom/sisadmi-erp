@@ -87,15 +87,14 @@ class SaleValidatorTest(SimpleTestCase):
         with self.assertRaisesMessage(ValueError, "La venta no tiene detalles."):
             SaleValidator.validate_cancellation(self.sale(details=[], status=DocumentStatus.CONFIRMED))
 
-    def test_cancellation_nonpositive_quantity_keeps_value_error(self):
+    def test_cancellation_does_not_revalidate_quantity(self):
         for quantity in ("0", "-1"):
-            with self.subTest(quantity=quantity), self.assertRaisesMessage(ValueError, "Cantidad inválida."):
+            with self.subTest(quantity=quantity):
                 SaleValidator.validate_cancellation(self.sale(
                     details=[self.line(quantity=quantity)], status=DocumentStatus.CONFIRMED,
                 ))
 
-    def test_cancellation_negative_price_keeps_value_error(self):
-        with self.assertRaisesMessage(ValueError, "Precio inválido."):
-            SaleValidator.validate_cancellation(self.sale(
-                details=[self.line(price="-0.01")], status=DocumentStatus.CONFIRMED,
-            ))
+    def test_cancellation_does_not_revalidate_unit_price(self):
+        SaleValidator.validate_cancellation(self.sale(
+            details=[self.line(price="-0.01")], status=DocumentStatus.CONFIRMED,
+        ))

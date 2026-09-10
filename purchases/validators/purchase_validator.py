@@ -56,10 +56,3 @@ class PurchaseValidator:
             raise ValueError(
                 "La compra no tiene productos."
             )
-
-        for detail in details:
-
-            if detail.quantity <= 0:
-                raise ValueError(
-                    f"{detail.product.name}: cantidad inválida."
-                )

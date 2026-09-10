@@ -29,15 +29,3 @@ class SaleValidator:
             raise ValueError(
                 "La venta no tiene detalles."
             )
-
-        for detail in sale.details.all():
-
-            if detail.quantity <= 0:
-                raise ValueError(
-                    "Cantidad inválida."
-                )
-
-            if detail.unit_price < 0:
-                raise ValueError(
-                    "Precio inválido."
-                )
