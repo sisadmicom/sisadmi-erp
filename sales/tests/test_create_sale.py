@@ -322,3 +322,44 @@ class CreateSaleTest(TestCase):
             sale.total,
             Decimal("51.75"),
         )
+
+    def test_create_sale_aggregates_multiple_lines_from_final_amounts(self):
+
+        second_product = Product.objects.create(
+            company=self.company,
+            code="P002",
+            name="Segundo producto",
+        )
+        dto = SaleCreateDTO(
+            company_id=self.company.id,
+            branch_id=self.branch.id,
+            warehouse_id=self.warehouse.id,
+            customer_id=self.customer.id,
+            issue_date=date(2025, 1, 1),
+            notes="Venta de varias líneas",
+            details=[
+                SaleDetailDTO(
+                    product_id=self.product.id,
+                    quantity=Decimal("2"),
+                    unit_price=Decimal("10"),
+                    discount=Decimal("0"),
+                ),
+                SaleDetailDTO(
+                    product_id=second_product.id,
+                    quantity=Decimal("3"),
+                    unit_price=Decimal("5"),
+                    discount=Decimal("0"),
+                ),
+            ],
+        )
+
+        sale = CreateSale.execute(dto)
+
+        self.assertEqual(sale.details.count(), 2)
+        self.assertEqual(sale.subtotal, Decimal("35.00"))
+        self.assertEqual(sale.tax, Decimal("5.25"))
+        self.assertEqual(sale.total, Decimal("40.25"))
+
+        details = list(sale.details.order_by("line"))
+        self.assertEqual(details[0].total, Decimal("23.00"))
+        self.assertEqual(details[1].total, Decimal("17.25"))

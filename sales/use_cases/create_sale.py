@@ -5,6 +5,10 @@ from django.db import transaction
 from core.models.document_type import DocumentType
 from core.models import Company
 from core.models import Branch
+from core.services.commercial import (
+    CommercialLineCalculator,
+    CommercialTotalsCalculator,
+)
 
 from people.models import Customer
 
@@ -57,7 +61,7 @@ class CreateSale:
             notes=dto.notes,
         )
 
-        subtotal = Decimal("0.00")
+        calculated_details = []
 
         for line_number, item in enumerate(
             dto.details,
@@ -72,9 +76,11 @@ class CreateSale:
             # 1. SUBTOTAL DE LA LÍNEA
             # -------------------------------------------------
 
-            line_subtotal = (
-                item.quantity * item.unit_price
-            ) - item.discount
+            line_subtotal = CommercialLineCalculator.calculate_subtotal(
+                item.quantity,
+                item.unit_price,
+                item.discount,
+            )
 
             detail = SaleDetail.objects.create(
                 sale=sale,
@@ -139,8 +145,9 @@ class CreateSale:
 
             detail.tax_amount = line_tax
 
-            detail.total = (
-                line_subtotal + line_tax
+            detail.total = CommercialLineCalculator.calculate_total(
+                line_subtotal,
+                line_tax,
             )
 
             detail.save(
@@ -151,29 +158,12 @@ class CreateSale:
                 ]
             )
 
-            # -------------------------------------------------
-            # 6. ACUMULAR SUBTOTAL DE LA VENTA
-            # -------------------------------------------------
+            calculated_details.append(detail)
 
-            subtotal += line_subtotal
-
-        # -----------------------------------------------------
-        # 7. TOTALES DE LA VENTA
-        # -----------------------------------------------------
-
-        sale.subtotal = subtotal
-
-        sale.tax = sum(
-            (
-                detail.tax_amount
-                for detail in sale.details.all()
-            ),
-            Decimal("0.00"),
-        )
-
-        sale.total = (
-            sale.subtotal + sale.tax
-        )
+        totals = CommercialTotalsCalculator.calculate(calculated_details)
+        sale.subtotal = totals.subtotal
+        sale.tax = totals.tax
+        sale.total = totals.total
 
         sale.save(
             update_fields=[
