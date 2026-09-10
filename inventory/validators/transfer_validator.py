@@ -90,16 +90,6 @@ class TransferValidator:
     @staticmethod
     def validate_cancellation(transfer):
 
-        if transfer.is_cancelled():
-            raise ValueError(
-                "La transferencia ya fue anulada."
-            )
-
-        if not transfer.is_confirmed():
-            raise ValueError(
-                "Solo se pueden anular transferencias confirmadas."
-            )
-
         details = transfer.details.all()
 
         if not details.exists():

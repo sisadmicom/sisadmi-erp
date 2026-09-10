@@ -292,8 +292,10 @@ class CancelSaleTest(TestCase):
             user=None,
         )
 
-        with self.assertRaises(ValueError):
-
+        with self.assertRaisesMessage(
+            ValueError,
+            "El documento ya fue anulado.",
+        ):
             CancelSale.execute(
                 sale_id=sale.id,
                 user=None,
@@ -315,3 +317,19 @@ class CancelSaleTest(TestCase):
             StockMovement.objects.count(),
             2,
         )
+
+    def test_cancel_draft_sale_uses_universal_lifecycle_error(self):
+
+        sale = self.create_sale()
+
+        with self.assertRaisesMessage(
+            ValueError,
+            "Solo se pueden anular documentos confirmados.",
+        ):
+            CancelSale.execute(
+                sale_id=sale.id,
+                user=None,
+            )
+
+        sale.refresh_from_db()
+        self.assertEqual(sale.status, DocumentStatus.DRAFT)

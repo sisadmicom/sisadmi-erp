@@ -263,8 +263,10 @@ class CancelPurchaseTest(TestCase):
             user=None,
         )
 
-        with self.assertRaises(ValueError):
-
+        with self.assertRaisesMessage(
+            ValueError,
+            "El documento ya fue anulado.",
+        ):
             CancelPurchase.execute(
                 purchase_id=purchase.id,
                 user=None,
@@ -291,8 +293,10 @@ class CancelPurchaseTest(TestCase):
 
         purchase = self.create_purchase("5")
 
-        with self.assertRaises(ValueError):
-
+        with self.assertRaisesMessage(
+            ValueError,
+            "Solo se pueden anular documentos confirmados.",
+        ):
             CancelPurchase.execute(
                 purchase_id=purchase.id,
                 user=None,

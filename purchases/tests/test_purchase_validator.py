@@ -116,12 +116,9 @@ class PurchaseValidatorTest(SimpleTestCase):
     def test_cancellation_valid_purchase(self):
         PurchaseValidator.validate_cancellation(self.purchase(status="CONFIRMED"))
 
-    def test_cancellation_keeps_lifecycle_errors(self):
-        for status, message in (
-            ("DRAFT", "Solo se pueden anular compras confirmadas."),
-            ("CANCELLED", "La compra ya fue anulada."),
-        ):
-            with self.subTest(status=status), self.assertRaisesMessage(ValueError, message):
+    def test_cancellation_validator_does_not_own_lifecycle(self):
+        for status in ("DRAFT", "CANCELLED"):
+            with self.subTest(status=status):
                 PurchaseValidator.validate_cancellation(self.purchase(status=status))
 
     def test_cancellation_without_details_keeps_value_error(self):

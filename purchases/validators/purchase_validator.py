@@ -50,16 +50,6 @@ class PurchaseValidator:
     @staticmethod
     def validate_cancellation(purchase):
 
-        if purchase.is_cancelled():
-            raise ValueError(
-                "La compra ya fue anulada."
-            )
-
-        if not purchase.is_confirmed():
-            raise ValueError(
-                "Solo se pueden anular compras confirmadas."
-            )
-
         details = purchase.details.all()
 
         if not details.exists():

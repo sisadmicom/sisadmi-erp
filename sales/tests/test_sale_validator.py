@@ -78,13 +78,10 @@ class SaleValidatorTest(SimpleTestCase):
     def test_cancellation_confirmed_is_valid(self):
         SaleValidator.validate_cancellation(self.sale(status=DocumentStatus.CONFIRMED))
 
-    def test_cancellation_cancelled_keeps_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "La venta ya fue anulada."):
-            SaleValidator.validate_cancellation(self.sale(status=DocumentStatus.CANCELLED))
-
-    def test_cancellation_draft_keeps_lifecycle_error(self):
-        with self.assertRaisesMessage(ValueError, "Solo se pueden cancelar ventas confirmadas."):
-            SaleValidator.validate_cancellation(self.sale())
+    def test_cancellation_validator_does_not_own_lifecycle(self):
+        for status in (DocumentStatus.DRAFT, DocumentStatus.CANCELLED):
+            with self.subTest(status=status):
+                SaleValidator.validate_cancellation(self.sale(status=status))
 
     def test_cancellation_without_details_keeps_value_error(self):
         with self.assertRaisesMessage(ValueError, "La venta no tiene detalles."):

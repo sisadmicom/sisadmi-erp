@@ -18,6 +18,8 @@ class TransferCancellationService:
         user=None,
     ):
 
+        DocumentService.ensure_can_cancel(transfer)
+
         TransferValidator.validate_cancellation(
             transfer
         )

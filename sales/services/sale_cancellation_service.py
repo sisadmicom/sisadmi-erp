@@ -17,6 +17,8 @@ class SaleCancellationService:
         user=None,
     ):
 
+        DocumentService.ensure_can_cancel(sale)
+
         SaleValidator.validate_cancellation(
             sale
         )

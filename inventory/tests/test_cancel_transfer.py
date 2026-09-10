@@ -366,8 +366,10 @@ class CancelTransferTest(TestCase):
             user=None,
         )
 
-        with self.assertRaises(ValueError):
-
+        with self.assertRaisesMessage(
+            ValueError,
+            "El documento ya fue anulado.",
+        ):
             CancelTransfer.execute(
                 transfer_id=transfer.id,
                 user=None,
@@ -395,6 +397,22 @@ class CancelTransferTest(TestCase):
             StockMovement.objects.count(),
             4,
         )
+
+    def test_cancel_draft_transfer_uses_universal_lifecycle_error(self):
+
+        transfer = self.create_transfer()
+
+        with self.assertRaisesMessage(
+            ValueError,
+            "Solo se pueden anular documentos confirmados.",
+        ):
+            CancelTransfer.execute(
+                transfer_id=transfer.id,
+                user=None,
+            )
+
+        transfer.refresh_from_db()
+        self.assertEqual(transfer.status, DocumentStatus.DRAFT)
 
     def test_cancel_transfer_without_destination_stock_fails_atomically(
         self,

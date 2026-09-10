@@ -246,12 +246,9 @@ class TransferValidatorTest(TestCase):
         with self.assertRaisesMessage(ValueError, "No se puede repetir un producto en una transferencia."):
             TransferValidator.validate_confirmation(transfer)
 
-    def test_cancellation_requires_confirmed_and_rejects_cancelled(self):
-        for status, message in (
-            (DocumentStatus.DRAFT, "Solo se pueden anular transferencias confirmadas."),
-            (DocumentStatus.CANCELLED, "La transferencia ya fue anulada."),
-        ):
-            with self.subTest(status=status), self.assertRaisesMessage(ValueError, message):
+    def test_cancellation_validator_does_not_own_lifecycle(self):
+        for status in (DocumentStatus.DRAFT, DocumentStatus.CANCELLED):
+            with self.subTest(status=status):
                 TransferValidator.validate_cancellation(self.make_transfer(status=status))
 
     def test_cancellation_without_details_keeps_value_error(self):

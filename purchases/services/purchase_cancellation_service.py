@@ -18,6 +18,8 @@ class PurchaseCancellationService:
         user=None,
     ):
 
+        DocumentService.ensure_can_cancel(purchase)
+
         PurchaseValidator.validate_cancellation(
             purchase
         )
@@ -26,14 +28,6 @@ class PurchaseCancellationService:
             company=purchase.company,
             branch=purchase.branch,
             is_main=True,
-        )
-
-        # Primero anulamos el documento.
-        # La compra ya está confirmada y por tanto
-        # conserva su número definitivo.
-        purchase = DocumentService.cancel(
-            document=purchase,
-            user=user,
         )
 
         decrease = DecreaseStock()
@@ -53,4 +47,7 @@ class PurchaseCancellationService:
                 user=user,
             )
 
-        return purchase
+        return DocumentService.cancel(
+            document=purchase,
+            user=user,
+        )
