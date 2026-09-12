@@ -74,27 +74,3 @@ class SaleValidatorTest(SimpleTestCase):
         for status in (DocumentStatus.CONFIRMED, DocumentStatus.CANCELLED):
             with self.subTest(status=status):
                 SaleValidator.validate_confirmation(self.sale(status=status))
-
-    def test_cancellation_confirmed_is_valid(self):
-        SaleValidator.validate_cancellation(self.sale(status=DocumentStatus.CONFIRMED))
-
-    def test_cancellation_validator_does_not_own_lifecycle(self):
-        for status in (DocumentStatus.DRAFT, DocumentStatus.CANCELLED):
-            with self.subTest(status=status):
-                SaleValidator.validate_cancellation(self.sale(status=status))
-
-    def test_cancellation_without_details_keeps_value_error(self):
-        with self.assertRaisesMessage(ValueError, "La venta no tiene detalles."):
-            SaleValidator.validate_cancellation(self.sale(details=[], status=DocumentStatus.CONFIRMED))
-
-    def test_cancellation_does_not_revalidate_quantity(self):
-        for quantity in ("0", "-1"):
-            with self.subTest(quantity=quantity):
-                SaleValidator.validate_cancellation(self.sale(
-                    details=[self.line(quantity=quantity)], status=DocumentStatus.CONFIRMED,
-                ))
-
-    def test_cancellation_does_not_revalidate_unit_price(self):
-        SaleValidator.validate_cancellation(self.sale(
-            details=[self.line(price="-0.01")], status=DocumentStatus.CONFIRMED,
-        ))

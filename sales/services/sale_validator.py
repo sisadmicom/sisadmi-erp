@@ -21,11 +21,3 @@ class SaleValidator:
         for detail in sale.details.all():
 
             CommercialLineValidator.validate(detail)
-
-    @staticmethod
-    def validate_cancellation(sale):
-
-        if not sale.details.exists():
-            raise ValueError(
-                "La venta no tiene detalles."
-            )
