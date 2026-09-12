@@ -169,3 +169,23 @@ class DecreaseStockTest(TestCase):
                 quantity=Decimal("1"),
                 movement_type=MovementType.SALE,
             )
+
+
+    def test_reverses_is_persisted_and_return_contract_is_preserved(self):
+        original = StockMovement.objects.get()
+        stock = DecreaseStock().execute(
+            company=self.company,
+            branch=self.branch,
+            warehouse=self.warehouse,
+            product=self.product,
+            quantity=Decimal("10"),
+            movement_type=MovementType.RETURN_OUT,
+            reverses=original,
+        )
+
+        self.assertIsInstance(stock, Stock)
+        stock.refresh_from_db()
+        self.assertEqual(stock.quantity, Decimal("10"))
+        reversal = original.reversal_movements.get()
+        self.assertEqual(reversal.reverses, original)
+        self.assertEqual(reversal.quantity, Decimal("10"))

@@ -91,3 +91,24 @@ class IncreaseStockTest(TestCase):
 
         self.assertEqual(Stock.objects.count(), 0)
         self.assertEqual(StockMovement.objects.count(), 0)
+
+
+    def test_reverses_is_persisted_and_return_contract_is_preserved(self):
+        self.execute(Decimal("20"))
+        original = StockMovement.objects.get()
+        stock = IncreaseStock().execute(
+            company=self.company,
+            branch=self.branch,
+            warehouse=self.warehouse,
+            product=self.product,
+            quantity=Decimal("10"),
+            movement_type=MovementType.RETURN_IN,
+            reverses=original,
+        )
+
+        self.assertIsInstance(stock, Stock)
+        stock.refresh_from_db()
+        self.assertEqual(stock.quantity, Decimal("30"))
+        reversal = original.reversal_movements.get()
+        self.assertEqual(reversal.reverses, original)
+        self.assertEqual(reversal.quantity, Decimal("10"))

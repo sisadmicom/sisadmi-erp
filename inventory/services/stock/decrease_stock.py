@@ -33,6 +33,7 @@ class DecreaseStock:
         document=None,
         notes="",
         user=None,
+        reverses=None,
     ):
         try:
             stock = Stock.objects.select_for_update().get(
@@ -76,6 +77,7 @@ class DecreaseStock:
             document=document,
             notes=notes,
             user=user,
+            reverses=reverses,
         )
 
         return stock

@@ -21,6 +21,7 @@ class IncreaseStock:
         document=None,
         notes="",
         user=None,
+        reverses=None,
     ):
 
         if quantity <= 0:
@@ -56,6 +57,7 @@ class IncreaseStock:
             document=document,
             notes=notes,
             user=user,
+            reverses=reverses,
         )
 
         return stock
