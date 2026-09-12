@@ -46,13 +46,3 @@ class PurchaseValidator:
         for detail in details:
 
             CommercialLineValidator.validate(detail)
-
-    @staticmethod
-    def validate_cancellation(purchase):
-
-        details = purchase.details.all()
-
-        if not details.exists():
-            raise ValueError(
-                "La compra no tiene productos."
-            )

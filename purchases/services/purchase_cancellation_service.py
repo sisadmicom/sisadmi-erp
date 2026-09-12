@@ -1,12 +1,14 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 
+from core.exceptions.inventory import InventoryException
 from core.services.document_service import DocumentService
 
 from inventory.constants.movement_type import MovementType
-from inventory.models import Warehouse
-from inventory.services.stock.decrease_stock import DecreaseStock
-
-from purchases.validators.purchase_validator import PurchaseValidator
+from inventory.models import StockMovement
+from inventory.services.movement.stock_movement_reversal_service import (
+    StockMovementReversalService,
+)
 
 
 class PurchaseCancellationService:
@@ -20,30 +22,22 @@ class PurchaseCancellationService:
 
         DocumentService.ensure_can_cancel(purchase)
 
-        PurchaseValidator.validate_cancellation(
-            purchase
-        )
+        movements = StockMovement.objects.filter(
+            content_type=ContentType.objects.get_for_model(purchase),
+            object_id=purchase.pk,
+            movement_type=MovementType.PURCHASE,
+            reverses__isnull=True,
+        ).order_by("id")
 
-        warehouse = Warehouse.objects.get(
-            company=purchase.company,
-            branch=purchase.branch,
-            is_main=True,
-        )
+        if not movements.exists():
+            raise InventoryException(
+                "La compra no tiene movimientos históricos PURCHASE para revertir."
+            )
 
-        decrease = DecreaseStock()
-
-        for detail in purchase.details.all():
-
-            decrease.execute(
-                company=purchase.company,
-                branch=purchase.branch,
-                warehouse=warehouse,
-                product=detail.product,
-                quantity=detail.quantity,
-                movement_type=MovementType.RETURN_OUT,
-                unit_cost=detail.unit_price,
-                document=purchase,
-                notes=f"Anulación compra {purchase.number}",
+        for movement in movements:
+            StockMovementReversalService.reverse(
+                movement=movement,
+                reversal_type=MovementType.RETURN_OUT,
                 user=user,
             )
 

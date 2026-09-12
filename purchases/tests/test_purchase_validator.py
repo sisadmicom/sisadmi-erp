@@ -112,27 +112,3 @@ class PurchaseValidatorTest(SimpleTestCase):
     def test_confirmation_requires_supplier(self):
         with self.assertRaisesMessage(ValueError, "Debe seleccionar un proveedor."):
             PurchaseValidator.validate_confirmation(self.purchase(supplier=False))
-
-    def test_cancellation_valid_purchase(self):
-        PurchaseValidator.validate_cancellation(self.purchase(status="CONFIRMED"))
-
-    def test_cancellation_validator_does_not_own_lifecycle(self):
-        for status in ("DRAFT", "CANCELLED"):
-            with self.subTest(status=status):
-                PurchaseValidator.validate_cancellation(self.purchase(status=status))
-
-    def test_cancellation_without_details_keeps_value_error(self):
-        with self.assertRaisesMessage(ValueError, "La compra no tiene productos."):
-            PurchaseValidator.validate_cancellation(self.purchase(details=[], status="CONFIRMED"))
-
-    def test_cancellation_does_not_revalidate_quantity(self):
-        for quantity in ("0", "-1"):
-            with self.subTest(quantity=quantity):
-                PurchaseValidator.validate_cancellation(self.purchase(
-                    details=[self.detail(quantity=quantity)], status="CONFIRMED",
-                ))
-
-    def test_cancellation_does_not_add_price_or_discount_validation(self):
-        PurchaseValidator.validate_cancellation(self.purchase(
-            details=[self.detail(price="-1", discount="-1")], status="CONFIRMED",
-        ))
