@@ -19,6 +19,7 @@ class CreateStockMovement:
         document=None,
         notes="",
         user=None,
+        reverses=None,
     ):
 
         movement = StockMovement(
@@ -30,6 +31,7 @@ class CreateStockMovement:
             quantity=quantity,
             unit_cost=unit_cost,
             notes=notes,
+            reverses=reverses,
         )
 
         if document is not None:

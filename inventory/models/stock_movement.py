@@ -78,6 +78,14 @@ class StockMovement(BaseModel):
         "object_id",
     )
 
+    reverses = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="reversal_movements",
+    )
+
     notes = models.TextField(
         blank=True,
         default="",
