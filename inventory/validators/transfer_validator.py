@@ -86,13 +86,3 @@ class TransferValidator:
                 )
 
             product_ids.add(detail.product_id)
-
-    @staticmethod
-    def validate_cancellation(transfer):
-
-        details = transfer.details.all()
-
-        if not details.exists():
-            raise ValueError(
-                "La transferencia no tiene detalles."
-            )

@@ -245,18 +245,3 @@ class TransferValidatorTest(TestCase):
         TransferDetail.objects.create(transfer=transfer, product=self.product, line=2, quantity=Decimal("1"))
         with self.assertRaisesMessage(ValueError, "No se puede repetir un producto en una transferencia."):
             TransferValidator.validate_confirmation(transfer)
-
-    def test_cancellation_validator_does_not_own_lifecycle(self):
-        for status in (DocumentStatus.DRAFT, DocumentStatus.CANCELLED):
-            with self.subTest(status=status):
-                TransferValidator.validate_cancellation(self.make_transfer(status=status))
-
-    def test_cancellation_without_details_keeps_value_error(self):
-        transfer = self.make_transfer(quantity=None, status=DocumentStatus.CONFIRMED)
-        with self.assertRaisesMessage(ValueError, "La transferencia no tiene detalles."):
-            TransferValidator.validate_cancellation(transfer)
-
-    def test_cancellation_keeps_existing_quantity_behavior(self):
-        for quantity in ("5", "0", "-1"):
-            with self.subTest(quantity=quantity):
-                TransferValidator.validate_cancellation(self.make_transfer(quantity=quantity, status=DocumentStatus.CONFIRMED))
