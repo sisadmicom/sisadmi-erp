@@ -5,6 +5,7 @@ from core.services.document_service import DocumentService
 from inventory.constants.movement_type import MovementType
 from inventory.services.stock.decrease_stock import DecreaseStock
 
+from sales.models import Sale
 from sales.services.sale_validator import SaleValidator
 
 
@@ -13,9 +14,11 @@ class SaleConfirmationService:
     @staticmethod
     @transaction.atomic
     def confirm(
-        sale,
+        sale_id,
         user,
     ):
+
+        sale = Sale.objects.select_for_update().get(pk=sale_id)
 
         DocumentService.ensure_can_confirm(sale)
         SaleValidator.validate_confirmation(sale)

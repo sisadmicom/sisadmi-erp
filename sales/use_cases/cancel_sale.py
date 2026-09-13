@@ -1,12 +1,9 @@
-from django.db import transaction
-
 from sales.services.sale_service import SaleService
 
 
 class CancelSale:
 
     @staticmethod
-    @transaction.atomic
     def execute(
         sale_id,
         user=None,

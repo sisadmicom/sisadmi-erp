@@ -10,15 +10,19 @@ from inventory.services.movement.stock_movement_reversal_service import (
     StockMovementReversalService,
 )
 
+from sales.models import Sale
+
 
 class SaleCancellationService:
 
     @staticmethod
     @transaction.atomic
     def cancel(
-        sale,
+        sale_id,
         user=None,
     ):
+
+        sale = Sale.objects.select_for_update().get(pk=sale_id)
 
         DocumentService.ensure_can_cancel(sale)
 

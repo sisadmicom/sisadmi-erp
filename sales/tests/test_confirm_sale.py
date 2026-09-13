@@ -1,6 +1,7 @@
 from datetime import date
 from decimal import Decimal
 
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -21,13 +22,30 @@ from people.models import Customer, Person
 from sales.dto.sale_create_dto import SaleCreateDTO
 from sales.dto.sale_detail_dto import SaleDetailDTO
 from sales.models import Sale
+from sales.services.sale_confirmation_service import SaleConfirmationService
 from sales.use_cases.create_sale import CreateSale
 from sales.use_cases.confirm_sale import ConfirmSale
 
 
-class ConfirmSaleTest(TestCase):
+class SaleFixture:
+    """Dataset existente de Sales, compartido con TransactionTestCase."""
 
     def setUp(self):
+        super().setUp()
+
+        # TransactionTestCase vacía los catálogos entre pruebas.
+        document_type, _ = DocumentType.objects.get_or_create(
+            code=DocumentTypeCodes.SALES_INVOICE,
+            defaults={
+                "name": "Factura de venta",
+                "category": "SALES",
+                "line_behavior": "COMMERCIAL",
+                "requires_detail": True,
+                "affects_inventory": True,
+                "inventory_behavior": "OUT",
+                "can_issue_electronic": True,
+            },
+        )
 
         company_person = Person.objects.create(
             identification="1790000001001",
@@ -54,10 +72,10 @@ class ConfirmSaleTest(TestCase):
             is_main=True,
         )
 
-        Sequence.objects.create(
+        self.sequence = Sequence.objects.create(
             company=self.company,
             branch=self.branch,
-            document_type=DocumentType.objects.get(code=DocumentTypeCodes.SALES_INVOICE),
+            document_type=document_type,
             name="Ventas",
             prefix="VEN-",
             series="001",
@@ -108,6 +126,10 @@ class ConfirmSaleTest(TestCase):
         )
 
         return CreateSale.execute(dto)
+
+
+class ConfirmSaleTest(SaleFixture, TestCase):
+    maxDiff = None
 
     def test_confirm_sale_changes_status(self):
 
@@ -244,12 +266,33 @@ class ConfirmSaleTest(TestCase):
     def test_confirm_sale_without_stock_fails(self):
 
         sale = self.create_sale("25")
+        user = get_user_model().objects.create_user(username="confirmation-rollback")
+        before = {
+            "status": sale.status,
+            "number": sale.number,
+            "confirmed_at": sale.confirmed_at,
+            "confirmed_by_id": sale.confirmed_by_id,
+            "next_number": self.sequence.next_number,
+        }
 
         with self.assertRaises(ValidationError):
             ConfirmSale.execute(
                 sale_id=sale.id,
-                user=None,
+                user=user,
             )
+
+        sale.refresh_from_db()
+        self.sequence.refresh_from_db()
+        self.assertEqual(
+            {
+                "status": sale.status,
+                "number": sale.number,
+                "confirmed_at": sale.confirmed_at,
+                "confirmed_by_id": sale.confirmed_by_id,
+                "next_number": self.sequence.next_number,
+            },
+            before,
+        )
 
         stock = Stock.objects.get(
             company=self.company,
@@ -310,4 +353,54 @@ class ConfirmSaleTest(TestCase):
         self.assertEqual(
             StockMovement.objects.count(),
             1,
+        )
+
+    def test_stale_sale_cannot_repeat_confirmation(self):
+        sale = self.create_sale("5")
+        stale = Sale.objects.get(pk=sale.pk)
+        self.assertEqual(stale.status, DocumentStatus.DRAFT)
+        ConfirmSale.execute(sale_id=sale.pk, user=None)
+        sale.refresh_from_db()
+        self.sequence.refresh_from_db()
+        confirmed_number = sale.number
+        confirmed_at = sale.confirmed_at
+        next_number = self.sequence.next_number
+
+        # El llamador conserva DRAFT, pero solo su identidad cruza la frontera.
+        # El servicio debe decidir usando la Sale persistida y bloqueada.
+        try:
+            SaleConfirmationService.confirm(sale_id=stale.pk, user=None)
+        except ValueError as error:
+            outcome = (type(error).__name__, str(error))
+        else:
+            outcome = ("success", "")
+
+        sale.refresh_from_db()
+        self.sequence.refresh_from_db()
+        stock = Stock.objects.get(warehouse=self.warehouse, product=self.product)
+        movements = StockMovement.objects.filter(
+            content_type__model="sale", object_id=sale.pk,
+            movement_type=MovementType.SALE,
+        )
+        self.assertEqual(
+            {
+                "outcome": outcome,
+                "status": sale.status,
+                "number": sale.number,
+                "confirmed_at": sale.confirmed_at,
+                "next_number": self.sequence.next_number,
+                "stock": stock.quantity,
+                "sale_quantities": list(movements.order_by("id").values_list("quantity", flat=True)),
+                "movement_count": StockMovement.objects.count(),
+            },
+            {
+                "outcome": ("ValueError", "Solo se pueden confirmar documentos en borrador."),
+                "status": DocumentStatus.CONFIRMED,
+                "number": confirmed_number,
+                "confirmed_at": confirmed_at,
+                "next_number": next_number,
+                "stock": Decimal("15"),
+                "sale_quantities": [Decimal("5")],
+                "movement_count": 1,
+            },
         )
