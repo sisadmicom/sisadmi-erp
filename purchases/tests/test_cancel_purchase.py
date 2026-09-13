@@ -1,6 +1,8 @@
 from decimal import Decimal
 from datetime import date
 
+from django.contrib.auth import get_user_model
+
 from django.contrib.contenttypes.models import ContentType
 
 from django.core.exceptions import ValidationError
@@ -24,9 +26,13 @@ from purchases.dto.purchase_detail_dto import PurchaseDetailDTO
 from purchases.use_cases.create_purchase import CreatePurchase
 from purchases.use_cases.confirm_purchase import ConfirmPurchase
 from purchases.use_cases.cancel_purchase import CancelPurchase
+from purchases.models import Purchase
+from purchases.services.purchase_service import PurchaseService
+from purchases.tests.test_confirm_purchase import purchase_lifecycle_snapshot
 
 
 class CancelPurchaseTest(TestCase):
+    maxDiff = None
 
     def setUp(self):
 
@@ -71,7 +77,7 @@ class CancelPurchaseTest(TestCase):
             name="Producto Test",
         )
 
-        Sequence.objects.create(
+        self.sequence = Sequence.objects.create(
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE),
@@ -461,8 +467,11 @@ class CancelPurchaseTest(TestCase):
         originals = list(self.original_movements(purchase))
         DecreaseStock().execute(company=self.company, branch=self.branch, warehouse=self.warehouse,
                                 product=other, quantity=Decimal("31"), movement_type=MovementType.ADJUSTMENT_OUT)
+        user = get_user_model().objects.create_user(username="purchase-cancel-rollback")
+        before = purchase_lifecycle_snapshot(purchase, self.sequence)
         with self.assertRaises(ValidationError):
-            CancelPurchase.execute(purchase_id=purchase.pk)
+            CancelPurchase.execute(purchase_id=purchase.pk, user=user)
+        self.assertEqual(purchase_lifecycle_snapshot(purchase, self.sequence), before)
         purchase.refresh_from_db()
         self.assertEqual(purchase.status, DocumentStatus.CONFIRMED)
         self.assertIsNone(purchase.cancelled_at)
@@ -491,3 +500,28 @@ class CancelPurchaseTest(TestCase):
             self.assertFalse(movement.reversal_movements.exists())
         self.assertEqual(unrelated_document.reversal_movements.count(), 1)
         self.assertEqual(StockMovement.objects.filter(movement_type=MovementType.RETURN_OUT).count(), 1)
+
+    def test_stale_purchase_cancellation_rejects_by_persisted_lifecycle(self):
+        first_user = get_user_model().objects.create_user(username="purchase-cancel-first")
+        other_user = get_user_model().objects.create_user(username="purchase-cancel-stale")
+        purchase = self.create_purchase()
+        ConfirmPurchase.execute(purchase_id=purchase.pk, user=first_user)
+        stale = Purchase.objects.get(pk=purchase.pk)
+        self.assertEqual(stale.status, DocumentStatus.CONFIRMED)
+        original = self.original_movements(purchase).get()
+        CancelPurchase.execute(purchase_id=purchase.pk, user=first_user)
+        before = purchase_lifecycle_snapshot(purchase, self.sequence)
+
+        try:
+            PurchaseService.cancel(purchase_id=stale.pk, user=other_user)
+        except (ValueError, InventoryException) as error:
+            outcome = (type(error).__name__, str(error))
+        else:
+            outcome = ("success", "")
+
+        self.assertEqual(original.reversal_movements.count(), 1)
+        self.assert_historical_reversal(purchase, original)
+        self.assertEqual(
+            {"outcome": outcome, **purchase_lifecycle_snapshot(purchase, self.sequence)},
+            {"outcome": ("ValueError", "El documento ya fue anulado."), **before},
+        )

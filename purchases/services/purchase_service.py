@@ -72,27 +72,25 @@ class PurchaseService:
         return purchase
 
     @staticmethod
-    @transaction.atomic
     def confirm(
-        purchase,
+        purchase_id,
         user
     ):
         """
         Confirma una compra.
         """
         return PurchaseConfirmationService.confirm(
-            purchase=purchase,
+            purchase_id=purchase_id,
             user=user,
         )
 
     @staticmethod
-    @transaction.atomic
     def cancel(
-        purchase,
+        purchase_id,
         user=None,
     ):
         return PurchaseCancellationService.cancel(
-            purchase=purchase,
+            purchase_id=purchase_id,
             user=user,
         )
 

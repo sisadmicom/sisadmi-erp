@@ -1,5 +1,7 @@
 from django.db import transaction
 
+from purchases.models import Purchase
+
 from core.services.document_service import DocumentService
 
 from inventory.models import Warehouse
@@ -14,9 +16,11 @@ class PurchaseConfirmationService:
     @staticmethod
     @transaction.atomic
     def confirm(
-        purchase,
+        purchase_id,
         user=None,
     ):
+
+        purchase = Purchase.objects.select_for_update().get(pk=purchase_id)
 
         DocumentService.ensure_can_confirm(purchase)
         PurchaseValidator.validate_confirmation(

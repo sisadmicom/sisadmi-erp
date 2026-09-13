@@ -1,6 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 
+from purchases.models import Purchase
+
 from core.exceptions.inventory import InventoryException
 from core.services.document_service import DocumentService
 
@@ -16,9 +18,11 @@ class PurchaseCancellationService:
     @staticmethod
     @transaction.atomic
     def cancel(
-        purchase,
+        purchase_id,
         user=None,
     ):
+
+        purchase = Purchase.objects.select_for_update().get(pk=purchase_id)
 
         DocumentService.ensure_can_cancel(purchase)
 
