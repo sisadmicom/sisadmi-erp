@@ -25,6 +25,7 @@ from sales.models import SaleDetail
 from sales.models import SaleDetailTax
 
 from sales.services.sale_validator import SaleValidator
+from core.validators.operational_context_validator import OperationalContextValidator
 
 
 class CreateSale:
@@ -51,6 +52,14 @@ class CreateSale:
             pk=dto.customer_id
         )
 
+        OperationalContextValidator.validate_company_branch(company, branch)
+        OperationalContextValidator.validate_warehouse(company, branch, warehouse)
+        products = []
+        for item in dto.details:
+            product = Product.objects.get(pk=item.product_id)
+            OperationalContextValidator.validate_product(company, product)
+            products.append(product)
+
         sale = Sale.objects.create(
             document_type=DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE),
             company=company,
@@ -68,9 +77,7 @@ class CreateSale:
             start=1,
         ):
 
-            product = Product.objects.get(
-                pk=item.product_id
-            )
+            product = products[line_number - 1]
 
             # -------------------------------------------------
             # 1. SUBTOTAL DE LA LÍNEA

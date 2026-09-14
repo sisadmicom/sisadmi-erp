@@ -15,6 +15,7 @@ from people.models import Supplier
 
 from purchases.models import Purchase, PurchaseDetail
 from purchases.validators.purchase_validator import PurchaseValidator
+from core.validators.operational_context_validator import OperationalContextValidator
 
 
 class PurchaseCreator:
@@ -45,6 +46,13 @@ class PurchaseCreator:
             pk=dto.supplier_id
         )
 
+        OperationalContextValidator.validate_company_branch(company, branch)
+        products = []
+        for item in dto.details:
+            product = Product.objects.get(pk=item.product_id)
+            OperationalContextValidator.validate_product(company, product)
+            products.append(product)
+
         purchase = Purchase.objects.create(
             document_type=DocumentType.objects.get(code=Purchase.DOCUMENT_TYPE_CODE),
             company=company,
@@ -62,9 +70,7 @@ class PurchaseCreator:
             start=1,
         ):
 
-            product = Product.objects.get(
-                pk=item.product_id
-            )
+            product = products[line - 1]
 
             subtotal = CommercialLineCalculator.calculate_subtotal(
                 item.quantity,

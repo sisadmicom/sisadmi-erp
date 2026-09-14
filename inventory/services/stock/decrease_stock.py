@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from inventory.models import Stock
+from core.validators.operational_context_validator import OperationalContextValidator
 from inventory.services.movement.create_stock_movement import (
     CreateStockMovement,
 )
@@ -35,6 +36,8 @@ class DecreaseStock:
         user=None,
         reverses=None,
     ):
+        OperationalContextValidator.validate_inventory(company, branch, warehouse, product)
+
         try:
             stock = Stock.objects.select_for_update().get(
                 company=company,

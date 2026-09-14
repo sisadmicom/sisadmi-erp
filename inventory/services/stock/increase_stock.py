@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from inventory.models import Stock
+from core.validators.operational_context_validator import OperationalContextValidator
 from inventory.services.movement import CreateStockMovement
 
 
@@ -23,6 +24,8 @@ class IncreaseStock:
         user=None,
         reverses=None,
     ):
+
+        OperationalContextValidator.validate_inventory(company, branch, warehouse, product)
 
         if quantity <= 0:
             raise ValidationError(

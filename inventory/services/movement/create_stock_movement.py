@@ -1,6 +1,7 @@
 from django.db import transaction
 
 from inventory.models import StockMovement
+from core.validators.operational_context_validator import OperationalContextValidator
 
 
 class CreateStockMovement:
@@ -21,6 +22,8 @@ class CreateStockMovement:
         user=None,
         reverses=None,
     ):
+
+        OperationalContextValidator.validate_inventory(company, branch, warehouse, product)
 
         movement = StockMovement(
             company=company,
