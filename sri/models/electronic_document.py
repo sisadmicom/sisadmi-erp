@@ -110,6 +110,10 @@ class ElectronicDocument(BaseModel):
 
         constraints = [
             models.UniqueConstraint(
+                fields=["content_type", "object_id"],
+                name="unique_sri_electronic_document_origin",
+            ),
+            models.UniqueConstraint(
                 fields=[
                     "company",
                     "document_type",

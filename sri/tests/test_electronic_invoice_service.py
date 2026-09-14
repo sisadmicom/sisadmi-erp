@@ -71,9 +71,9 @@ class ElectronicInvoiceServiceTest(TestCase):
             electronic_document.xml,
         )
 
-        self.assertIn(
-            "000000025",
-            electronic_document.xml,
+        self.assertEqual(
+            root.findtext("infoTributaria/secuencial"),
+            "000000001",
         )
 
     def test_sign_invoice_with_fake_signer(self):

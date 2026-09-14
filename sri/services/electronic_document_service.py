@@ -1,11 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db import transaction
+from django.db import IntegrityError, transaction
 
 from core.constants.document_status import DocumentStatus
 
 from sri.constants.document_status import SriDocumentStatus
 from sri.models import ElectronicDocument
 from sri.services.access_key_service import AccessKeyService
+from sri.services.fiscal_sequence_service import FiscalSequenceService
 
 
 class ElectronicDocumentService:
@@ -94,28 +95,6 @@ class ElectronicDocumentService:
         ).zfill(3)
 
         # --------------------------------------------------
-        # 7. Secuencial
-        #
-        # Ejemplo:
-        #
-        # SAL-001-000025
-        #
-        # SRI:
-        #
-        # 000000025
-        # --------------------------------------------------
-
-        parts = document.number.split("-")
-
-        if len(parts) < 3:
-            raise ValueError(
-                "El número del documento no tiene el formato "
-                "esperado para generar el documento electrónico."
-            )
-
-        sequential = parts[-1].zfill(9)
-
-        # --------------------------------------------------
         # 8. Tipo de contenido
         #
         # ElectronicDocument utiliza GenericForeignKey.
@@ -133,50 +112,66 @@ class ElectronicDocumentService:
                 "El documento ya tiene un documento electrónico generado."
             )
 
-        # --------------------------------------------------
-        # 9. Código numérico
-        # --------------------------------------------------
+        # The savepoint includes the reservation and INSERT. Translate only after
+        # rollback, including when called within an outer invoice transaction.
+        try:
+            with transaction.atomic():
+                point_code = str(emission_point.code).zfill(3)
+                sequential = FiscalSequenceService.next_number(
+                    company=document.company,
+                    establishment=establishment,
+                    emission_point=point_code,
+                    document_type=document_type,
+                )
+                # --------------------------------------------------
+                # 9. Código numérico
+                # --------------------------------------------------
 
-        numeric_code = (
-            AccessKeyService.generate_numeric_code()
-        )
+                numeric_code = (
+                    AccessKeyService.generate_numeric_code()
+                )
 
-        # --------------------------------------------------
-        # 10. Clave de acceso SRI
-        # --------------------------------------------------
+                # --------------------------------------------------
+                # 10. Clave de acceso SRI
+                # --------------------------------------------------
 
-        access_key = AccessKeyService.generate(
-            issue_date=document.issue_date,
-            document_type=document_type,
-            ruc=document.company.person.identification,
-            environment=environment,
-            establishment=establishment,
-            emission_point=emission_point.code,
-            sequential=sequential,
-            numeric_code=numeric_code,
-            emission_type=emission_type,
-        )
+                access_key = AccessKeyService.generate(
+                    issue_date=document.issue_date,
+                    document_type=document_type,
+                    ruc=document.company.person.identification,
+                    environment=environment,
+                    establishment=establishment,
+                    emission_point=point_code,
+                    sequential=sequential,
+                    numeric_code=numeric_code,
+                    emission_type=emission_type,
+                )
 
-        # --------------------------------------------------
-        # 11. Crear documento electrónico
-        # --------------------------------------------------
+                # --------------------------------------------------
+                # 11. Crear documento electrónico
+                # --------------------------------------------------
 
-        electronic_document = ElectronicDocument.objects.create(
-            company=document.company,
-            branch=document.branch,
-            content_type=content_type,
-            object_id=document.pk,
-            document_type=document_type,
-            environment=environment,
-            emission_type=emission_type,
-            establishment=establishment,
-            emission_point=str(
-                emission_point.code
-            ).zfill(3),
-            sequential=sequential,
-            numeric_code=numeric_code,
-            access_key=access_key,
-            status=SriDocumentStatus.DRAFT,
-        )
+                electronic_document = ElectronicDocument.objects.create(
+                    company=document.company,
+                    branch=document.branch,
+                    content_type=content_type,
+                    object_id=document.pk,
+                    document_type=document_type,
+                    environment=environment,
+                    emission_type=emission_type,
+                    establishment=establishment,
+                    emission_point=point_code,
+                    sequential=sequential,
+                    numeric_code=numeric_code,
+                    access_key=access_key,
+                    status=SriDocumentStatus.DRAFT,
+                )
 
-        return electronic_document
+                return electronic_document
+        except IntegrityError as error:
+            diagnostic = getattr(error.__cause__, 'diag', None)
+            if getattr(diagnostic, 'constraint_name', None) == 'unique_sri_electronic_document_origin':
+                raise ValueError(
+                    "El documento ya tiene un documento electrónico generado."
+                ) from error
+            raise

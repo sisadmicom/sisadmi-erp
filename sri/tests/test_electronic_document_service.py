@@ -138,7 +138,7 @@ class ElectronicDocumentServiceTest(TestCase):
 
         self.assertEqual(
             electronic_document.sequential,
-            "000000025",
+            "000000001",
         )
 
         self.assertEqual(
