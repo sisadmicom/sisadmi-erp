@@ -2,6 +2,7 @@ from django.db import transaction
 
 from core.services.document_service import DocumentService
 
+from inventory.models import Transfer
 from inventory.constants.movement_type import MovementType
 from inventory.services.stock.decrease_stock import DecreaseStock
 from inventory.services.stock.increase_stock import IncreaseStock
@@ -14,9 +15,11 @@ class TransferConfirmationService:
     @staticmethod
     @transaction.atomic
     def confirm(
-        transfer,
+        transfer_id,
         user=None,
     ):
+
+        transfer = Transfer.objects.select_for_update().get(pk=transfer_id)
 
         DocumentService.ensure_can_confirm(transfer)
         TransferValidator.validate_confirmation(

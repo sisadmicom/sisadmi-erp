@@ -1,6 +1,8 @@
 from datetime import date
 from decimal import Decimal
 
+from django.contrib.auth import get_user_model
+
 from django.contrib.contenttypes.models import ContentType
 
 from django.test import TestCase
@@ -30,10 +32,13 @@ from inventory.use_cases.cancel_transfer import CancelTransfer
 from inventory.services.stock.decrease_stock import DecreaseStock
 
 from people.models import Person
+from inventory.services.transfer.transfer_cancellation_service import TransferCancellationService
+from inventory.tests.test_confirm_transfer import transfer_lifecycle_snapshot
 
 
 
 class CancelTransferTest(TestCase):
+    maxDiff = None
 
     def setUp(self):
 
@@ -54,7 +59,7 @@ class CancelTransferTest(TestCase):
             name="Matriz",
         )
 
-        Sequence.objects.create(
+        self.sequence = Sequence.objects.create(
             company=self.company,
             branch=self.branch,
             document_type=DocumentType.objects.get(code=DocumentTypeCodes.INVENTORY_TRANSFER),
@@ -539,6 +544,13 @@ class CancelTransferTest(TestCase):
 
         CancelTransfer.execute(transfer_id=transfer.id, user=None)
 
+        self.assertEqual(
+            list(StockMovement.objects.filter(
+                reverses_id__in=[original.pk for original in originals],
+            ).order_by("id").values_list("movement_type", flat=True)),
+            [MovementType.RETURN_OUT] * 2 + [MovementType.RETURN_IN] * 2,
+        )
+
         transfer.refresh_from_db()
         self.assertEqual(transfer.status, DocumentStatus.CANCELLED)
         expected_types = {
@@ -621,8 +633,11 @@ class CancelTransferTest(TestCase):
         ConfirmTransfer.execute(transfer_id=transfer.id, user=None)
         DecreaseStock().execute(company=self.company, branch=self.branch, warehouse=self.destination_warehouse, product=other, quantity=Decimal("31"), movement_type=MovementType.ADJUSTMENT_OUT)
         originals = list(self.historical_movements(transfer))
+        user = get_user_model().objects.create_user(username="transfer-cancel-rollback")
+        before = transfer_lifecycle_snapshot(transfer, self.sequence)
         with self.assertRaises(ValidationError):
-            CancelTransfer.execute(transfer_id=transfer.id, user=None)
+            CancelTransfer.execute(transfer_id=transfer.id, user=user)
+        self.assertEqual(transfer_lifecycle_snapshot(transfer, self.sequence), before)
         transfer.refresh_from_db()
         self.assertEqual(transfer.status, DocumentStatus.CONFIRMED)
         self.assertIsNone(transfer.cancelled_at)
@@ -710,3 +725,29 @@ class CancelTransferTest(TestCase):
         self.assertEqual(adjustment.reversal_movements.get(), compensatory)
         other_transfer.refresh_from_db()
         self.assertEqual(other_transfer.status, DocumentStatus.CONFIRMED)
+
+
+    def test_stale_transfer_cancellation_rejects_by_persisted_lifecycle(self):
+        first_user = get_user_model().objects.create_user(username="transfer-cancel-first")
+        other_user = get_user_model().objects.create_user(username="transfer-cancel-stale")
+        transfer = self.create_transfer()
+        ConfirmTransfer.execute(transfer_id=transfer.pk, user=first_user)
+        stale = Transfer.objects.get(pk=transfer.pk)
+        self.assertEqual(stale.status, DocumentStatus.CONFIRMED)
+        originals = list(self.historical_movements(transfer))
+        self.assertEqual(len(originals), 2)
+        CancelTransfer.execute(transfer_id=transfer.pk, user=first_user)
+        before = transfer_lifecycle_snapshot(transfer, self.sequence)
+
+        try:
+            TransferCancellationService.cancel(transfer_id=stale.pk, user=other_user)
+        except (ValueError, InventoryException) as error:
+            outcome = (type(error).__name__, str(error))
+        else:
+            outcome = ("success", "")
+        for original in originals:
+            self.assertEqual(original.reversal_movements.count(), 1)
+        self.assertEqual(
+            {"outcome": outcome, **transfer_lifecycle_snapshot(transfer, self.sequence)},
+            {"outcome": ("ValueError", "El documento ya fue anulado."), **before},
+        )

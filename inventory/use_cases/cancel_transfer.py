@@ -1,12 +1,9 @@
-from django.db import transaction
-
 from inventory.services.transfer import TransferService
 
 
 class CancelTransfer:
 
     @staticmethod
-    @transaction.atomic
     def execute(
         transfer_id,
         user=None,

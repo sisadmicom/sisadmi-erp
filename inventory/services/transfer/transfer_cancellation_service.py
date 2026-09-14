@@ -6,7 +6,7 @@ from core.exceptions.inventory import InventoryException
 from core.services.document_service import DocumentService
 
 from inventory.constants.movement_type import MovementType
-from inventory.models import StockMovement
+from inventory.models import StockMovement, Transfer
 from inventory.services.movement.stock_movement_reversal_service import (
     StockMovementReversalService,
 )
@@ -16,7 +16,9 @@ class TransferCancellationService:
 
     @staticmethod
     @transaction.atomic
-    def cancel(transfer, user=None):
+    def cancel(transfer_id, user=None):
+        transfer = Transfer.objects.select_for_update().get(pk=transfer_id)
+
         DocumentService.ensure_can_cancel(transfer)
         content_type = ContentType.objects.get_for_model(transfer)
         historical = StockMovement.objects.filter(
