@@ -1,4 +1,4 @@
-from core.models import Company, Branch
+from core.validators.access_validator import authorized_companies, authorized_branches
 
 
 class ERPContextMiddleware:
@@ -7,55 +7,25 @@ class ERPContextMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-
-        request.company = None
-        request.branch = None
-
+        request.active_company = None
+        request.active_branch = None
         company_id = request.session.get("company_id")
         branch_id = request.session.get("branch_id")
 
-        if company_id:
-            request.company = Company.objects.filter(
-                pk=company_id
-            ).first()
+        if getattr(request.user, "is_authenticated", False):
+            company = authorized_companies(request.user).filter(pk=company_id).first()
+            if company is None:
+                if company_id or branch_id:
+                    request.session["company_id"] = None
+                    request.session["branch_id"] = None
+            else:
+                request.active_company = company
+                branch = authorized_branches(request.user, company).filter(pk=branch_id).first()
+                if branch is not None:
+                    request.active_branch = branch
+                elif branch_id:
+                    request.session["branch_id"] = None
 
-        if branch_id:
-            request.branch = Branch.objects.filter(
-                pk=branch_id
-            ).first()
-
-        response = self.get_response(request)
-
-        return response
-    
-    """from core.models import Company, Branch
-
-
-class ERPContextMiddleware:
-
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-
-        request.company = None
-        request.branch = None
-
-        company_id = request.session.get("company_id")
-        branch_id = request.session.get("branch_id")
-
-        if company_id:
-            try:
-                request.company = Company.objects.get(pk=company_id)
-            except Company.DoesNotExist:
-                pass
-
-        if branch_id:
-            try:
-                request.branch = Branch.objects.get(pk=branch_id)
-            except Branch.DoesNotExist:
-                pass
-
-        response = self.get_response(request)
-
-        return response"""
+        request.company = request.active_company
+        request.branch = request.active_branch
+        return self.get_response(request)

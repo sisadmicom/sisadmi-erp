@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from core.models import Company, Branch
 from django.contrib.auth.decorators import login_required
+from core.validators.access_validator import authorized_companies, authorized_branches
 
 @login_required
 def login_view0(request):
@@ -55,13 +56,17 @@ def select_company(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    companies = request.user.profile.companies.all()
+    companies = authorized_companies(request.user)
 
     print("COMPANIES:", companies)
 
     if request.method == "POST":
         company_id = request.POST.get("company_id")
-        request.session["company_id"] = company_id
+        company = authorized_companies(request.user).filter(pk=company_id).first()
+        if company is None:
+            return redirect("select_company")
+        request.session["company_id"] = company.pk
+        request.session["branch_id"] = None
 
         return redirect("select_branch")
 
@@ -75,12 +80,20 @@ def select_branch(request):
         return redirect("login")
 
     company_id = request.session.get("company_id")
+    company = authorized_companies(request.user).filter(pk=company_id).first()
+    if company is None:
+        request.session["company_id"] = None
+        request.session["branch_id"] = None
+        return redirect("select_company")
 
-    branches = Branch.objects.filter(company_id=company_id)
+    branches = authorized_branches(request.user, company)
 
     if request.method == "POST":
         branch_id = request.POST.get("branch_id")
-        request.session["branch_id"] = branch_id
+        branch = branches.filter(pk=branch_id).first()
+        if branch is None:
+            return redirect("select_branch")
+        request.session["branch_id"] = branch.pk
 
         return redirect("dashboard")
 

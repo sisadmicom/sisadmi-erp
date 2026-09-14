@@ -9,6 +9,7 @@ from .models import UnitMeasure
 from .forms import UnitMeasureForm
 
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 def unit_list(request):
 
@@ -114,12 +115,15 @@ def unit_delete(request, pk):
     return redirect("unit_list")
 
 
+@login_required
 def product_list(request):
 
-    company_id = request.session.get("company_id")
+    company = request.active_company
+    if company is None:
+        return redirect("select_company")
 
     products = Product.objects.filter(
-        company_id=company_id,
+        company=company,
         is_active=True
     )
 
@@ -131,9 +135,13 @@ def product_list(request):
         }
     )
 
+@login_required
 def product_create(request):
 
-    company_id = request.session.get("company_id")
+    company = request.active_company
+    if company is None:
+        return redirect("select_company")
+    company_id = company.pk
 
     if request.method == "POST":
 
@@ -149,7 +157,7 @@ def product_create(request):
 
             product = form.save(commit=False)
 
-            product.company_id = company_id
+            product.company = company
 
             product.created_by = request.user
 
@@ -175,9 +183,13 @@ def product_create(request):
     )
 
 
+@login_required
 def product_update(request, pk):
 
-    company_id = request.session.get("company_id")
+    company = request.active_company
+    if company is None:
+        return redirect("select_company")
+    company_id = company.pk
 
     product = get_object_or_404(
         Product,
@@ -226,9 +238,13 @@ def product_update(request, pk):
     )
 
 
+@login_required
 def product_delete(request, pk):
 
-    company_id = request.session.get("company_id")
+    company = request.active_company
+    if company is None:
+        return redirect("select_company")
+    company_id = company.pk
 
     product = get_object_or_404(
         Product,
