@@ -4,6 +4,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -106,6 +107,34 @@ class DocumentServiceTest(TestCase):
         )
 
         return document
+
+    def test_universal_status_values_and_choices(self):
+        self.assertEqual(
+            list(DocumentStatus.values),
+            ["DRAFT", "CONFIRMED", "CANCELLED"],
+        )
+        self.assertEqual(
+            list(DocumentStatus.choices),
+            [
+                ("DRAFT", "Borrador"),
+                ("CONFIRMED", "Confirmado"),
+                ("CANCELLED", "Anulado"),
+            ],
+        )
+
+    def test_full_clean_rejects_retired_status_choices(self):
+        document = self.create_document()
+        document.full_clean()
+        for status in ("PENDING", "CLOSED"):
+            with self.subTest(status=status):
+                document.status = status
+                with self.assertRaises(ValidationError) as error:
+                    document.full_clean()
+                self.assertEqual(set(error.exception.error_dict), {"status"})
+                self.assertEqual(
+                    error.exception.error_dict["status"][0].code,
+                    "invalid_choice",
+                )
 
     def test_confirm_generates_number(self):
 
