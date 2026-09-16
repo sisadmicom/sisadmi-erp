@@ -26,6 +26,10 @@ class SaleCancellationService:
 
         DocumentService.ensure_can_cancel(sale)
 
+        from sales.models import SalesReturn
+        if SalesReturn.objects.filter(sale_id=sale.pk, status="CONFIRMED").exists():
+            raise InventoryException("No se puede cancelar una venta con devoluciones confirmadas.")
+
         movements = StockMovement.objects.filter(
             content_type=ContentType.objects.get_for_model(sale),
             object_id=sale.pk,
