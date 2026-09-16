@@ -12,6 +12,7 @@ from inventory.models import (
 )
 
 from inventory.validators import TransferValidator
+from core.validators.operational_context_validator import OperationalContextValidator
 
 
 class TransferCreator:
@@ -38,6 +39,12 @@ class TransferCreator:
             pk=dto.destination_warehouse_id
         )
 
+        products = []
+        for item in dto.details:
+            product = Product.objects.get(pk=item.product_id)
+            OperationalContextValidator.validate_product(company, product)
+            products.append(product)
+
         transfer = Transfer.objects.create(
             document_type=DocumentType.objects.get(code=Transfer.DOCUMENT_TYPE_CODE),
             company=company,
@@ -56,9 +63,7 @@ class TransferCreator:
             start=1,
         ):
 
-            product = Product.objects.get(
-                pk=item.product_id
-            )
+            product = products[line - 1]
 
             details.append(
                 TransferDetail(

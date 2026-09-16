@@ -10,7 +10,7 @@ from core.models import Branch, Company, DocumentType
 from inventory.constants.movement_type import MovementType
 from inventory.dto.transfer_create_dto import TransferCreateDTO
 from inventory.dto.transfer_detail_dto import TransferDetailDTO
-from inventory.models import Stock, StockMovement, Transfer, Warehouse
+from inventory.models import Stock, StockMovement, Transfer, TransferDetail, Warehouse
 from inventory.services.movement.create_stock_movement import CreateStockMovement
 from inventory.services.stock.increase_stock import IncreaseStock
 from inventory.use_cases.create_transfer import CreateTransfer
@@ -136,3 +136,27 @@ class ContextIntegrityTests(TestCase):
         )
         with self.assertRaises(ValueError):
             CreateTransfer.execute(dto)
+
+
+    def test_transfer_rejects_foreign_product_without_residual_document_or_lines(self):
+        destination = Warehouse.objects.create(
+            company=self.company, branch=self.branch, code="DEST", name="Destino",
+        )
+        dto = TransferCreateDTO(
+            company_id=self.company.pk,
+            branch_id=self.branch.pk,
+            source_warehouse_id=self.warehouse.pk,
+            destination_warehouse_id=destination.pk,
+            issue_date=date.today(),
+            notes="foreign-product-regression",
+            details=[
+                TransferDetailDTO(product_id=self.product.pk, quantity=Decimal("1")),
+                TransferDetailDTO(product_id=self.other_product.pk, quantity=Decimal("1")),
+            ],
+        )
+        with self.assertRaisesMessage(
+            ValidationError, "El producto no pertenece a la empresa indicada.",
+        ):
+            CreateTransfer.execute(dto)
+        self.assertEqual(Transfer.objects.filter(company=self.company).count(), 0)
+        self.assertEqual(TransferDetail.objects.count(), 0)

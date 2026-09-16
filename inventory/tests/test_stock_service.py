@@ -6,7 +6,7 @@ from core.models import Company, Branch
 from people.models import Person
 from catalog.models import Product
 
-from inventory.models import Stock
+from inventory.models import Stock, StockMovement
 from inventory.models import Warehouse
 
 from inventory.services import IncreaseStock
@@ -116,3 +116,29 @@ class StockServiceTest(TestCase):
             stock.quantity,
             Decimal("15"),
         )
+
+    def test_subcent_quantity_persists_in_stock_and_movement(self):
+        quantity = Decimal("0.004000")
+        stock = IncreaseStock().execute(
+            company=self.company, branch=self.branch, warehouse=self.warehouse,
+            product=self.product, quantity=quantity,
+            movement_type=MovementType.ADJUSTMENT_IN,
+        )
+        movement = StockMovement.objects.get(
+            company=self.company, product=self.product,
+            movement_type=MovementType.ADJUSTMENT_IN,
+        )
+        for record in (stock, movement):
+            with self.subTest(model=type(record).__name__):
+                record.refresh_from_db()
+                self.assertEqual(record.quantity, quantity)
+
+    def test_reserved_quantity_preserves_six_decimals(self):
+        stock = Stock.objects.create(
+            company=self.company, branch=self.branch, warehouse=self.warehouse,
+            product=self.product, quantity=Decimal("1"),
+            reserved_quantity=Decimal("0.004001"),
+        )
+        stock.refresh_from_db()
+        self.assertEqual(stock.reserved_quantity, Decimal("0.004001"))
+        self.assertEqual(stock.available_quantity, Decimal("0.995999"))

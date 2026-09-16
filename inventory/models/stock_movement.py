@@ -53,8 +53,8 @@ class StockMovement(BaseModel):
     )
 
     quantity = models.DecimalField(
-        max_digits=14,
-        decimal_places=2,
+        max_digits=18,
+        decimal_places=6,
     )
 
     movement_date = models.DateTimeField(

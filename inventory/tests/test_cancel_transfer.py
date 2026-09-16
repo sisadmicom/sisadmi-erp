@@ -151,6 +151,50 @@ class CancelTransferTest(TestCase):
             product=self.product,
         )
 
+    def test_subcent_quantity_survives_confirmation_and_historical_reversal(self):
+        quantity = Decimal("0.004000")
+        source = self.get_stock(self.source_warehouse)
+        destination = self.get_stock(self.destination_warehouse)
+        initial_source = source.quantity
+        initial_destination = destination.quantity
+        transfer = self.create_transfer(quantity)
+        detail = transfer.details.get()
+        detail.refresh_from_db()
+        self.assertEqual(detail.quantity, quantity)
+
+        ConfirmTransfer.execute(transfer_id=transfer.pk, user=None)
+        source.refresh_from_db()
+        destination.refresh_from_db()
+        self.assertEqual(source.quantity, initial_source - quantity)
+        self.assertEqual(destination.quantity, initial_destination + quantity)
+        movements = StockMovement.objects.filter(
+            content_type=ContentType.objects.get_for_model(transfer), object_id=transfer.pk,
+        )
+        originals = list(movements.filter(reverses__isnull=True).order_by("pk"))
+        self.assertCountEqual(
+            [movement.movement_type for movement in originals],
+            [MovementType.TRANSFER_OUT, MovementType.TRANSFER_IN],
+        )
+        for movement in originals:
+            movement.refresh_from_db()
+            self.assertEqual(movement.quantity, quantity)
+
+        CancelTransfer.execute(transfer_id=transfer.pk, user=None)
+        source.refresh_from_db()
+        destination.refresh_from_db()
+        transfer.refresh_from_db()
+        self.assertEqual(source.quantity, initial_source)
+        self.assertEqual(destination.quantity, initial_destination)
+        self.assertEqual(transfer.status, DocumentStatus.CANCELLED)
+        reversals = list(movements.filter(reverses__isnull=False))
+        self.assertCountEqual(
+            [movement.reverses_id for movement in reversals],
+            [movement.pk for movement in originals],
+        )
+        for movement in reversals:
+            movement.refresh_from_db()
+            self.assertEqual(movement.quantity, quantity)
+
     def test_cancel_transfer_changes_status(self):
 
         transfer = self.confirm_transfer()

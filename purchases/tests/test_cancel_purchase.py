@@ -111,6 +111,33 @@ class CancelPurchaseTest(TestCase):
 
         return CreatePurchase.execute(dto)
 
+    def test_subcent_inventory_quantity_survives_confirm_and_cancel(self):
+        quantity = Decimal("0.004000")
+        initial = Decimal("0")
+        document = self.create_purchase(quantity=quantity)
+        ConfirmPurchase.execute(purchase_id=document.pk, user=None)
+        stock = Stock.objects.get(
+            company=self.company, branch=self.branch,
+            warehouse=self.warehouse, product=self.product,
+        )
+        stock.refresh_from_db()
+        self.assertEqual(stock.quantity, initial + quantity)
+        original = StockMovement.objects.get(
+            content_type=ContentType.objects.get_for_model(document),
+            object_id=document.pk, movement_type=MovementType.PURCHASE,
+            reverses__isnull=True,
+        )
+        original.refresh_from_db()
+        self.assertEqual(original.quantity, quantity)
+        CancelPurchase.execute(purchase_id=document.pk, user=None)
+        stock.refresh_from_db()
+        document.refresh_from_db()
+        reversal = StockMovement.objects.get(reverses=original)
+        reversal.refresh_from_db()
+        self.assertEqual(reversal.quantity, quantity)
+        self.assertEqual(stock.quantity, initial)
+        self.assertEqual(document.status, DocumentStatus.CANCELLED)
+
     def test_cancel_confirmed_purchase(self):
 
         purchase = self.create_purchase("5")
