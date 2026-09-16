@@ -8,3 +8,5 @@ __all__ = [
     "TransferCreateDTO",
     "TransferDetailDTO",
 ]
+from .inventory_adjustment_create_dto import InventoryAdjustmentCreateDTO
+from .inventory_adjustment_detail_dto import InventoryAdjustmentDetailDTO
