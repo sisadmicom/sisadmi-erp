@@ -23,6 +23,7 @@ class IncreaseStock:
         notes="",
         user=None,
         reverses=None,
+        return_movement=False,
     ):
 
         OperationalContextValidator.validate_inventory(company, branch, warehouse, product)
@@ -49,7 +50,7 @@ class IncreaseStock:
             update_fields=["quantity"]
         )
 
-        CreateStockMovement().execute(
+        movement = CreateStockMovement().execute(
             company=company,
             branch=branch,
             warehouse=warehouse,
@@ -63,4 +64,4 @@ class IncreaseStock:
             reverses=reverses,
         )
 
-        return stock
+        return movement if return_movement else stock

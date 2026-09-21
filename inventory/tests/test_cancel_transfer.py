@@ -2,6 +2,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
+from django.apps import apps
 
 from django.contrib.contenttypes.models import ContentType
 
@@ -642,21 +643,36 @@ class CancelTransferTest(TestCase):
 
     def test_confirmed_transfer_without_history_is_rejected(self):
         transfer = self.confirm_transfer()
-        self.historical_movements(transfer).delete()
+        try:
+            pair_model = apps.get_model("inventory", "TransferMovementPair")
+        except LookupError:
+            self.assertIsNotNone(None, "TransferMovementPair is required by the adapted C-04 contract.")
+            return
+        pair_model.objects.filter(transfer=transfer).delete()
         with self.assertRaises(InventoryException):
             CancelTransfer.execute(transfer_id=transfer.id, user=None)
         transfer.refresh_from_db()
         self.assertEqual(transfer.status, DocumentStatus.CONFIRMED)
         self.assertEqual(self.get_stock(self.source_warehouse).quantity, Decimal("15"))
         self.assertEqual(self.get_stock(self.destination_warehouse).quantity, Decimal("10"))
-        self.assertFalse(StockMovement.objects.exists())
+        self.assertEqual(self.historical_movements(transfer).filter(reverses__isnull=True).count(), 2)
 
     def test_incomplete_transfer_history_is_rejected(self):
-        transfer = self.confirm_transfer()
-        self.historical_movements(transfer).filter(movement_type=MovementType.TRANSFER_IN).delete()
+        other = Product.objects.create(company=self.company, code="P002", name="Otro")
+        Stock.objects.create(company=self.company, branch=self.branch, warehouse=self.source_warehouse, product=other, quantity=Decimal("20"))
+        Stock.objects.create(company=self.company, branch=self.branch, warehouse=self.destination_warehouse, product=other, quantity=Decimal("5"))
+        transfer = self.create_transfer("5")
+        transfer.details.create(product=other, line=2, quantity=Decimal("7"))
+        ConfirmTransfer.execute(transfer_id=transfer.id, user=None)
+        try:
+            pair_model = apps.get_model("inventory", "TransferMovementPair")
+        except LookupError:
+            self.assertIsNotNone(None, "TransferMovementPair is required by the adapted C-04 contract.")
+            return
+        pair_model.objects.filter(transfer=transfer).order_by("pk").first().delete()
         with self.assertRaises(InventoryException):
             CancelTransfer.execute(transfer_id=transfer.id, user=None)
-        self.assertEqual(StockMovement.objects.count(), 1)
+        self.assertEqual(self.historical_movements(transfer).filter(reverses__isnull=True).count(), 4)
         transfer.refresh_from_db()
         self.assertEqual(transfer.status, DocumentStatus.CONFIRMED)
 
