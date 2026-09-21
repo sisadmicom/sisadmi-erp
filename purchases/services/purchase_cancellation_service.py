@@ -1,7 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 
-from purchases.models import Purchase
+from purchases.models import Purchase, PurchaseReturn
+
+from core.constants.document_status import DocumentStatus
 
 from core.exceptions.inventory import InventoryException
 from core.services.document_service import DocumentService
@@ -25,6 +27,11 @@ class PurchaseCancellationService:
         purchase = Purchase.objects.select_for_update().get(pk=purchase_id)
 
         DocumentService.ensure_can_cancel(purchase)
+
+        if PurchaseReturn.objects.filter(
+            purchase=purchase, status=DocumentStatus.CONFIRMED,
+        ).exists():
+            raise InventoryException("La compra tiene devoluciones confirmadas.")
 
         movements = StockMovement.objects.filter(
             content_type=ContentType.objects.get_for_model(purchase),
