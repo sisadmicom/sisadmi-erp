@@ -7,6 +7,7 @@ from inventory.services.stock import IncreaseStock
 from sales.models import SalesReturn
 from sales.validators.sales_return_validator import SalesReturnValidator
 from sales.services.sales_return_calculation import q, confirmed_qty
+from sales.services.sale_history import validated_sale_movements
 class SalesReturnConfirmationService:
     @staticmethod
     @transaction.atomic
@@ -15,6 +16,7 @@ class SalesReturnConfirmationService:
         DocumentService.ensure_can_confirm(ret)
         sale=ret.sale.__class__.objects.select_for_update().get(pk=ret.sale_id)
         if sale.status != "CONFIRMED": raise ValidationError("La venta debe estar confirmada.")
+        validated_sale_movements(sale, lock=True)
         details=list(ret.details.select_for_update().select_related("sale_detail__product"))
         SalesReturnValidator.validate_persisted(ret)
         for d in details:

@@ -1,16 +1,15 @@
-from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 
 from core.exceptions.inventory import InventoryException
 from core.services.document_service import DocumentService
 
 from inventory.constants.movement_type import MovementType
-from inventory.models import StockMovement
 from inventory.services.movement.stock_movement_reversal_service import (
     StockMovementReversalService,
 )
 
 from sales.models import Sale
+from sales.services.sale_history import validated_sale_movements
 
 
 class SaleCancellationService:
@@ -30,17 +29,7 @@ class SaleCancellationService:
         if SalesReturn.objects.filter(sale_id=sale.pk, status="CONFIRMED").exists():
             raise InventoryException("No se puede cancelar una venta con devoluciones confirmadas.")
 
-        movements = StockMovement.objects.filter(
-            content_type=ContentType.objects.get_for_model(sale),
-            object_id=sale.pk,
-            movement_type=MovementType.SALE,
-            reverses__isnull=True,
-        ).order_by("id")
-
-        if not movements.exists():
-            raise InventoryException(
-                "La venta no tiene movimientos históricos SALE para revertir."
-            )
+        movements = validated_sale_movements(sale, lock=True)
 
         for movement in movements:
             StockMovementReversalService.reverse(

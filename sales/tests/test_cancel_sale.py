@@ -431,8 +431,9 @@ class CancelSaleTest(TestCase):
 
     def test_confirmed_sale_without_history_is_rejected(self):
         sale = self.confirm_sale()
-        # Simula pérdida del registro histórico, conservando la salida real de stock.
-        self.original_movements(sale).delete()
+        # Simula pérdida de identidad histórica, conservando el efecto físico.
+        from sales.models import SaleMovement
+        SaleMovement.objects.filter(sale=sale).delete()
 
         with self.assertRaises(InventoryException):
             CancelSale.execute(sale_id=sale.pk)
@@ -440,7 +441,10 @@ class CancelSaleTest(TestCase):
         sale.refresh_from_db()
         self.assertEqual(sale.status, DocumentStatus.CONFIRMED)
         self.assertEqual(Stock.objects.get(product=self.product).quantity, Decimal("15"))
-        self.assertFalse(StockMovement.objects.exists())
+        self.assertTrue(self.original_movements(sale).exists())
+        self.assertFalse(StockMovement.objects.filter(
+            object_id=sale.pk, movement_type=MovementType.RETURN_IN
+        ).exists())
 
     def create_sale_with_two_products(self):
         other = Product.objects.create(company=self.company, code="P002", name="Otro")

@@ -5,7 +5,7 @@ from core.services.document_service import DocumentService
 from inventory.constants.movement_type import MovementType
 from inventory.services.stock.decrease_stock import DecreaseStock
 
-from sales.models import Sale
+from sales.models import Sale, SaleMovement
 from sales.services.sale_validator import SaleValidator
 
 
@@ -32,7 +32,7 @@ class SaleConfirmationService:
 
         for detail in sale.details.all():
 
-            decrease_stock.execute(
+            movement = decrease_stock.execute(
 
                 company=sale.company,
                 branch=sale.branch,
@@ -48,7 +48,8 @@ class SaleConfirmationService:
                 notes=f"Venta {sale.number}",
 
                 user=user,
-
+                return_movement=True,
             )
+            SaleMovement.objects.create(sale=sale, stock_movement=movement)
 
         return sale
