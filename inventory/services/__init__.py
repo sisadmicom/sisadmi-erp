@@ -10,7 +10,6 @@ from .stock import (
 )
 
 from .movement import CreateStockMovement
-from .inventory_receipt_service import InventoryReceiptService
 
 __all__ = [
     "KardexService",
@@ -19,5 +18,4 @@ __all__ = [
     "ReserveStock",
     "ReleaseStock",
     "CreateStockMovement",
-    "InventoryReceiptService",
 ]

@@ -21,7 +21,7 @@ from inventory.models import Stock, StockMovement, Warehouse
 from inventory.services.movement.stock_movement_reversal_service import StockMovementReversalService
 from inventory.services.stock import DecreaseStock
 from purchases.dto.purchase_detail_dto import PurchaseDetailDTO
-from purchases.models import Purchase, PurchaseDetail
+from purchases.models import Purchase, PurchaseDetail, PurchaseMovement
 from purchases.tests.purchase_return_test_support import (
     MONEY_FIELDS, REJECTIONS, PurchaseReturnFixture, movements, persisted_state, return_api, return_models,
 )
@@ -241,7 +241,9 @@ class PurchaseReturnHistoricalOriginTests(PurchaseReturnFixture, TestCase):
 
     def test_purchase_without_purchase_movements_is_rejected(self):
         _, _, Create, *_ = return_api()
-        movements(self.purchase, MovementType.PURCHASE).delete()
+        # La historia física queda protegida por PROTECT; corrompemos solo
+        # la identidad del manifest eliminando su fila PurchaseMovement.
+        PurchaseMovement.objects.filter(purchase=self.purchase).delete()
         self.assert_rejected_unchanged(lambda: Create.execute(self.dto()))
 
     def test_multiple_historical_warehouses_are_rejected_without_first_heuristic(self):
@@ -338,7 +340,10 @@ class PurchaseReturnHistoricalOriginTests(PurchaseReturnFixture, TestCase):
 
     def test_confirmation_revalidates_source_history_after_draft(self):
         document = self.make_return()
-        movements(self.purchase, MovementType.PURCHASE).delete()
+        # El movimiento original no puede eliminarse mientras está
+        # manifestado. La corrupción entre draft y confirmación es la
+        # desaparición del manifest, que debe volver a validarse.
+        PurchaseMovement.objects.filter(purchase=self.purchase).delete()
         self.assert_rejected_unchanged(lambda: self.confirm_return(document))
 
 

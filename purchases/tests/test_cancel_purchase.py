@@ -26,7 +26,7 @@ from purchases.dto.purchase_detail_dto import PurchaseDetailDTO
 from purchases.use_cases.create_purchase import CreatePurchase
 from purchases.use_cases.confirm_purchase import ConfirmPurchase
 from purchases.use_cases.cancel_purchase import CancelPurchase
-from purchases.models import Purchase
+from purchases.models import Purchase, PurchaseMovement
 from purchases.services.purchase_service import PurchaseService
 from purchases.tests.test_confirm_purchase import purchase_lifecycle_snapshot
 
@@ -456,13 +456,16 @@ class CancelPurchaseTest(TestCase):
     def test_confirmed_purchase_without_history_is_rejected(self):
         purchase = self.create_purchase("5", "10")
         ConfirmPurchase.execute(purchase_id=purchase.pk, user=None)
-        self.original_movements(purchase).delete()
+        # PROTECT impide borrar el efecto físico; la historia queda
+        # incompleta eliminando únicamente su identidad PurchaseMovement.
+        PurchaseMovement.objects.filter(purchase=purchase).delete()
         with self.assertRaises(InventoryException):
             CancelPurchase.execute(purchase_id=purchase.pk)
         purchase.refresh_from_db()
         self.assertEqual(purchase.status, DocumentStatus.CONFIRMED)
         self.assertEqual(Stock.objects.get(product=self.product).quantity, Decimal("5"))
-        self.assertFalse(StockMovement.objects.exists())
+        self.assertEqual(self.original_movements(purchase).count(), 1)
+        self.assertFalse(self.original_movements(purchase).filter(reverses__isnull=False).exists())
 
     def create_purchase_with_two_products(self):
         other = Product.objects.create(company=self.company, code="P002", name="Otro")
