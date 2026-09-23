@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from core.services.document_service import DocumentService
 from inventory.constants.movement_type import MovementType
 from inventory.services.stock import IncreaseStock
+from sales.models import SalesReturnMovement
 from sales.models import SalesReturn
 from sales.validators.sales_return_validator import SalesReturnValidator
 from sales.services.sales_return_calculation import q, confirmed_qty
@@ -38,7 +39,8 @@ class SalesReturnConfirmationService:
         ret.subtotal=q(sum(d.subtotal for d in details)); ret.tax=q(sum(d.tax_amount for d in details)); ret.total=q(sum(d.total for d in details)); ret.save(update_fields=["subtotal","tax","total","updated_at"])
         DocumentService.confirm(ret,user)
         for d in sorted(details,key=lambda x:x.sale_detail_id):
-            IncreaseStock().execute(company=ret.company,branch=ret.branch,warehouse=ret.warehouse,
-                product=d.product,quantity=d.quantity,movement_type=MovementType.RETURN_IN,
-                document=ret,user=user,notes=f"Devolución {ret.number}")
+            movement = IncreaseStock().execute(company=ret.company, branch=ret.branch, warehouse=ret.warehouse,
+                product=d.product, quantity=d.quantity, movement_type=MovementType.RETURN_IN,
+                document=ret, user=user, notes=f"Devolución {ret.number}", return_movement=True)
+            SalesReturnMovement.objects.create(sales_return=ret, stock_movement=movement)
         return ret

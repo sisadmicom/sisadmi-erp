@@ -5,3 +5,4 @@ from .sales_return import SalesReturn
 from .sales_return_detail import SalesReturnDetail
 from .sales_return_detail_tax import SalesReturnDetailTax
 from .sale_movement import SaleMovement
+from .sales_return_movement import SalesReturnMovement
