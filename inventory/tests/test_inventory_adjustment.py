@@ -303,6 +303,7 @@ class AdjustmentCancellationTests(AdjustmentFixture, TestCase):
                 adjustment = self.create(details=[self.line(self.product), self.line(self.second_product)])
                 self.confirm(adjustment)
                 if mutation == "missing":
+                    adjustment.movement_manifest.all().delete()
                     self.movements(adjustment).delete()
                 else:
                     self.movements(adjustment).filter(product=self.second_product).update(

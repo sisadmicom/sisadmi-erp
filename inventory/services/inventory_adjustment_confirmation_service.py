@@ -1,6 +1,6 @@
 from django.db import transaction
 from core.services.document_service import DocumentService
-from inventory.models import InventoryAdjustment
+from inventory.models import InventoryAdjustment, InventoryAdjustmentMovement
 from inventory.constants.movement_type import MovementType
 from inventory.validators.inventory_adjustment_validator import InventoryAdjustmentValidator
 from inventory.services.stock import IncreaseStock, DecreaseStock
@@ -18,5 +18,14 @@ class InventoryAdjustmentConfirmationService:
         service = IncreaseStock() if direction == "IN" else DecreaseStock()
         movement_type = MovementType.ADJUSTMENT_IN if direction == "IN" else MovementType.ADJUSTMENT_OUT
         for detail in details:
-            service.execute(company=adjustment.company, branch=adjustment.branch, warehouse=adjustment.warehouse, product=detail.product, quantity=detail.quantity, movement_type=movement_type, document=adjustment, user=user, notes=f"Ajuste {adjustment.number}")
+            movement = service.execute(
+                company=adjustment.company, branch=adjustment.branch,
+                warehouse=adjustment.warehouse, product=detail.product,
+                quantity=detail.quantity, movement_type=movement_type,
+                document=adjustment, user=user, notes=f"Ajuste {adjustment.number}",
+                return_movement=True,
+            )
+            InventoryAdjustmentMovement.objects.create(
+                inventory_adjustment=adjustment, stock_movement=movement,
+            )
         return adjustment

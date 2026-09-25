@@ -5,6 +5,7 @@ from .transfer import Transfer
 from .transfer_detail import TransferDetail
 from .inventory_adjustment import InventoryAdjustment
 from .inventory_adjustment_detail import InventoryAdjustmentDetail
+from .inventory_adjustment_movement import InventoryAdjustmentMovement
 from .transfer_movement_pair import TransferMovementPair
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "TransferDetail",
     "InventoryAdjustment",
     "InventoryAdjustmentDetail",
+    "InventoryAdjustmentMovement",
     "TransferMovementPair",
 ]
