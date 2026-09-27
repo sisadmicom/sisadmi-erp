@@ -87,6 +87,11 @@ class ElectronicDocument(BaseModel):
         null=True,
     )
 
+    authorized_xml = models.TextField(
+        blank=True,
+        null=True,
+    )
+
     authorization_number = models.CharField(
         max_length=49,
         blank=True,

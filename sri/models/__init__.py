@@ -3,3 +3,5 @@ from .sri_certificate import SriCertificate
 from .fiscal_sequence import FiscalSequence
 from .sri_reception_attempt import SriReceptionAttempt
 from .sri_reception_message import SriReceptionMessage
+from .sri_authorization_attempt import SriAuthorizationAttempt
+from .sri_authorization_message import SriAuthorizationMessage
