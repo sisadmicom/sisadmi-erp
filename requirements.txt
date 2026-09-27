@@ -3,4 +3,5 @@ Pillow==12.3.0
 cryptography==50.0.1
 lxml==6.1.2
 signxml==5.1.0
+zeep==4.3.3
 psycopg[binary]==3.3.5
