@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Autorización SRI</h1>
+<p>Documento: {{ electronic_document }}</p>
+{% if authorization_state %}
+<p>Resultado: {{ authorization_state }}</p>
+{% endif %}
+<p>{{ authorization_message }}</p>
+
+{% if not authorization_state %}
+<form method="post" action="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">
+    {% csrf_token %}
+    <button type="submit">Consultar autorización</button>
+</form>
+{% endif %}
+{% endblock %}
