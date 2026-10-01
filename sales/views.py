@@ -1,6 +1,7 @@
 from functools import wraps
 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.views.decorators.http import require_http_methods
@@ -11,10 +12,13 @@ from inventory.models import Warehouse
 from people.models import Customer
 from sales.dto.sale_create_dto import SaleCreateDTO
 from sales.dto.sale_detail_dto import SaleDetailDTO
-from sales.forms import SaleCreateForm, SaleDetailFormSet
+from sales.forms import FiscalPreparationForm, SaleCreateForm, SaleDetailFormSet
 from sales.models import Sale
 from sales.use_cases.confirm_sale import ConfirmSale
 from sales.use_cases.create_sale import CreateSale
+from sri.services.fiscal_document_preparation_service import (
+    FiscalDocumentPreparationService,
+)
 
 
 def _active_context_or_redirect(request):
@@ -39,13 +43,22 @@ def _login_with_path_only(view):
     return wrapped
 
 
-def _sale_detail_response(request, sale, *, confirmation_error=None):
+def _sale_detail_response(
+    request,
+    sale,
+    *,
+    confirmation_error=None,
+    fiscal_preparation_form=None,
+):
+    if fiscal_preparation_form is None:
+        fiscal_preparation_form = FiscalPreparationForm(branch=request.active_branch)
     return render(
         request,
         "sales/sale_detail.html",
         {
             "sale": sale,
             "confirmation_error": confirmation_error,
+            "fiscal_preparation_form": fiscal_preparation_form,
         },
     )
 
@@ -126,6 +139,37 @@ def sale_detail(request, sale_id):
         branch=request.active_branch,
     )
     return _sale_detail_response(request, sale)
+
+
+@_login_with_path_only
+@login_required(login_url="login")
+@require_http_methods(["POST"])
+def sale_prepare_fiscal(request, sale_id):
+    context_response = _active_context_or_redirect(request)
+    if context_response is not None:
+        return context_response
+
+    sale = get_object_or_404(
+        Sale,
+        pk=sale_id,
+        company=request.active_company,
+        branch=request.active_branch,
+    )
+    form = FiscalPreparationForm(request.POST, branch=request.active_branch)
+    if not form.is_valid():
+        return _sale_detail_response(request, sale, fiscal_preparation_form=form)
+
+    try:
+        FiscalDocumentPreparationService.prepare(
+            sale=sale,
+            point_of_emission=form.cleaned_data["point_of_emission"],
+        )
+    except ValueError:
+        form.add_error(None, "La preparación fiscal no pudo completarse.")
+        return _sale_detail_response(request, sale, fiscal_preparation_form=form)
+
+    messages.success(request, "La preparación fiscal se completó.")
+    return redirect("sale_detail", sale_id=sale.pk)
 
 
 @_login_with_path_only

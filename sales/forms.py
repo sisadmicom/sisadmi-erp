@@ -2,6 +2,7 @@ from django import forms
 from django.forms import formset_factory
 
 from catalog.models import Product
+from core.models import PointOfEmission
 from inventory.models import Warehouse
 from people.models import Customer
 
@@ -70,3 +71,17 @@ SaleDetailFormSet = formset_factory(
     max_num=1000,
     validate_max=True,
 )
+
+
+class FiscalPreparationForm(forms.Form):
+    point_of_emission = forms.ModelChoiceField(
+        queryset=PointOfEmission.objects.none(),
+        label="Punto de emisión",
+    )
+
+    def __init__(self, *args, branch, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["point_of_emission"].queryset = PointOfEmission.objects.filter(
+            branch=branch,
+            is_active=True,
+        )

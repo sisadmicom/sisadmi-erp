@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+{% for message in messages %}<p>{{ message }}</p>{% endfor %}
 <h1>Venta {{ sale.number|default:sale.pk }}</h1>
 <p>Fecha: {{ sale.issue_date }}</p>
 <p>Cliente: {{ sale.customer }}</p>
@@ -34,5 +35,13 @@
     <button type="submit">Confirmar venta</button>
 </form>
 {% endif %}
+<form method="post" action="{% url 'sale_prepare_fiscal' sale_id=sale.pk %}">
+    {% csrf_token %}
+    {{ fiscal_preparation_form.non_field_errors }}
+    {{ fiscal_preparation_form.point_of_emission.errors }}
+    {{ fiscal_preparation_form.point_of_emission.label_tag }}
+    {{ fiscal_preparation_form.point_of_emission }}
+    <button type="submit">Preparar documento fiscal</button>
+</form>
 <a href="{% url 'sale_create' %}">Nueva venta</a>
 {% endblock %}
