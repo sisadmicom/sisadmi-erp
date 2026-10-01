@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Nueva venta</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ formset.management_form }}
+    {% for detail_form in formset %}
+        {{ detail_form.as_p }}
+    {% endfor %}
+    <button type="submit">Crear borrador</button>
+</form>
+{% endblock %}

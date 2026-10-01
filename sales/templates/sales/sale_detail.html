@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Venta {{ sale.number|default:sale.pk }}</h1>
+<p>Fecha: {{ sale.issue_date }}</p>
+<p>Cliente: {{ sale.customer }}</p>
+<p>Estado: {{ sale.status }}</p>
+
+<table>
+    <thead>
+        <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Descuento</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+        {% for detail in sale.details.all %}
+        <tr>
+            <td>{{ detail.product }}</td>
+            <td>{{ detail.quantity }}</td>
+            <td>{{ detail.unit_price }}</td>
+            <td>{{ detail.discount }}</td>
+            <td>{{ detail.total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>Subtotal: {{ sale.subtotal }}</p>
+<p>Impuestos: {{ sale.tax }}</p>
+<p>Total: {{ sale.total }}</p>
+
+{% if confirmation_error %}<p>{{ confirmation_error }}</p>{% endif %}
+{% if sale.status == "DRAFT" %}
+<form method="post" action="{% url 'sale_confirm' sale_id=sale.pk %}">
+    {% csrf_token %}
+    <button type="submit">Confirmar venta</button>
+</form>
+{% endif %}
+<a href="{% url 'sale_create' %}">Nueva venta</a>
+{% endblock %}

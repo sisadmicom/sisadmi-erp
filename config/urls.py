@@ -11,4 +11,5 @@ urlpatterns = [
     path("core/", include("core.urls")),
     path("catalog/", include("catalog.urls")),
     path("sri/", include("sri.urls")),
+    path("sales/", include("sales.urls")),
 ]
