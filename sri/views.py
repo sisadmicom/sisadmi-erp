@@ -13,6 +13,9 @@ from sri.services.electronic_document_authorization_service import (
     SriAuthorizationProtocolError,
     SriAuthorizationTransportError,
 )
+from sri.services.electronic_document_signing_service import (
+    ElectronicDocumentSigningService,
+)
 
 
 @login_required(login_url="login")
@@ -71,3 +74,43 @@ def _authorization_result(document):
         if latest_attempt is not None and latest_attempt.status == SriAuthorizationAttemptStatus.PENDING:
             return "PENDING", "La autorización del documento sigue pendiente en el SRI."
     return "INVALID", "No hay un resultado de autorización disponible para mostrar."
+
+
+@login_required(login_url="login")
+@require_http_methods(["GET", "HEAD", "POST"])
+def electronic_document_sign(request, electronic_document_id):
+    if request.active_company is None:
+        return redirect("select_company")
+    if request.active_branch is None:
+        return redirect("select_branch")
+
+    document = get_object_or_404(
+        ElectronicDocument,
+        pk=electronic_document_id,
+        company=request.active_company,
+        branch=request.active_branch,
+    )
+    state = None
+    message = "Confirme la firma de este documento electrónico."
+
+    if request.method == "POST":
+        try:
+            document = ElectronicDocumentSigningService.sign(
+                electronic_document=document,
+            )
+        except ValueError:
+            state = "INVALID"
+            message = "No se pudo completar la firma de este documento electrónico."
+        else:
+            state = "SIGNED"
+            message = "El documento electrónico se firmó correctamente."
+
+    return render(
+        request,
+        "sri/electronic_document_signing.html",
+        {
+            "electronic_document": document,
+            "signing_state": state,
+            "signing_message": message,
+        },
+    )

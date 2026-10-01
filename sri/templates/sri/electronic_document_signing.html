@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Firma de documento electrónico</h1>
+<p>Documento electrónico: {{ electronic_document.pk }}</p>
+
+{% if signing_state %}
+<p>Resultado: {{ signing_state }}</p>
+{% else %}
+<p>Estado actual: {{ electronic_document.status }}</p>
+{% endif %}
+
+<p>{{ signing_message }}</p>
+
+{% if not signing_state %}
+<form method="post" action="{% url 'electronic_document_sign' electronic_document_id=electronic_document.pk %}">
+    {% csrf_token %}
+    <button type="submit">Firmar documento</button>
+</form>
+{% endif %}
+{% endblock %}

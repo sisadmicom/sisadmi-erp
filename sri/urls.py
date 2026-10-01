@@ -9,4 +9,9 @@ urlpatterns = [
         views.electronic_document_authorize,
         name="electronic_document_authorize",
     ),
+    path(
+        "electronic-documents/<int:electronic_document_id>/sign/",
+        views.electronic_document_sign,
+        name="electronic_document_sign",
+    ),
 ]
