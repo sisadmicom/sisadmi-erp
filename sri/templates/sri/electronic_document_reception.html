@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Recepción de documento electrónico</h1>
+<p>Documento electrónico: {{ electronic_document.pk }}</p>
+
+{% if reception_state %}
+<p>Resultado: {{ reception_state }}</p>
+{% else %}
+<p>Estado actual: {{ electronic_document.status }}</p>
+{% endif %}
+
+<p>{{ reception_message }}</p>
+
+{% if not reception_state %}
+<form method="post" action="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">
+    {% csrf_token %}
+    <button type="submit">Enviar a recepción SRI</button>
+</form>
+{% endif %}
+{% endblock %}
