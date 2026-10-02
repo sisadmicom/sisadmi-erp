@@ -1,12 +1,14 @@
 from functools import wraps
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.views.decorators.http import require_http_methods
 
 from core.constants.document_status import DocumentStatus
+from core.constants.sri import SriDocumentType
 from core.exceptions import InvalidPrice, InvalidQuantity
 from inventory.models import Warehouse
 from people.models import Customer
@@ -16,9 +18,11 @@ from sales.forms import FiscalPreparationForm, SaleCreateForm, SaleDetailFormSet
 from sales.models import Sale
 from sales.use_cases.confirm_sale import ConfirmSale
 from sales.use_cases.create_sale import CreateSale
+from sri.models import ElectronicDocument
 from sri.services.fiscal_document_preparation_service import (
     FiscalDocumentPreparationService,
 )
+from sri.views import _workflow_presentation
 
 
 def _active_context_or_redirect(request):
@@ -52,11 +56,24 @@ def _sale_detail_response(
 ):
     if fiscal_preparation_form is None:
         fiscal_preparation_form = FiscalPreparationForm(branch=request.active_branch)
+    electronic_document = ElectronicDocument.objects.filter(
+        company=request.active_company,
+        branch=request.active_branch,
+        content_type=ContentType.objects.get_for_model(Sale),
+        object_id=sale.pk,
+        document_type=SriDocumentType.INVOICE,
+    ).first()
+    workflow = (
+        _workflow_presentation(electronic_document)
+        if electronic_document is not None else {}
+    )
     return render(
         request,
         "sales/sale_detail.html",
         {
             "sale": sale,
+            "electronic_document": electronic_document,
+            **workflow,
             "confirmation_error": confirmation_error,
             "fiscal_preparation_form": fiscal_preparation_form,
         },

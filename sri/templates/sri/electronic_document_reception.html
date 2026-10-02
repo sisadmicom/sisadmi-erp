@@ -10,12 +10,25 @@
 <p>Estado actual: {{ electronic_document.status }}</p>
 {% endif %}
 
+{% if reception_state or can_receive %}
 <p>{{ reception_message }}</p>
+{% endif %}
 
-{% if not reception_state %}
+{% if not reception_state and not can_receive %}
+    {% csrf_token %}
+{% endif %}
+{% if not reception_state and can_receive %}
 <form method="post" action="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">
     {% csrf_token %}
     <button type="submit">Enviar a recepción SRI</button>
 </form>
+{% endif %}
+<p>Estado fiscal: {{ workflow_state }}</p>
+{% if workflow_message %}<p>{{ workflow_message }}</p>{% endif %}
+{% if can_authorize %}
+<a href="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">Consultar autorización</a>
+{% endif %}
+{% if origin_sale %}
+<a href="{% url 'sale_detail' sale_id=origin_sale.pk %}">Volver a la venta</a>
 {% endif %}
 {% endblock %}

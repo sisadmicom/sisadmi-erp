@@ -43,5 +43,17 @@
     {{ fiscal_preparation_form.point_of_emission }}
     <button type="submit">Preparar documento fiscal</button>
 </form>
+{% if electronic_document %}
+<p>Documento electrónico: {{ electronic_document.pk }}</p>
+<p>Estado fiscal: {{ workflow_state }}</p>
+{% if workflow_message %}<p>{{ workflow_message }}</p>{% endif %}
+{% if can_sign %}
+<a href="{% url 'electronic_document_sign' electronic_document_id=electronic_document.pk %}">Firmar documento</a>
+{% elif can_receive %}
+<a href="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">Recepción SRI</a>
+{% elif can_authorize %}
+<a href="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">Consultar autorización</a>
+{% endif %}
+{% endif %}
 <a href="{% url 'sale_create' %}">Nueva venta</a>
 {% endblock %}

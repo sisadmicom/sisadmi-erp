@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
+
+from sales.models import Sale
 
 from sri.constants.authorization_attempt_status import SriAuthorizationAttemptStatus
 from sri.constants.document_status import SriDocumentStatus
@@ -24,6 +27,78 @@ from sri.services.electronic_document_authorization_service import (
 from sri.services.electronic_document_signing_service import (
     ElectronicDocumentSigningService,
 )
+
+
+def _workflow_presentation(document):
+    """Read durable fiscal evidence; domain services still decide mutations."""
+    state = document.status
+    message = ""
+    can_sign = state == SriDocumentStatus.GENERATED
+    can_receive = state == SriDocumentStatus.SIGNED
+    can_authorize = state == SriDocumentStatus.RECEIVED
+
+    if can_receive:
+        blocking_attempt = document.reception_attempts.filter(
+            status__in=[
+                SriReceptionAttemptStatus.IN_PROGRESS,
+                SriReceptionAttemptStatus.UNCERTAIN,
+            ],
+        ).first()
+        if blocking_attempt is not None:
+            state = blocking_attempt.status
+            can_receive = False
+            message = (
+                "La recepción está en curso."
+                if state == SriReceptionAttemptStatus.IN_PROGRESS
+                else "El resultado de la recepción es incierto."
+            )
+    elif can_authorize:
+        blocking_attempt = document.authorization_attempts.filter(
+            status=SriAuthorizationAttemptStatus.IN_PROGRESS,
+        ).first()
+        latest_attempt = blocking_attempt or document.authorization_attempts.first()
+        if latest_attempt is not None:
+            state = latest_attempt.status
+            can_authorize = blocking_attempt is None
+            messages = {
+                SriAuthorizationAttemptStatus.IN_PROGRESS: "La consulta de autorización está en curso.",
+                SriAuthorizationAttemptStatus.PENDING: "La autorización sigue pendiente en el SRI.",
+                SriAuthorizationAttemptStatus.UNCERTAIN: "El resultado de la consulta de autorización es incierto.",
+                SriAuthorizationAttemptStatus.PROTOCOL_ERROR: "La respuesta de autorización no pudo interpretarse de forma válida.",
+            }
+            message = messages.get(state, "")
+    elif state == SriDocumentStatus.REJECTED:
+        latest_authorization = document.authorization_attempts.first()
+        if (
+            latest_authorization is not None
+            and latest_authorization.status == SriAuthorizationAttemptStatus.NOT_AUTHORIZED
+        ):
+            message = "El SRI rechazó la autorización del documento."
+        else:
+            message = "El SRI rechazó la recepción del documento."
+
+    return {
+        "workflow_state": state,
+        "workflow_message": message,
+        "can_sign": can_sign,
+        "can_receive": can_receive,
+        "can_authorize": can_authorize,
+    }
+
+
+def _sale_return(request, document):
+    """An optional origin link must not dereference an unscoped GFK."""
+    if (
+        document.company_id != request.active_company.pk
+        or document.branch_id != request.active_branch.pk
+        or document.content_type_id != ContentType.objects.get_for_model(Sale).pk
+    ):
+        return None
+    return Sale.objects.filter(
+        pk=document.object_id,
+        company=request.active_company,
+        branch=request.active_branch,
+    ).first()
 
 
 @login_required(login_url="login")
@@ -68,6 +143,8 @@ def electronic_document_authorize(request, electronic_document_id):
             "electronic_document": document,
             "authorization_state": state,
             "authorization_message": message,
+            **_workflow_presentation(document),
+            "origin_sale": _sale_return(request, document),
         },
     )
 
@@ -131,6 +208,8 @@ def electronic_document_receive(request, electronic_document_id):
             "electronic_document": document,
             "reception_state": state,
             "reception_message": message,
+            **_workflow_presentation(document),
+            "origin_sale": _sale_return(request, document),
         },
     )
 
@@ -179,5 +258,7 @@ def electronic_document_sign(request, electronic_document_id):
             "electronic_document": document,
             "signing_state": state,
             "signing_message": message,
+            **_workflow_presentation(document),
+            "origin_sale": _sale_return(request, document),
         },
     )

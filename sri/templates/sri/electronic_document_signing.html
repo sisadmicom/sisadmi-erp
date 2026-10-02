@@ -10,12 +10,22 @@
 <p>Estado actual: {{ electronic_document.status }}</p>
 {% endif %}
 
+{% if signing_state or can_sign %}
 <p>{{ signing_message }}</p>
+{% endif %}
 
-{% if not signing_state %}
+{% if not signing_state and can_sign %}
 <form method="post" action="{% url 'electronic_document_sign' electronic_document_id=electronic_document.pk %}">
     {% csrf_token %}
     <button type="submit">Firmar documento</button>
 </form>
+{% endif %}
+<p>Estado fiscal: {{ workflow_state }}</p>
+{% if workflow_message %}<p>{{ workflow_message }}</p>{% endif %}
+{% if can_receive %}
+<a href="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">Recepción SRI</a>
+{% endif %}
+{% if origin_sale %}
+<a href="{% url 'sale_detail' sale_id=origin_sale.pk %}">Volver a la venta</a>
 {% endif %}
 {% endblock %}

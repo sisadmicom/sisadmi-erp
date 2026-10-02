@@ -6,12 +6,19 @@
 {% if authorization_state %}
 <p>Resultado: {{ authorization_state }}</p>
 {% endif %}
+{% if authorization_state or can_authorize %}
 <p>{{ authorization_message }}</p>
+{% endif %}
 
-{% if not authorization_state %}
+{% if not authorization_state and can_authorize %}
 <form method="post" action="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">
     {% csrf_token %}
     <button type="submit">Consultar autorización</button>
 </form>
+{% endif %}
+<p>Estado fiscal: {{ workflow_state }}</p>
+{% if workflow_message %}<p>{{ workflow_message }}</p>{% endif %}
+{% if origin_sale %}
+<a href="{% url 'sale_detail' sale_id=origin_sale.pk %}">Volver a la venta</a>
 {% endif %}
 {% endblock %}
