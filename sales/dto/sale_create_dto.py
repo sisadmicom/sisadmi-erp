@@ -18,3 +18,5 @@ class SaleCreateDTO:
     notes: str
 
     details: List[SaleDetailDTO]
+
+    payment_method: str | None = None

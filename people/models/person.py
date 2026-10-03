@@ -1,4 +1,9 @@
+import re
+
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from people.constants.identification_type import IdentificationType
 
 from core.models import BaseModel
 
@@ -20,6 +25,13 @@ class Person(BaseModel):
     identification=models.CharField(
         max_length=20,
         unique=True
+    )
+
+    identification_type = models.CharField(
+        max_length=20,
+        choices=IdentificationType.choices,
+        null=True,
+        blank=True,
     )
 
     person_type=models.CharField(
@@ -68,6 +80,13 @@ class Person(BaseModel):
     address=models.TextField(
         blank=True
     )
+
+    def clean(self):
+        super().clean()
+        widths = {IdentificationType.RUC: 13, IdentificationType.CEDULA: 10}
+        width = widths.get(self.identification_type)
+        if width is not None and re.fullmatch(r"[0-9]{%d}" % width, self.identification or "") is None:
+            raise ValidationError({"identification": f"La identificación debe contener {width} dígitos."})
 
     def __str__(self):
         return f"{self.identification} - {self.full_name}"

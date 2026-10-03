@@ -7,6 +7,7 @@ from core.models import BaseDocument
 
 from people.models import Customer
 from inventory.models import Warehouse
+from sales.constants.payment_method import PaymentMethod
 
 
 class Sale(BaseDocument):
@@ -22,6 +23,13 @@ class Sale(BaseDocument):
         Warehouse,
         on_delete=models.PROTECT,
         related_name="sales",
+    )
+
+    payment_method = models.CharField(
+        max_length=32,
+        choices=PaymentMethod.choices,
+        null=True,
+        blank=True,
     )
 
     subtotal = models.DecimalField(

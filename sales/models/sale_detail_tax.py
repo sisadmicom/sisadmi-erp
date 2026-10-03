@@ -2,6 +2,7 @@ from django.db import models
 
 from core.models import BaseModel
 from catalog.models import Tax
+from catalog.constants.tax_category import TaxCategory
 
 from .sale_detail import SaleDetail
 
@@ -29,6 +30,13 @@ class SaleDetailTax(BaseModel):
 
     tax_type = models.CharField(
         max_length=20,
+    )
+
+    tax_category = models.CharField(
+        max_length=32,
+        choices=TaxCategory.choices,
+        null=True,
+        blank=True,
     )
 
     rate = models.DecimalField(

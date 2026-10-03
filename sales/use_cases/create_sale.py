@@ -68,6 +68,7 @@ class CreateSale:
             customer=customer,
             issue_date=dto.issue_date,
             notes=dto.notes,
+            payment_method=dto.payment_method,
         )
 
         calculated_details = []
@@ -139,6 +140,7 @@ class CreateSale:
                     tax_code=tax.code,
                     tax_name=tax.name,
                     tax_type=tax.tax_type,
+                    tax_category=tax.tax_category,
                     rate=tax.rate,
                     base=result["base"],
                     amount=amount,

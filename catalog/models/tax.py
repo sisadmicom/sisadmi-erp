@@ -1,5 +1,7 @@
 from django.db import models
 
+from catalog.constants.tax_category import TaxCategory
+
 from core.models.base import BaseModel
 from core.models import Company
 
@@ -23,6 +25,13 @@ class Tax(BaseModel):
     tax_type = models.CharField(
         max_length=20,
         choices=TAX_TYPES
+    )
+
+    tax_category = models.CharField(
+        max_length=32,
+        choices=TaxCategory.choices,
+        null=True,
+        blank=True,
     )
 
     rate = models.DecimalField(
