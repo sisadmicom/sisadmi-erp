@@ -1,0 +1,211 @@
+[
+  {
+    "order": 0,
+    "monotonic": 141540.163553227,
+    "event": "transaction_identity",
+    "worker": "replace",
+    "pid": 2172540,
+    "database": "test_sisadmi_clientes013",
+    "user": "sisadmi_erp_test_runner",
+    "host": "127.0.0.1/32",
+    "port": 5432,
+    "isolation": "read committed"
+  },
+  {
+    "order": 1,
+    "monotonic": 141540.173480449,
+    "event": "locking_query_start",
+    "worker": "replace",
+    "sql": "SELECT \"people_customer\".\"id\", \"people_customer\".\"created_at\", \"people_customer\".\"updated_at\", \"people_customer\".\"created_by_id\", \"people_customer\".\"updated_by_id\", \"people_customer\".\"is_active\", \"people_customer\".\"deleted_at\", \"people_customer\".\"company_id\", \"people_customer\".\"person_id\", \"people_customer\".\"credit_limit\", \"people_customer\".\"notes\", \"people_customer\".\"category_id\" FROM \"people_customer\" WHERE (\"people_customer\".\"company_id\" = %s AND \"people_customer\".\"id\" = %s) ORDER BY \"people_customer\".\"id\" ASC LIMIT 1 FOR UPDATE",
+    "params": [
+      381,
+      164
+    ]
+  },
+  {
+    "order": 2,
+    "monotonic": 141540.174565154,
+    "event": "locking_query_complete",
+    "worker": "replace",
+    "rowcount": 1
+  },
+  {
+    "order": 3,
+    "monotonic": 141540.200877769,
+    "event": "transaction_identity",
+    "worker": "delete",
+    "pid": 2172542,
+    "database": "test_sisadmi_clientes013",
+    "user": "sisadmi_erp_test_runner",
+    "host": "127.0.0.1/32",
+    "port": 5432,
+    "isolation": "read committed"
+  },
+  {
+    "order": 4,
+    "monotonic": 141540.212710057,
+    "event": "locking_query_start",
+    "worker": "delete",
+    "sql": "SELECT \"people_customer\".\"id\", \"people_customer\".\"created_at\", \"people_customer\".\"updated_at\", \"people_customer\".\"created_by_id\", \"people_customer\".\"updated_by_id\", \"people_customer\".\"is_active\", \"people_customer\".\"deleted_at\", \"people_customer\".\"company_id\", \"people_customer\".\"person_id\", \"people_customer\".\"credit_limit\", \"people_customer\".\"notes\", \"people_customer\".\"category_id\" FROM \"people_customer\" WHERE (\"people_customer\".\"company_id\" = %s AND \"people_customer\".\"id\" = %s) ORDER BY \"people_customer\".\"id\" ASC LIMIT 1 FOR UPDATE",
+    "params": [
+      381,
+      164
+    ]
+  },
+  {
+    "order": 5,
+    "monotonic": 141540.220337464,
+    "event": "blocking_edge",
+    "observer_pid": 2172538,
+    "waiter_pid": 2172542,
+    "holder_pid": 2172540,
+    "blockers": [
+      2172540
+    ]
+  },
+  {
+    "order": 6,
+    "monotonic": 141540.22416069,
+    "event": "holder_release_requested"
+  },
+  {
+    "order": 7,
+    "monotonic": 141540.226938231,
+    "event": "person_visibility_read_start",
+    "worker": "replace",
+    "sql": "SELECT %s AS \"a\" FROM \"people_person\" INNER JOIN \"people_companypersonaccess\" ON (\"people_person\".\"id\" = \"people_companypersonaccess\".\"person_id\") WHERE (\"people_companypersonaccess\".\"company_id\" = %s AND \"people_person\".\"is_active\" AND \"people_person\".\"id\" = %s) LIMIT 1",
+    "params": [
+      1,
+      381,
+      745
+    ]
+  },
+  {
+    "order": 8,
+    "monotonic": 141540.229269752,
+    "event": "person_visibility_read_complete",
+    "worker": "replace",
+    "rowcount": 1
+  },
+  {
+    "order": 9,
+    "monotonic": 141540.232478136,
+    "event": "person_visibility_read_start",
+    "worker": "replace",
+    "sql": "SELECT \"people_person\".\"id\", \"people_person\".\"created_at\", \"people_person\".\"updated_at\", \"people_person\".\"created_by_id\", \"people_person\".\"updated_by_id\", \"people_person\".\"is_active\", \"people_person\".\"deleted_at\", \"people_person\".\"identification\", \"people_person\".\"identification_type\", \"people_person\".\"person_type\", \"people_person\".\"full_name\", \"people_person\".\"email\", \"people_person\".\"phone\", \"people_person\".\"country_id\", \"people_person\".\"province_id\", \"people_person\".\"canton_id\", \"people_person\".\"parish_id\", \"people_person\".\"address\", \"people_person\".\"identification_kind_id\" FROM \"people_person\" INNER JOIN \"people_companypersonaccess\" ON (\"people_person\".\"id\" = \"people_companypersonaccess\".\"person_id\") WHERE (\"people_companypersonaccess\".\"company_id\" = %s AND \"people_person\".\"is_active\" AND \"people_person\".\"id\" = %s) ORDER BY \"people_person\".\"id\" ASC LIMIT 1",
+    "params": [
+      381,
+      746
+    ]
+  },
+  {
+    "order": 10,
+    "monotonic": 141540.233227569,
+    "event": "person_visibility_read_complete",
+    "worker": "replace",
+    "rowcount": 1
+  },
+  {
+    "order": 11,
+    "monotonic": 141540.252034785,
+    "event": "transaction_commit_returned",
+    "worker": "replace",
+    "result_id": 164
+  },
+  {
+    "order": 12,
+    "monotonic": 141540.25235532,
+    "event": "locking_query_complete",
+    "worker": "delete",
+    "rowcount": 1
+  },
+  {
+    "order": 13,
+    "monotonic": 141540.257553642,
+    "event": "person_visibility_read_start",
+    "worker": "delete",
+    "sql": "SELECT %s AS \"a\" FROM \"people_person\" INNER JOIN \"people_companypersonaccess\" ON (\"people_person\".\"id\" = \"people_companypersonaccess\".\"person_id\") WHERE (\"people_companypersonaccess\".\"company_id\" = %s AND \"people_person\".\"is_active\" AND \"people_person\".\"id\" = %s) LIMIT 1",
+    "params": [
+      1,
+      381,
+      746
+    ]
+  },
+  {
+    "order": 14,
+    "monotonic": 141540.259773492,
+    "event": "person_visibility_read_complete",
+    "worker": "delete",
+    "rowcount": 0
+  },
+  {
+    "order": 15,
+    "monotonic": 141540.263466986,
+    "event": "worker_error",
+    "worker": "delete",
+    "exception_type": "ObjectDoesNotExist",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/sisadmi/workspace/sisadmi-erp/sisadmi-erp/people/tests/test_customer_document_concurrency_clientes013.py\", line 83, in run\n    state['result'] = self.action(name)\n                      ^^^^^^^^^^^^^^^^^\n  File \"/home/sisadmi/workspace/sisadmi-erp/sisadmi-erp/people/tests/test_customer_document_concurrency_clientes013.py\", line 248, in replace_then_revoke\n    result = original_action(name)\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sisadmi/workspace/sisadmi-erp/sisadmi-erp/people/tests/test_customer_document_concurrency_clientes013.py\", line 48, in action\n    customer_maintenance.delete(actor=actor, company=company, relation_id=self.customer.pk)\n  File \"/usr/lib/python3.12/contextlib.py\", line 81, in inner\n    return func(*args, **kwds)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/sisadmi/workspace/sisadmi-erp/sisadmi-erp/people/services/customer_maintenance.py\", line 123, in delete\n    customer = _service.relation(actor, company, relation_id, lock=True)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sisadmi/workspace/sisadmi-erp/sisadmi-erp/people/services/customer_maintenance.py\", line 22, in relation\n    raise ObjectDoesNotExist('Commercial relationship unavailable.')\ndjango.core.exceptions.ObjectDoesNotExist: Commercial relationship unavailable.\n"
+  },
+  {
+    "order": 16,
+    "monotonic": 141540.271540033,
+    "event": "fixture_ids",
+    "customer_id": 164,
+    "company_id": 381,
+    "original_person_id": 745,
+    "replacement_person_id": 746
+  },
+  {
+    "order": 17,
+    "monotonic": 141540.274247157,
+    "event": "transaction_identity",
+    "worker": "final_observer",
+    "pid": 2172538,
+    "database": "test_sisadmi_clientes013",
+    "user": "sisadmi_erp_test_runner",
+    "host": "127.0.0.1/32",
+    "port": 5432,
+    "isolation": "repeatable read"
+  },
+  {
+    "order": 18,
+    "monotonic": 141540.294337464,
+    "event": "final_snapshot_before_test_cleanup",
+    "direct": {
+      "sql": "SELECT \"people_customer\".\"id\" AS \"id\", \"people_customer\".\"company_id\" AS \"company_id\", \"people_customer\".\"person_id\" AS \"person_id\", \"people_customer\".\"category_id\" AS \"category_id\", \"people_customer\".\"is_active\" AS \"is_active\" FROM \"people_customer\" WHERE (\"people_customer\".\"company_id\" = %s AND \"people_customer\".\"id\" = %s)",
+      "params": [
+        381,
+        164
+      ],
+      "rows": [
+        {
+          "id": 164,
+          "company_id": 381,
+          "person_id": 746,
+          "category_id": 454,
+          "is_active": true
+        }
+      ]
+    },
+    "availability_filtered": {
+      "sql": "SELECT \"people_customer\".\"id\" AS \"id\", \"people_customer\".\"company_id\" AS \"company_id\", \"people_customer\".\"person_id\" AS \"person_id\", \"people_customer\".\"category_id\" AS \"category_id\", \"people_customer\".\"is_active\" AS \"is_active\" FROM \"people_customer\" WHERE (\"people_customer\".\"company_id\" = %s AND \"people_customer\".\"person_id\" IN (SELECT U0.\"id\" AS \"pk\" FROM \"people_person\" U0 INNER JOIN \"people_companypersonaccess\" U1 ON (U0.\"id\" = U1.\"person_id\") WHERE (U1.\"company_id\" = %s AND U0.\"is_active\")) AND \"people_customer\".\"id\" = %s)",
+      "params": [
+        381,
+        381,
+        164
+      ],
+      "rows": []
+    },
+    "persons": [
+      {
+        "id": 745,
+        "is_active": true
+      },
+      {
+        "id": 746,
+        "is_active": true
+      }
+    ],
+    "replacement_accesses": []
+  }
+]

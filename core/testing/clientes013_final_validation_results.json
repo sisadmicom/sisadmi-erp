@@ -1,0 +1,4582 @@
+{
+  "status": "PASSED",
+  "identity": [
+    "test_sisadmi_clientes013",
+    "sisadmi_erp_test_runner",
+    "127.0.0.1/32",
+    5432
+  ],
+  "runs": {
+    "historical": {
+      "selection": "historical",
+      "outcomes": [
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_active_category_can_be_explicitly_cleared",
+          "status": "passed",
+          "seconds": 0.140848,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_associated_category_is_protected_from_deletion",
+          "status": "passed",
+          "seconds": 0.062051,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_editing_other_data_preserves_category_even_when_field_is_omitted",
+          "status": "passed",
+          "seconds": 0.173189,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_existing_inactive_category_is_preserved_and_can_be_replaced",
+          "status": "passed",
+          "seconds": 0.222313,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_creation_persists_category_and_displays_it",
+          "status": "passed",
+          "seconds": 0.167277,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_creation_without_category_remains_valid",
+          "status": "passed",
+          "seconds": 0.087742,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_edit_initializes_and_changes_category",
+          "status": "passed",
+          "seconds": 0.168268,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_rejects_foreign_inactive_and_missing_categories",
+          "status": "passed",
+          "seconds": 0.135551,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_model_validation_rejects_cross_company_assignment",
+          "status": "passed",
+          "seconds": 0.042983,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_permission_and_company_scope_still_protect_customer_edit",
+          "status": "passed",
+          "seconds": 0.059772,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_selector_contains_only_active_categories_of_current_company",
+          "status": "passed",
+          "seconds": 0.057729,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_service_creation_rejects_foreign_and_inactive_categories",
+          "status": "passed",
+          "seconds": 0.056775,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_service_rejects_invalid_category_without_changing_customer",
+          "status": "passed",
+          "seconds": 0.066156,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_supplier_form_does_not_get_customer_category",
+          "status": "passed",
+          "seconds": 0.060898,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_cancel_does_not_delete",
+          "status": "passed",
+          "seconds": 0.093041,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_category_plus_returns_to_customer_creation_and_editing",
+          "status": "passed",
+          "seconds": 0.223488,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_child_permissions_and_tokens_cannot_be_bypassed",
+          "status": "passed",
+          "seconds": 0.105597,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_cross_company_and_forged_field_continuations_are_rejected",
+          "status": "passed",
+          "seconds": 0.066045,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_and_related_actions_require_csrf",
+          "status": "passed",
+          "seconds": 0.062577,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_requires_confirmation_and_keeps_person_and_category",
+          "status": "passed",
+          "seconds": 0.15722,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_requires_permission_and_is_company_scoped",
+          "status": "passed",
+          "seconds": 0.078968,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_documents_block_customer_deletion_without_cascades",
+          "status": "passed",
+          "seconds": 0.066616,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_generic_references_also_block_deletion",
+          "status": "passed",
+          "seconds": 0.077834,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_list_exposes_add_edit_and_delete_directly",
+          "status": "passed",
+          "seconds": 0.064922,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_nested_location_creation_preserves_person_and_customer_returns",
+          "status": "passed",
+          "seconds": 0.203418,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_new_category_return_replaces_inactive_initial_selection",
+          "status": "passed",
+          "seconds": 0.143898,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_person_creation_can_be_cancelled_without_losing_draft",
+          "status": "passed",
+          "seconds": 0.095223,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_person_plus_creates_selects_and_preserves_parent_data",
+          "status": "passed",
+          "seconds": 0.199977,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_plus_bypasses_required_validation_and_preserves_incomplete_values",
+          "status": "passed",
+          "seconds": 0.097648,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_replayed_person_submission_does_not_create_a_second_person",
+          "status": "passed",
+          "seconds": 0.10044,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_change_requires_permission",
+          "status": "passed",
+          "seconds": 0.061079,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_added_after_form_open_blocks_save",
+          "status": "passed",
+          "seconds": 0.120453,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_blocks_http_and_preserves_history",
+          "status": "passed",
+          "seconds": 0.093952,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_blocks_service_with_specific_error",
+          "status": "passed",
+          "seconds": 0.057509,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_duplicate_person_rejected",
+          "status": "passed",
+          "seconds": 0.060483,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_edit_shows_person_selector_and_plus",
+          "status": "passed",
+          "seconds": 0.072287,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_http_changes_person_without_documents",
+          "status": "passed",
+          "seconds": 0.093064,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_other_company_person_rejected",
+          "status": "passed",
+          "seconds": 0.087592,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_plus_person_blocked_when_document_exists",
+          "status": "passed",
+          "seconds": 0.090112,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_plus_person_in_edit_returns_and_preserves_draft",
+          "status": "passed",
+          "seconds": 0.21719,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_service_changes_person_without_documents",
+          "status": "passed",
+          "seconds": 0.058582,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_unchanged_person_and_partial_edit_allowed_with_document",
+          "status": "passed",
+          "seconds": 0.066838,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "passed": 42,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      },
+      "populated_test_unchanged": true,
+      "after": {
+        "identity": [
+          "test_sisadmi_erp",
+          "sisadmi_erp_test_runner",
+          "127.0.0.1/32",
+          5432,
+          "on"
+        ],
+        "tables": {
+          "auth_group": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_group_permissions": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_permission": {
+            "count": 256,
+            "sha256": "f6f405ff9382f400fdf35845c99b93b21014e56669e97ff8324af4bb9c18cc28"
+          },
+          "auth_user": {
+            "count": 1,
+            "sha256": "b899e1a1edaaf68f4a328fa89029f674700bb840c7a28c022595e363114690bf"
+          },
+          "auth_user_groups": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_user_user_permissions": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_brand": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_product": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_product_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productgroup": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productgroup_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productsubgroup": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productsubgroup_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_tax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_taxconfiguration": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_taxconfiguration_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_unitmeasure": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_auditlog": {
+            "count": 49,
+            "sha256": "5ca8edf2cb34a798d16b51d7f491f587d93b028c438c7909a89c2ce7bbc0af4c"
+          },
+          "core_branch": {
+            "count": 1,
+            "sha256": "66a2e5afb44417a6b2b328b56ef9aa6522fae5ba3f1784e7fecc6f54b0ca1983"
+          },
+          "core_company": {
+            "count": 1,
+            "sha256": "160ae55a7f84a9d23a7636ca6dd84844f365d824267d221aeb992d101d35872c"
+          },
+          "core_documenttype": {
+            "count": 7,
+            "sha256": "2caed235ed2200c7a25a9a15faafc0f65fbd1a5fc683f0d72a14de87cbcb4bb4"
+          },
+          "core_pointofemission": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_sequence": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_sriconfiguration": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "django_admin_log": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "django_content_type": {
+            "count": 64,
+            "sha256": "3ecadfcd4851a2e2ea6ffef6fe7f97bb1793d97f42cbbfb89a7338d349471ab4"
+          },
+          "django_migrations": {
+            "count": 78,
+            "sha256": "ad814f1ddef2e4c57e505b073ca4a1b0863f24fad0157627d57a6895e4d549bc"
+          },
+          "django_session": {
+            "count": 1,
+            "sha256": "2d984820feb0f09b1468888043a80fdf82e2ed6bdb250942c0505664c553c5de"
+          },
+          "inventory_inventoryadjustment": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_inventoryadjustmentdetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_inventoryadjustmentmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_stock": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_stockmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transfer": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transferdetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transfermovementpair": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_warehouse": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_canton": {
+            "count": 221,
+            "sha256": "20505ce53a233d6186f1f6c4d7c5ec762453bfe6a096fb897ceb790e75070d1e"
+          },
+          "people_companypersonaccess": {
+            "count": 54,
+            "sha256": "8b66a7265afdb9bdf9bd34485fb8de828133a2899cfa4d5a8eef10429dbac7a0"
+          },
+          "people_continent": {
+            "count": 1,
+            "sha256": "eda4405de3627afb6a41a79967116d90b5b762167392a24683279616dc1c76c7"
+          },
+          "people_country": {
+            "count": 1,
+            "sha256": "3ca73801a2601e0d27c692066184a938679a5d27cd35c91a571df91061ed4f73"
+          },
+          "people_customer": {
+            "count": 4,
+            "sha256": "4e253f63bcdadb682ad388779812fb22dd3c297c784c07bf257d4b2a0b70a49e"
+          },
+          "people_customercategory": {
+            "count": 4,
+            "sha256": "5e5d38de0acaf5835b4b8ebf087f3e46ffd8054be31db2e5f6e11a5e8fb13da9"
+          },
+          "people_employee": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_identificationkind": {
+            "count": 6,
+            "sha256": "bf527967f51fee744a01e15e1755502c8dcd567dd9179fc361f99fdde5ae36c3"
+          },
+          "people_parish": {
+            "count": 1354,
+            "sha256": "f8b790833fe2dffa54b619ade0f104d74f82bc98bc590e5de670d19ba2790e8c"
+          },
+          "people_person": {
+            "count": 54,
+            "sha256": "45f2dcd04080be27be2bd34960f1ff444a76b746788e88116e204e3e3425c7e8"
+          },
+          "people_province": {
+            "count": 24,
+            "sha256": "972ec5c88c45fb1946e706c752ce69eed34291c37cf9e7a1462e59e9f9be2415"
+          },
+          "people_seller": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_supplier": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchase": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasedetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasemovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturn": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturndetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturnmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_sale": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_saledetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_saledetailtax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salemovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturn": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturndetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturndetailtax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturnmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_electronicdocument": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_fiscalsequence": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sriauthorizationattempt": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sriauthorizationmessage": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sricertificate": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_srireceptionattempt": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_srireceptionmessage": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "users_userprofile": {
+            "count": 1,
+            "sha256": "a9f685693c0bf5b1035694e11d4e927c6335b62f7171fcc88814b0eb491e8d65"
+          },
+          "users_userprofile_branches": {
+            "count": 1,
+            "sha256": "dc1bbbca5ff9fbdcff7f92d923affa8d23fc33b94e858cb1034aadf6b1ddc20a"
+          },
+          "users_userprofile_companies": {
+            "count": 1,
+            "sha256": "7f499b16205be09cfed06926ebd865d6d08bbcd19f20768e782e98b1c28bf958"
+          }
+        },
+        "customer_internal_references": [
+          [
+            20,
+            93,
+            139,
+            2,
+            false
+          ],
+          [
+            72,
+            93,
+            365,
+            3,
+            true
+          ],
+          [
+            73,
+            93,
+            366,
+            1,
+            true
+          ],
+          [
+            354,
+            93,
+            2504,
+            1,
+            true
+          ]
+        ]
+      }
+    },
+    "all": {
+      "selection": "all",
+      "outcomes": [
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_cancelled_blocks_replacement_and_deletion",
+          "status": "passed",
+          "seconds": 0.377453,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_commercial_edit_allowed_for_all_document_states",
+          "status": "passed",
+          "seconds": 0.146408,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_confirmed_blocks_replacement_and_deletion",
+          "status": "passed",
+          "seconds": 0.294251,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_draft_blocks_replacement_and_deletion",
+          "status": "passed",
+          "seconds": 0.246348,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_foreign_company_customer_is_unavailable",
+          "status": "passed",
+          "seconds": 0.112656,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_foreign_replacement_person_rejected",
+          "status": "passed",
+          "seconds": 0.144927,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_inactive_person_does_not_block_sale_creation_or_confirmation",
+          "status": "passed",
+          "seconds": 0.097,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_inactive_replacement_blocks_all_customer_mutations",
+          "status": "passed",
+          "seconds": 0.29777,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_missing_delete_permission_rejects_before_customer_lock",
+          "status": "passed",
+          "seconds": 0.1207,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_postgresql_fk_prevents_raw_customer_delete",
+          "status": "passed",
+          "seconds": 0.056865,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_revoked_access_does_not_block_sale_or_recreate_access",
+          "status": "passed",
+          "seconds": 0.090194,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_restrictions_clientes013.CustomerDocumentRestrictionTests.test_revoked_replacement_access_blocks_all_customer_mutations",
+          "status": "passed",
+          "seconds": 0.324699,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_active_category_can_be_explicitly_cleared",
+          "status": "passed",
+          "seconds": 0.099319,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_associated_category_is_protected_from_deletion",
+          "status": "passed",
+          "seconds": 0.054367,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_editing_other_data_preserves_category_even_when_field_is_omitted",
+          "status": "passed",
+          "seconds": 0.118485,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_existing_inactive_category_is_preserved_and_can_be_replaced",
+          "status": "passed",
+          "seconds": 0.157135,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_creation_persists_category_and_displays_it",
+          "status": "passed",
+          "seconds": 0.134571,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_creation_without_category_remains_valid",
+          "status": "passed",
+          "seconds": 0.0813,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_edit_initializes_and_changes_category",
+          "status": "passed",
+          "seconds": 0.157878,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_http_rejects_foreign_inactive_and_missing_categories",
+          "status": "passed",
+          "seconds": 0.123884,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_model_validation_rejects_cross_company_assignment",
+          "status": "passed",
+          "seconds": 0.041052,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_permission_and_company_scope_still_protect_customer_edit",
+          "status": "passed",
+          "seconds": 0.062796,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_selector_contains_only_active_categories_of_current_company",
+          "status": "passed",
+          "seconds": 0.059329,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_service_creation_rejects_foreign_and_inactive_categories",
+          "status": "passed",
+          "seconds": 0.041193,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_service_rejects_invalid_category_without_changing_customer",
+          "status": "passed",
+          "seconds": 0.072498,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_category_assignment.CustomerCategoryAssignmentTests.test_supplier_form_does_not_get_customer_category",
+          "status": "passed",
+          "seconds": 0.048072,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_cancel_does_not_delete",
+          "status": "passed",
+          "seconds": 0.147687,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_category_plus_returns_to_customer_creation_and_editing",
+          "status": "passed",
+          "seconds": 0.227547,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_child_permissions_and_tokens_cannot_be_bypassed",
+          "status": "passed",
+          "seconds": 0.147699,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_cross_company_and_forged_field_continuations_are_rejected",
+          "status": "passed",
+          "seconds": 0.070193,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_and_related_actions_require_csrf",
+          "status": "passed",
+          "seconds": 0.07542,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_requires_confirmation_and_keeps_person_and_category",
+          "status": "passed",
+          "seconds": 0.156125,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_delete_requires_permission_and_is_company_scoped",
+          "status": "passed",
+          "seconds": 0.088129,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_documents_block_customer_deletion_without_cascades",
+          "status": "passed",
+          "seconds": 0.102869,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_generic_references_also_block_deletion",
+          "status": "passed",
+          "seconds": 0.09209,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_list_exposes_add_edit_and_delete_directly",
+          "status": "passed",
+          "seconds": 0.08837,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_nested_location_creation_preserves_person_and_customer_returns",
+          "status": "passed",
+          "seconds": 0.204819,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_new_category_return_replaces_inactive_initial_selection",
+          "status": "passed",
+          "seconds": 0.152364,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_person_creation_can_be_cancelled_without_losing_draft",
+          "status": "passed",
+          "seconds": 0.101431,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_person_plus_creates_selects_and_preserves_parent_data",
+          "status": "passed",
+          "seconds": 0.240709,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_plus_bypasses_required_validation_and_preserves_incomplete_values",
+          "status": "passed",
+          "seconds": 0.091365,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_ui_actions.CustomerUIActionsTests.test_replayed_person_submission_does_not_create_a_second_person",
+          "status": "passed",
+          "seconds": 0.10185,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_change_requires_permission",
+          "status": "passed",
+          "seconds": 0.0658,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_added_after_form_open_blocks_save",
+          "status": "passed",
+          "seconds": 0.12873,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_blocks_http_and_preserves_history",
+          "status": "passed",
+          "seconds": 0.075205,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_document_blocks_service_with_specific_error",
+          "status": "passed",
+          "seconds": 0.054441,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_duplicate_person_rejected",
+          "status": "passed",
+          "seconds": 0.092578,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_edit_shows_person_selector_and_plus",
+          "status": "passed",
+          "seconds": 0.092451,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_http_changes_person_without_documents",
+          "status": "passed",
+          "seconds": 0.083183,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_other_company_person_rejected",
+          "status": "passed",
+          "seconds": 0.093762,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_plus_person_blocked_when_document_exists",
+          "status": "passed",
+          "seconds": 0.082631,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_plus_person_in_edit_returns_and_preserves_draft",
+          "status": "passed",
+          "seconds": 0.222414,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_service_changes_person_without_documents",
+          "status": "passed",
+          "seconds": 0.049233,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_person_replacement.CustomerPersonReplacementTests.test_unchanged_person_and_partial_edit_allowed_with_document",
+          "status": "passed",
+          "seconds": 0.062371,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_controlled_timeout_and_holder_rollback_leave_no_changes",
+          "status": "passed",
+          "seconds": 1.432946,
+          "catalog_at_test_start": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172478,
+              2172476
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172476,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172478,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "OperationalError",
+              "sqlstate": "55P03"
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_delete_first_replacement_reports_missing_customer",
+          "status": "passed",
+          "seconds": 0.294792,
+          "catalog_at_test_start": [
+            {
+              "id": 45,
+              "created_at": "2026-10-18T13:02:59.912685+00:00",
+              "updated_at": "2026-10-18T13:02:59.912707+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 46,
+              "created_at": "2026-10-18T13:02:59.916971+00:00",
+              "updated_at": "2026-10-18T13:02:59.916990+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172494,
+              2172492
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172492,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172494,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "ObjectDoesNotExist",
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_delete_first_sale_waits_then_fails_without_partial_writes",
+          "status": "passed",
+          "seconds": 0.529768,
+          "catalog_at_test_start": [
+            {
+              "id": 47,
+              "created_at": "2026-10-18T13:03:00.854376+00:00",
+              "updated_at": "2026-10-18T13:03:00.854404+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 48,
+              "created_at": "2026-10-18T13:03:00.857991+00:00",
+              "updated_at": "2026-10-18T13:03:00.858017+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172519,
+              2172517
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172517,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172519,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "DoesNotExist",
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_delete_rollback_allows_waiting_sale",
+          "status": "passed",
+          "seconds": 0.326598,
+          "catalog_at_test_start": [
+            {
+              "id": 49,
+              "created_at": "2026-10-18T13:03:01.897977+00:00",
+              "updated_at": "2026-10-18T13:03:01.897999+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 50,
+              "created_at": "2026-10-18T13:03:01.900896+00:00",
+              "updated_at": "2026-10-18T13:03:01.900910+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172536,
+              2172534
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172534,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172536,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_replacement_commit_with_revoked_access_blocks_waiting_delete",
+          "status": "passed",
+          "seconds": 0.367581,
+          "catalog_at_test_start": [
+            {
+              "id": 51,
+              "created_at": "2026-10-18T13:03:02.624643+00:00",
+              "updated_at": "2026-10-18T13:03:02.624657+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 52,
+              "created_at": "2026-10-18T13:03:02.626427+00:00",
+              "updated_at": "2026-10-18T13:03:02.626440+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172542,
+              2172540
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172540,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172542,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "ObjectDoesNotExist",
+              "sqlstate": null
+            }
+          ],
+          "revocation_evidence": "/tmp/clientes013-replacement-diagnostic-bsvrthm2/evidence.json"
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_replacement_first_delete_removes_only_customer",
+          "status": "passed",
+          "seconds": 0.357809,
+          "catalog_at_test_start": [
+            {
+              "id": 53,
+              "created_at": "2026-10-18T13:03:03.621047+00:00",
+              "updated_at": "2026-10-18T13:03:03.621084+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 54,
+              "created_at": "2026-10-18T13:03:03.625124+00:00",
+              "updated_at": "2026-10-18T13:03:03.625142+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172558,
+              2172556
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172556,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172558,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_replacement_first_sale_waits_then_uses_committed_person",
+          "status": "passed",
+          "seconds": 0.33789,
+          "catalog_at_test_start": [
+            {
+              "id": 55,
+              "created_at": "2026-10-18T13:03:04.434568+00:00",
+              "updated_at": "2026-10-18T13:03:04.434601+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 56,
+              "created_at": "2026-10-18T13:03:04.438388+00:00",
+              "updated_at": "2026-10-18T13:03:04.438416+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172564,
+              2172562
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172562,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172564,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_replacement_rollback_sale_uses_original_person",
+          "status": "passed",
+          "seconds": 0.337136,
+          "catalog_at_test_start": [
+            {
+              "id": 57,
+              "created_at": "2026-10-18T13:03:05.264248+00:00",
+              "updated_at": "2026-10-18T13:03:05.264266+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 58,
+              "created_at": "2026-10-18T13:03:05.266625+00:00",
+              "updated_at": "2026-10-18T13:03:05.266638+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172601,
+              2172599
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172599,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172601,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_sale_first_delete_waits_then_rejects",
+          "status": "passed",
+          "seconds": 0.309563,
+          "catalog_at_test_start": [
+            {
+              "id": 59,
+              "created_at": "2026-10-18T13:03:06.981853+00:00",
+              "updated_at": "2026-10-18T13:03:06.981874+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 60,
+              "created_at": "2026-10-18T13:03:06.985272+00:00",
+              "updated_at": "2026-10-18T13:03:06.985292+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172606,
+              2172604
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172604,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172606,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "ValidationError",
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_sale_first_replacement_waits_then_rejects",
+          "status": "passed",
+          "seconds": 0.320846,
+          "catalog_at_test_start": [
+            {
+              "id": 61,
+              "created_at": "2026-10-18T13:03:07.760999+00:00",
+              "updated_at": "2026-10-18T13:03:07.761025+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 62,
+              "created_at": "2026-10-18T13:03:07.764756+00:00",
+              "updated_at": "2026-10-18T13:03:07.764770+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172622,
+              2172620
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172620,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172622,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": "ValidationError",
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_sale_rollback_allows_waiting_replacement",
+          "status": "passed",
+          "seconds": 0.466324,
+          "catalog_at_test_start": [
+            {
+              "id": 63,
+              "created_at": "2026-10-18T13:03:08.583780+00:00",
+              "updated_at": "2026-10-18T13:03:08.583792+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 64,
+              "created_at": "2026-10-18T13:03:08.585249+00:00",
+              "updated_at": "2026-10-18T13:03:08.585260+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172627,
+              2172625
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172625,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172627,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        },
+        {
+          "id": "people.tests.test_customer_document_concurrency_clientes013.CustomerDocumentConcurrencyTests.test_two_replacements_serialize_last_commit_wins",
+          "status": "passed",
+          "seconds": 0.335343,
+          "catalog_at_test_start": [
+            {
+              "id": 65,
+              "created_at": "2026-10-18T13:03:09.486611+00:00",
+              "updated_at": "2026-10-18T13:03:09.486639+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 66,
+              "created_at": "2026-10-18T13:03:09.490703+00:00",
+              "updated_at": "2026-10-18T13:03:09.490720+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "blocking_edges": [
+            [
+              2172643,
+              2172631
+            ]
+          ],
+          "workers": [
+            {
+              "pid": 2172631,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            },
+            {
+              "pid": 2172643,
+              "closed": true,
+              "atomic_after": false,
+              "error_class": null,
+              "sqlstate": null
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "passed": 66,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      },
+      "populated_test_unchanged": true,
+      "after": {
+        "identity": [
+          "test_sisadmi_erp",
+          "sisadmi_erp_test_runner",
+          "127.0.0.1/32",
+          5432,
+          "on"
+        ],
+        "tables": {
+          "auth_group": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_group_permissions": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_permission": {
+            "count": 256,
+            "sha256": "f6f405ff9382f400fdf35845c99b93b21014e56669e97ff8324af4bb9c18cc28"
+          },
+          "auth_user": {
+            "count": 1,
+            "sha256": "b899e1a1edaaf68f4a328fa89029f674700bb840c7a28c022595e363114690bf"
+          },
+          "auth_user_groups": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "auth_user_user_permissions": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_brand": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_product": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_product_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productgroup": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productgroup_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productsubgroup": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_productsubgroup_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_tax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_taxconfiguration": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_taxconfiguration_taxes": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "catalog_unitmeasure": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_auditlog": {
+            "count": 49,
+            "sha256": "5ca8edf2cb34a798d16b51d7f491f587d93b028c438c7909a89c2ce7bbc0af4c"
+          },
+          "core_branch": {
+            "count": 1,
+            "sha256": "66a2e5afb44417a6b2b328b56ef9aa6522fae5ba3f1784e7fecc6f54b0ca1983"
+          },
+          "core_company": {
+            "count": 1,
+            "sha256": "160ae55a7f84a9d23a7636ca6dd84844f365d824267d221aeb992d101d35872c"
+          },
+          "core_documenttype": {
+            "count": 7,
+            "sha256": "2caed235ed2200c7a25a9a15faafc0f65fbd1a5fc683f0d72a14de87cbcb4bb4"
+          },
+          "core_pointofemission": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_sequence": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "core_sriconfiguration": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "django_admin_log": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "django_content_type": {
+            "count": 64,
+            "sha256": "3ecadfcd4851a2e2ea6ffef6fe7f97bb1793d97f42cbbfb89a7338d349471ab4"
+          },
+          "django_migrations": {
+            "count": 78,
+            "sha256": "ad814f1ddef2e4c57e505b073ca4a1b0863f24fad0157627d57a6895e4d549bc"
+          },
+          "django_session": {
+            "count": 1,
+            "sha256": "2d984820feb0f09b1468888043a80fdf82e2ed6bdb250942c0505664c553c5de"
+          },
+          "inventory_inventoryadjustment": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_inventoryadjustmentdetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_inventoryadjustmentmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_stock": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_stockmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transfer": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transferdetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_transfermovementpair": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "inventory_warehouse": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_canton": {
+            "count": 221,
+            "sha256": "20505ce53a233d6186f1f6c4d7c5ec762453bfe6a096fb897ceb790e75070d1e"
+          },
+          "people_companypersonaccess": {
+            "count": 54,
+            "sha256": "8b66a7265afdb9bdf9bd34485fb8de828133a2899cfa4d5a8eef10429dbac7a0"
+          },
+          "people_continent": {
+            "count": 1,
+            "sha256": "eda4405de3627afb6a41a79967116d90b5b762167392a24683279616dc1c76c7"
+          },
+          "people_country": {
+            "count": 1,
+            "sha256": "3ca73801a2601e0d27c692066184a938679a5d27cd35c91a571df91061ed4f73"
+          },
+          "people_customer": {
+            "count": 4,
+            "sha256": "4e253f63bcdadb682ad388779812fb22dd3c297c784c07bf257d4b2a0b70a49e"
+          },
+          "people_customercategory": {
+            "count": 4,
+            "sha256": "5e5d38de0acaf5835b4b8ebf087f3e46ffd8054be31db2e5f6e11a5e8fb13da9"
+          },
+          "people_employee": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_identificationkind": {
+            "count": 6,
+            "sha256": "bf527967f51fee744a01e15e1755502c8dcd567dd9179fc361f99fdde5ae36c3"
+          },
+          "people_parish": {
+            "count": 1354,
+            "sha256": "f8b790833fe2dffa54b619ade0f104d74f82bc98bc590e5de670d19ba2790e8c"
+          },
+          "people_person": {
+            "count": 54,
+            "sha256": "45f2dcd04080be27be2bd34960f1ff444a76b746788e88116e204e3e3425c7e8"
+          },
+          "people_province": {
+            "count": 24,
+            "sha256": "972ec5c88c45fb1946e706c752ce69eed34291c37cf9e7a1462e59e9f9be2415"
+          },
+          "people_seller": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "people_supplier": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchase": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasedetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasemovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturn": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturndetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "purchases_purchasereturnmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_sale": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_saledetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_saledetailtax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salemovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturn": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturndetail": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturndetailtax": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sales_salesreturnmovement": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_electronicdocument": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_fiscalsequence": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sriauthorizationattempt": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sriauthorizationmessage": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_sricertificate": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_srireceptionattempt": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "sri_srireceptionmessage": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "users_userprofile": {
+            "count": 1,
+            "sha256": "a9f685693c0bf5b1035694e11d4e927c6335b62f7171fcc88814b0eb491e8d65"
+          },
+          "users_userprofile_branches": {
+            "count": 1,
+            "sha256": "dc1bbbca5ff9fbdcff7f92d923affa8d23fc33b94e858cb1034aadf6b1ddc20a"
+          },
+          "users_userprofile_companies": {
+            "count": 1,
+            "sha256": "7f499b16205be09cfed06926ebd865d6d08bbcd19f20768e782e98b1c28bf958"
+          }
+        },
+        "customer_internal_references": [
+          [
+            20,
+            93,
+            139,
+            2,
+            false
+          ],
+          [
+            72,
+            93,
+            365,
+            3,
+            true
+          ],
+          [
+            73,
+            93,
+            366,
+            1,
+            true
+          ],
+          [
+            354,
+            93,
+            2504,
+            1,
+            true
+          ]
+        ]
+      }
+    }
+  },
+  "catalog_events": {
+    "historical": {
+      "events": [
+        {
+          "number": 0,
+          "before": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "after": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        }
+      ],
+      "receiver_disconnected": true
+    },
+    "all": {
+      "events": [
+        {
+          "number": 0,
+          "before": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "after": [
+            {
+              "id": 43,
+              "created_at": "2026-10-18T02:28:18.495892+00:00",
+              "updated_at": "2026-10-18T02:28:18.495916+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 44,
+              "created_at": "2026-10-18T02:28:18.498491+00:00",
+              "updated_at": "2026-10-18T02:28:18.498505+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 1,
+          "before": [],
+          "after": [
+            {
+              "id": 45,
+              "created_at": "2026-10-18T13:02:59.912685+00:00",
+              "updated_at": "2026-10-18T13:02:59.912707+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 46,
+              "created_at": "2026-10-18T13:02:59.916971+00:00",
+              "updated_at": "2026-10-18T13:02:59.916990+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 2,
+          "before": [],
+          "after": [
+            {
+              "id": 47,
+              "created_at": "2026-10-18T13:03:00.854376+00:00",
+              "updated_at": "2026-10-18T13:03:00.854404+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 48,
+              "created_at": "2026-10-18T13:03:00.857991+00:00",
+              "updated_at": "2026-10-18T13:03:00.858017+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 3,
+          "before": [],
+          "after": [
+            {
+              "id": 49,
+              "created_at": "2026-10-18T13:03:01.897977+00:00",
+              "updated_at": "2026-10-18T13:03:01.897999+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 50,
+              "created_at": "2026-10-18T13:03:01.900896+00:00",
+              "updated_at": "2026-10-18T13:03:01.900910+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 4,
+          "before": [],
+          "after": [
+            {
+              "id": 51,
+              "created_at": "2026-10-18T13:03:02.624643+00:00",
+              "updated_at": "2026-10-18T13:03:02.624657+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 52,
+              "created_at": "2026-10-18T13:03:02.626427+00:00",
+              "updated_at": "2026-10-18T13:03:02.626440+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 5,
+          "before": [],
+          "after": [
+            {
+              "id": 53,
+              "created_at": "2026-10-18T13:03:03.621047+00:00",
+              "updated_at": "2026-10-18T13:03:03.621084+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 54,
+              "created_at": "2026-10-18T13:03:03.625124+00:00",
+              "updated_at": "2026-10-18T13:03:03.625142+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 6,
+          "before": [],
+          "after": [
+            {
+              "id": 55,
+              "created_at": "2026-10-18T13:03:04.434568+00:00",
+              "updated_at": "2026-10-18T13:03:04.434601+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 56,
+              "created_at": "2026-10-18T13:03:04.438388+00:00",
+              "updated_at": "2026-10-18T13:03:04.438416+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 7,
+          "before": [],
+          "after": [
+            {
+              "id": 57,
+              "created_at": "2026-10-18T13:03:05.264248+00:00",
+              "updated_at": "2026-10-18T13:03:05.264266+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 58,
+              "created_at": "2026-10-18T13:03:05.266625+00:00",
+              "updated_at": "2026-10-18T13:03:05.266638+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 8,
+          "before": [],
+          "after": [
+            {
+              "id": 59,
+              "created_at": "2026-10-18T13:03:06.981853+00:00",
+              "updated_at": "2026-10-18T13:03:06.981874+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 60,
+              "created_at": "2026-10-18T13:03:06.985272+00:00",
+              "updated_at": "2026-10-18T13:03:06.985292+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 9,
+          "before": [],
+          "after": [
+            {
+              "id": 61,
+              "created_at": "2026-10-18T13:03:07.760999+00:00",
+              "updated_at": "2026-10-18T13:03:07.761025+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 62,
+              "created_at": "2026-10-18T13:03:07.764756+00:00",
+              "updated_at": "2026-10-18T13:03:07.764770+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 10,
+          "before": [],
+          "after": [
+            {
+              "id": 63,
+              "created_at": "2026-10-18T13:03:08.583780+00:00",
+              "updated_at": "2026-10-18T13:03:08.583792+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 64,
+              "created_at": "2026-10-18T13:03:08.585249+00:00",
+              "updated_at": "2026-10-18T13:03:08.585260+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 11,
+          "before": [],
+          "after": [
+            {
+              "id": 65,
+              "created_at": "2026-10-18T13:03:09.486611+00:00",
+              "updated_at": "2026-10-18T13:03:09.486639+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 66,
+              "created_at": "2026-10-18T13:03:09.490703+00:00",
+              "updated_at": "2026-10-18T13:03:09.490720+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        },
+        {
+          "number": 12,
+          "before": [],
+          "after": [
+            {
+              "id": 67,
+              "created_at": "2026-10-18T13:03:10.335091+00:00",
+              "updated_at": "2026-10-18T13:03:10.335110+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "OTHER",
+              "name": "Otro"
+            },
+            {
+              "id": 68,
+              "created_at": "2026-10-18T13:03:10.337725+00:00",
+              "updated_at": "2026-10-18T13:03:10.337744+00:00",
+              "created_by_id": null,
+              "updated_by_id": null,
+              "is_active": true,
+              "deleted_at": null,
+              "code": "PASSPORT",
+              "name": "Pasaporte"
+            }
+          ],
+          "preexisting_rows_unchanged": true
+        }
+      ],
+      "receiver_disconnected": true
+    }
+  },
+  "durations_seconds": {
+    "historical": 4.564,
+    "all": 19.307
+  },
+  "populated_test_unchanged": true,
+  "residual_test_connections": 0,
+  "temporary_credential_removed": true,
+  "test_web_restored": true,
+  "check": "passed",
+  "makemigrations_check_dry_run": "No changes detected",
+  "pip_check": "passed",
+  "code_modified_during_execution": false
+}
