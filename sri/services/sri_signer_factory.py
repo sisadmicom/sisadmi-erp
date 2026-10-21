@@ -1,5 +1,7 @@
 from sri.models import SriCertificate
 from sri.services.pkcs12_xml_signer import Pkcs12XmlSigner
+from pathlib import Path
+from django.conf import settings
 
 
 class SriSignerFactory:
@@ -56,6 +58,9 @@ class SriSignerFactory:
                 "PKCS#12 configurado."
             )
 
+        if Path(certificate.certificate_file.path).resolve().is_relative_to(Path(settings.BASE_DIR).resolve()):
+            raise ValueError("El certificado privado debe almacenarse fuera del repositorio.")
+
         password = self.secret_provider.get(
             certificate.secret_key
         )
@@ -72,6 +77,7 @@ class SriSignerFactory:
             )
         )
 
+        self.certificate_service.validate_certificate(certificate_data.certificate)
         return Pkcs12XmlSigner(
             certificate_data
         )

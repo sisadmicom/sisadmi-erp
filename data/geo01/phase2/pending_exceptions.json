@@ -1,0 +1,126 @@
+[
+  {
+    "id": "TIPITINI-TIPUTINI",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "19",
+        "row": "66"
+      },
+      {
+        "page": "19",
+        "row": "71"
+      }
+    ],
+    "evidence": "PDF página 19 filas 66 y 71, ORELLANA / AGUARICO. Difieren en una vocal; no hay código parroquial ni evidencia suficiente para afirmar identidad. Ambas filas quedan fuera del subconjunto elegible y mantienen el bloqueo global."
+  },
+  {
+    "id": "TRUNCADA-4-31",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "4",
+        "row": "31"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "TRUNCADA-9-71",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "9",
+        "row": "71"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "TRUNCADA-13-12",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "13",
+        "row": "12"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "TRUNCADA-14-49",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "14",
+        "row": "49"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "TRUNCADA-14-50",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "14",
+        "row": "50"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "TRUNCADA-19-63",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "19",
+        "row": "63"
+      }
+    ],
+    "evidence": "Anotación truncada en la fuente; no se completa ni se inventa el nombre."
+  },
+  {
+    "id": "CODIGO-90-20-49",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "20",
+        "row": "49"
+      }
+    ],
+    "evidence": "Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana."
+  },
+  {
+    "id": "CODIGO-90-20-50",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "20",
+        "row": "50"
+      }
+    ],
+    "evidence": "Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana."
+  },
+  {
+    "id": "CODIGO-90-20-51",
+    "action": "review",
+    "status": "pending",
+    "rows": [
+      {
+        "page": "20",
+        "row": "51"
+      }
+    ],
+    "evidence": "Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana."
+  }
+]

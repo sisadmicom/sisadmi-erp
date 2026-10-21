@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Marcas</h1>
+<div class="entity-actions">
+  {% for action in add_actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+<table>
+  <thead><tr><th scope="col">Nombre</th><th scope="col">Acciones</th></tr></thead>
+  <tbody>
+  {% for row in brand_rows %}
+    <tr><td>{{ row.brand.name }}</td><td>
+      <div class="entity-actions">
+      {% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+      </div>
+    </td></tr>
+  {% empty %}<tr><td colspan="2">No existen marcas disponibles.</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

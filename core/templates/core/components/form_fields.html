@@ -1,0 +1,39 @@
+{% load static %}
+<div class="form-ux" data-form-ux>
+    <div class="form-fields">
+        <p class="form-required-note">Los campos con * son obligatorios.</p>
+        {% if form.non_field_errors %}
+        <div class="form-errors" role="alert">
+            <strong>Revise los datos del formulario.</strong>
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        {% for field in form.hidden_fields %}
+            {{ field }}
+            {% if field.errors %}
+            <div class="form-errors" role="alert">{{ field.errors }}</div>
+            {% endif %}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+        <div class="form-field" data-form-field data-help-title="{{ field.label }}">
+            {% if field.use_fieldset %}
+            <fieldset{% if field.aria_describedby %} aria-describedby="{{ field.aria_describedby }}"{% endif %}>
+                <legend>{{ field.label }} {% if field.field.required %}<span aria-hidden="true">*</span>{% else %}<span class="form-optional">(opcional)</span>{% endif %}</legend>
+            {% else %}
+            <label{% if field.id_for_label %} for="{{ field.id_for_label }}"{% endif %}>{{ field.label }} {% if field.field.required %}<span aria-hidden="true">*</span>{% else %}<span class="form-optional">(opcional)</span>{% endif %}</label>
+            {% endif %}
+            {{ field }}
+            {% if field.help_text %}
+            <p class="form-help"{% if field.auto_id %} id="{{ field.auto_id }}_helptext"{% endif %} data-help-for="{{ field.id_for_label }}">{{ field.help_text }}</p>
+            {% endif %}
+            {{ field.errors }}
+            {% if field.use_fieldset %}</fieldset>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <aside class="form-contextual-help" data-contextual-help aria-label="Ayuda del campo" aria-live="polite" aria-atomic="true" hidden>
+        <h2 data-contextual-help-title>Ayuda del campo</h2>
+        <p data-contextual-help-text>Seleccione un campo para consultar su ayuda.</p>
+    </aside>
+</div>
+<script src="{% static 'core/js/form_help.js' %}" defer></script>

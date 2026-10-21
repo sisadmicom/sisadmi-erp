@@ -1,164 +1,45 @@
+import os
+from unittest.mock import Mock
+
 from django.test import TestCase
 
-from sri.constants.document_status import SriDocumentStatus
-from sri.services.xml_signing_service import (
-    XmlSigningService,
-)
-
-from sri.tests.helpers import (
-    create_test_electronic_document,
-)
-
-
-class FakeSigner:
-
-    def sign(self, xml):
-
-        return (
-            xml.replace(
-                "<factura>",
-                '<factura firma="FAKE-SIGNATURE">',
-            )
-        )
-
-
-class FailingSigner:
-
-    def sign(self, xml):
-
-        raise RuntimeError(
-            "Error simulado de certificado."
-        )
+from sri.services.invoice_validation import FiscalValidationError, SIGNING_ERROR, company_signer, verify_signed_invoice
+from sri.services.xml_signing_service import XmlSigningService
+from sri.tests.electronic_document_signing_test_support import create_generated_document, create_certificate_record
 
 
 class XmlSigningServiceTest(TestCase):
+    def setUp(self):
+        context, self.document = create_generated_document()
+        self.record, _, self.public_certificate = create_certificate_record(context['company'])
+        self.addCleanup(os.environ.pop, self.record.secret_key, None)
+        self.signer = company_signer(context['company'])
 
     def test_sign_generated_document(self):
-
-        electronic_document = (
-            create_test_electronic_document()
-        )
-
-        electronic_document.status = (
-            SriDocumentStatus.GENERATED
-        )
-
-        electronic_document.xml = (
-            "<factura></factura>"
-        )
-
-        electronic_document.save(
-            update_fields=[
-                "status",
-                "xml",
-            ]
-        )
-
-        result = XmlSigningService.sign(
-            electronic_document,
-            FakeSigner(),
-        )
-
+        source = self.document.xml
+        result = XmlSigningService.sign(self.document, self.signer)
         result.refresh_from_db()
-
-        self.assertEqual(
-            result.status,
-            SriDocumentStatus.SIGNED,
-        )
-
-        self.assertIn(
-            "FAKE-SIGNATURE",
-            result.xml,
-        )
+        self.assertEqual(result.status, 'SIGNED')
+        verify_signed_invoice(result.xml, certificate=self.public_certificate, source_xml=source)
 
     def test_rejects_document_without_xml(self):
-
-        electronic_document = (
-            create_test_electronic_document()
-        )
-
-        electronic_document.status = (
-            SriDocumentStatus.GENERATED
-        )
-
-        electronic_document.xml = None
-
-        electronic_document.save(
-            update_fields=[
-                "status",
-                "xml",
-            ]
-        )
-
-        with self.assertRaisesMessage(
-            ValueError,
-            "El documento electrónico no tiene XML "
-            "para firmar.",
-        ):
-
-            XmlSigningService.sign(
-                electronic_document,
-                FakeSigner(),
-            )
+        self.document.xml = None;self.document.save(update_fields=['xml'])
+        with self.assertRaisesMessage(ValueError, 'no tiene XML'):
+            XmlSigningService.sign(self.document, self.signer)
 
     def test_rejects_non_generated_document(self):
+        self.document.status = 'DRAFT';self.document.save(update_fields=['status'])
+        with self.assertRaisesMessage(ValueError, 'Solo se pueden firmar'):
+            XmlSigningService.sign(self.document, self.signer)
 
-        electronic_document = (
-            create_test_electronic_document()
-        )
-
-        with self.assertRaisesMessage(
-            ValueError,
-            "Solo se pueden firmar documentos "
-            "con XML generado.",
-        ):
-
-            XmlSigningService.sign(
-                electronic_document,
-                FakeSigner(),
-            )
-
-    def test_changes_status_to_error_when_signer_fails(
-        self,
-    ):
-
-        electronic_document = (
-            create_test_electronic_document()
-        )
-
-        electronic_document.status = (
-            SriDocumentStatus.GENERATED
-        )
-
-        electronic_document.xml = (
-            "<factura></factura>"
-        )
-
-        electronic_document.save(
-            update_fields=[
-                "status",
-                "xml",
-            ]
-        )
-
-        with self.assertRaisesMessage(
-            RuntimeError,
-            "Error simulado de certificado.",
-        ):
-
-            XmlSigningService.sign(
-                electronic_document,
-                FailingSigner(),
-            )
-
-        electronic_document.refresh_from_db()
-
-        self.assertEqual(
-            electronic_document.status,
-            SriDocumentStatus.ERROR,
-        )
-
-        self.assertEqual(
-            electronic_document.error_message,
-            "Error simulado de certificado.",
-        )
+    def test_keeps_generated_and_records_safe_error_when_signer_fails(self):
+        signer = Mock();signer.sign.side_effect = RuntimeError('PRIVATE SECRET SENTINEL')
+        source = self.document.xml
+        with self.assertRaises(FiscalValidationError):
+            XmlSigningService.sign(self.document, signer, certificate=self.public_certificate)
+        signer.sign.assert_called_once_with(source)
+        self.document.refresh_from_db()
+        self.assertEqual(self.document.status, 'GENERATED')
+        self.assertEqual(self.document.xml, source)
+        self.assertEqual(self.document.error_message, SIGNING_ERROR)
+        self.assertNotIn('PRIVATE SECRET SENTINEL', self.document.error_message)

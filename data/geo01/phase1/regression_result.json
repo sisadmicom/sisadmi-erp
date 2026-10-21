@@ -1,0 +1,15 @@
+{
+  "tests": 1213,
+  "failures": 89,
+  "errors": 4,
+  "new_unexpected": [],
+  "removed_failure_records": [],
+  "baseline": "/tmp/sisadmi-action-final-full.log",
+  "current_log": "/tmp/geo01-phase1-full-suite.log",
+  "geo01_target": {
+    "passed": 25,
+    "total": 25
+  },
+  "baseline_failure_records": 93,
+  "current_failure_records": 93
+}

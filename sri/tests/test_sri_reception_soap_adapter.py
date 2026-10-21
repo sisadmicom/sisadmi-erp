@@ -1,3 +1,4 @@
+from sri.tests.r05_support import signed_invoice_fixture
 from types import SimpleNamespace
 from unittest import TestCase
 
@@ -29,30 +30,29 @@ class SriReceptionSoapAdapterREDTests(TestCase):
 
     def test_test_environment_resolves_official_reception_wsdl(self):
         result, factory, operation = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
         )
         self.assertEqual(factory.calls[0]["wsdl"], TEST_WSDL)
         self.assertEqual(operation.call_count, 1)
 
-    def test_production_environment_resolves_official_reception_wsdl(self):
-        result, factory, operation = self._run(
-            xml="<factura/>", environment=SriEnvironment.PRODUCTION,
-            response=response(state="RECIBIDA"),
-        )
-        self.assertEqual(factory.calls[0]["wsdl"], PRODUCTION_WSDL)
+    def test_production_environment_is_rejected_before_client_creation(self):
+        factory = FakeClientFactory(FakeSoapOperation(response=response(state="RECIBIDA")))
+        with self.assertRaises(ValueError):
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment=SriEnvironment.PRODUCTION)
+        self.assertEqual(factory.call_count, 0)
 
     def test_unknown_environment_fails_before_client_creation(self):
         operation = FakeSoapOperation(response=response(state="RECIBIDA"))
         factory = FakeClientFactory(operation)
         adapter = production_adapter(factory)
         with self.assertRaises(ValueError):
-            adapter.receive(xml="<factura/>", environment="9")
+            adapter.receive(xml=signed_invoice_fixture()[1], environment="9")
         self.assertEqual(factory.call_count, 0)
         self.assertEqual(operation.call_count, 0)
 
     def test_string_xml_is_encoded_utf8_once(self):
-        xml = "<factura>áé—</factura>"
+        xml = signed_invoice_fixture()[1]
         _, factory, operation = self._run(
             xml=xml, environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
@@ -60,7 +60,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
         assert_single_xml_argument(self, operation, xml.encode("utf-8"))
 
     def test_bytes_xml_are_preserved_exactly(self):
-        xml = b"<factura>\x00signed</factura>"
+        xml = signed_invoice_fixture()[1].encode("utf-8")
         _, _, operation = self._run(
             xml=xml, environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
@@ -68,7 +68,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
         assert_single_xml_argument(self, operation, xml)
 
     def test_adapter_does_not_pre_base64_encode_xml(self):
-        xml = b"<factura>raw-bytes</factura>"
+        xml = signed_invoice_fixture()[1].encode("utf-8")
         _, _, operation = self._run(
             xml=xml, environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
@@ -78,7 +78,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
 
     def test_recibida_normalizes_to_received_with_empty_messages(self):
         result, _, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA", comprobantes=None),
         )
         self.assertEqual(result.outcome, SriReceptionAttemptStatus.RECEIVED)
@@ -94,7 +94,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
             message(tipo="ERROR", identificador="50", mensaje="Cuatro", informacion="D"),
         )
         result, _, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="DEVUELTA", comprobantes=[first, second]),
         )
         self.assertEqual(result.outcome, SriReceptionAttemptStatus.REJECTED)
@@ -107,7 +107,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
 
     def test_optional_message_fields_follow_closed_policy(self):
         result, _, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="DEVUELTA", comprobantes=[comprobante(message())]),
         )
         item = result.messages[0]
@@ -121,46 +121,46 @@ class SriReceptionSoapAdapterREDTests(TestCase):
         operation = FakeSoapOperation(response=response(state="PROCESANDO"))
         factory = FakeClientFactory(operation)
         with self.assertRaises(ProtocolError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
 
     def test_missing_estado_raises_protocol_error(self):
         ProtocolError, _ = production_exceptions()
         operation = FakeSoapOperation(response=response(omit_state=True))
         factory = FakeClientFactory(operation)
         with self.assertRaises(ProtocolError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
 
     def test_soap_fault_raises_ambiguous_adapter_error(self):
         _, TransportError = production_exceptions()
         operation = FakeSoapOperation(error=RuntimeError("SOAP Fault"))
         factory = FakeClientFactory(operation)
         with self.assertRaises(TransportError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
 
     def test_read_timeout_raises_ambiguous_transport_error(self):
         _, TransportError = production_exceptions()
         operation = FakeSoapOperation(error=TimeoutError("read timeout"))
         factory = FakeClientFactory(operation)
         with self.assertRaises(TransportError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
 
     def test_connection_failure_raises_ambiguous_transport_error(self):
         _, TransportError = production_exceptions()
         operation = FakeSoapOperation(error=ConnectionError("connection refused"))
         factory = FakeClientFactory(operation)
         with self.assertRaises(TransportError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
 
     def test_tls_verification_is_enabled(self):
         _, factory, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
         )
         self.assertIs(factory.calls[0]["verify"], True)
 
     def test_transport_uses_configured_timeouts(self):
         _, factory, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
         )
         self.assertEqual(factory.calls[0]["connect_timeout"], CONNECT_TIMEOUT)
@@ -171,19 +171,19 @@ class SriReceptionSoapAdapterREDTests(TestCase):
         factory = FakeClientFactory(operation)
         _, TransportError = production_exceptions()
         with self.assertRaises(TransportError):
-            production_adapter(factory).receive(xml="<factura/>", environment="1")
+            production_adapter(factory).receive(xml=signed_invoice_fixture()[1], environment="1")
         self.assertEqual(operation.call_count, 1)
 
     def test_adapter_never_calls_authorization_service(self):
         result, factory, _ = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
         )
         self.assertEqual(factory.client.authorization_call_count, 0)
         self.assertEqual(result.outcome, SriReceptionAttemptStatus.RECEIVED)
 
     def test_adapter_does_not_modify_xml(self):
-        xml = "  <factura xmlns='urn:test'>é<Signature> x </Signature>\n</factura>  "
+        xml = signed_invoice_fixture()[1]
         _, _, operation = self._run(
             xml=xml, environment=SriEnvironment.TEST,
             response=response(state="RECIBIDA"),
@@ -192,7 +192,7 @@ class SriReceptionSoapAdapterREDTests(TestCase):
 
     def test_devuelta_error_70_follows_rejected_policy(self):
         result, _, operation = self._run(
-            xml="<factura/>", environment=SriEnvironment.TEST,
+            xml=signed_invoice_fixture()[1], environment=SriEnvironment.TEST,
             response=response(
                 state="DEVUELTA",
                 comprobantes=[comprobante(message(

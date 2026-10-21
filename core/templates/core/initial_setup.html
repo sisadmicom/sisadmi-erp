@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% block title %}Configurar empresa | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>Configurar empresa</h1>
+<nav aria-label="Progreso de configuración" class="setup-progress">
+    <ol>
+    {% for item in progress %}
+        <li{% if item.current %} aria-current="step"{% endif %}>{{ forloop.counter }} — {{ item.title }}</li>
+    {% endfor %}
+    </ol>
+</nav>
+<section class="panel form-panel">
+    <h2>{{ title }}</h2>
+    {% if step == 0 %}<p>Ingrese los datos de su empresa jurídica. Puede revisarlos antes de crearla.</p>{% endif %}
+    {% if step == 1 %}<p>Seleccione cada nivel de ubicación. Sin JavaScript, use «Actualizar opciones» después de elegir un dato para cargar el siguiente.</p>{% endif %}
+    {% if step == 2 %}<p>Esta será la primera sucursal de su empresa. El código es una referencia interna.</p>{% endif %}
+    {% if step == 3 %}
+    <p>Revise los datos. La empresa se creará únicamente al confirmar.</p>
+    {% for section in review %}
+    <section><h2>{{ section.title }}</h2><dl class="person-data">
+        {% for row in section.rows %}<dt>{{ row.label }}</dt><dd>{{ row.value|default:"No indicado" }}</dd>{% endfor %}
+    </dl></section>
+    {% endfor %}
+    {% endif %}
+    <form method="post" action="{% url 'initial_setup' %}">
+        {% csrf_token %}
+        <input type="hidden" name="wizard_token" value="{{ wizard_token }}">
+        {% include "core/components/form_fields.html" %}
+        {% if step == 1 %}
+        <div class="panel">
+            <h2>Datos de ubicación</h2>
+            {% for item in geography %}
+            {% if item.empty %}<p>No hay {{ item.label }} disponible para la selección actual. Puede adicionar el dato o elegir el nivel anterior y actualizar las opciones.</p>{% endif %}
+            <button type="submit" name="related" value="add:{{ item.kind }}" class="secondary" formnovalidate>Adicionar {{ item.label }}</button>
+            {% endfor %}
+        </div>
+        <button type="submit" name="action" value="refresh" class="secondary" formnovalidate>Actualizar opciones</button>
+        {% endif %}
+        {% if step == 2 %}<button type="submit" name="action" value="copy_address" class="secondary" formnovalidate>Usar la dirección legal</button>{% endif %}
+        <div class="action-row">
+            {% if step %}<button type="submit" name="action" value="previous" class="secondary" formnovalidate>Anterior{% if step == 3 %} — Volver a editar{% endif %}</button>{% endif %}
+            {% if step == 3 %}<button type="submit" name="action" value="confirm">Crear empresa y entrar</button>
+            {% else %}<button type="submit" name="action" value="next">Continuar</button>{% endif %}
+            <button type="submit" name="action" value="cancel" class="secondary" formnovalidate>Cancelar</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

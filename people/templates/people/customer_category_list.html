@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}Categorías de clientes | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>Categorías de clientes</h1>
+<p>Categorías de la empresa seleccionada.</p>
+<form method="get" role="search">
+    <label for="category-search">Buscar por código o descripción</label>
+    <input id="category-search" name="q" type="search" maxlength="150" value="{{ query }}">
+    <button type="submit">Buscar</button>
+    <a href="{% url 'customer_category_list' %}">Limpiar búsqueda</a>
+</form>
+{% if perms.people.add_customercategory %}<p><a class="button" href="{% url 'customer_category_create' %}">Adicionar categoría</a></p>{% endif %}
+<div class="table-scroll"><table>
+<thead><tr><th>Código</th><th>Descripción</th><th>Estado</th><th>Acciones</th></tr></thead>
+<tbody>{% for category in page %}
+<tr><td>{{ category.code }}</td><td>{{ category.name }}</td><td>{{ category.is_active|yesno:"Activo,Inactivo" }}</td>
+<td><a href="{% url 'customer_category_detail' category.pk %}">Consultar</a>
+{% if perms.people.change_customercategory %}<a href="{% url 'customer_category_update' category.pk %}">Editar</a>
+{% include "people/customer_category_activity.html" %}{% endif %}</td></tr>
+{% empty %}<tr><td colspan="4">No se encontraron categorías. Puede adicionar una si tiene permiso.</td></tr>{% endfor %}
+</tbody></table></div>
+{% if page.has_other_pages %}<nav aria-label="Páginas de categorías">
+{% if page.has_previous %}<a href="?q={{ query|urlencode }}&amp;page={{ page.previous_page_number }}">Anterior</a>{% endif %}
+<span>Página {{ page.number }} de {{ page.paginator.num_pages }}</span>
+{% if page.has_next %}<a href="?q={{ query|urlencode }}&amp;page={{ page.next_page_number }}">Siguiente</a>{% endif %}
+</nav>{% endif %}
+{% endblock %}

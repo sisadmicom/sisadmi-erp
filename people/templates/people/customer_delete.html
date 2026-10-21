@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Borrar cliente</h1>
+<p>Cliente: {{ relation.person.full_name }} — {{ relation.person.identification }}</p>
+<p>Se borrará únicamente el registro de cliente. Su Persona y categoría se conservan.</p>
+{% if blocked %}<p role="alert">No se puede borrar: tiene documentos u otros registros relacionados.</p>{% endif %}
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="confirm" value="yes" {% if blocked %}disabled{% endif %}>Confirmar borrado</button>
+    <button class="secondary" type="submit" name="action" value="cancel">Cancelar</button>
+</form>
+{% endblock %}

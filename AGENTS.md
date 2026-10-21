@@ -277,3 +277,21 @@ Antes de dar una tarea por terminada, informar:
 7. resumen del `git diff`.
 
 No hacer commit ni push salvo instrucción explícita.
+
+## Convenciones generales de interfaces SISADMI (acuerdo del usuario)
+
+- Todo mantenimiento presenta opciones visibles Adicionar, Editar y Borrar.
+- Editar debe estar directamente disponible en el listado; Consultar no lo sustituye.
+- Borrar requiere confirmación, permiso y validación de dependencias; bloquear y
+  explicar restricciones de integridad, sin cascadas indebidas. Desactivar es una
+  acción distinta y no puede sustituir silenciosamente a Borrar.
+- Todo selector de un modelo relacionado incorpora una opción Adicionar (`+`)
+  junto al campo, respetando permisos. El retorno conserva el borrador y deja
+  seleccionado el registro creado; también debe permitir cancelar sin perder datos.
+- Las acciones sin autorización permanecen identificables pero no ejecutables;
+  la validación de permisos y empresa se realiza siempre en el servidor.
+- Las excepciones requieren análisis y acuerdo expreso con el usuario; no inventar
+  políticas de identidad, integridad o navegación para eludir estos estándares.
+- Aplicar estas convenciones a las próximas interfaces dentro del alcance pedido.
+  Tras esta corrección de clientes, detenerse para validación humana; no continuar
+  a listas de precios, otros módulos, infraestructura ni SRI sin aprobación.

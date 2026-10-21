@@ -92,7 +92,7 @@ class StockMovement(BaseModel):
     )
 
     unit_cost = models.DecimalField(
-        max_digits=14,
+        max_digits=18,
         decimal_places=6,
         default=0,
     )

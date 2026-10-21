@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}Categoría de cliente | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{% if editing %}Editar{% else %}Adicionar{% endif %} categoría de cliente</h1>
+<section class="panel form-panel"><form method="post">
+    {% csrf_token %}
+    {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+    {{ form.non_field_errors }}
+    {% for field in form %}<div>{{ field.label_tag }} {{ field }}
+    {% if field.help_text %}<p class="muted">{{ field.help_text }}</p>{% endif %}{{ field.errors }}</div>{% endfor %}
+    <button type="submit">Guardar</button>
+    {% if draft_token %}<button type="submit" name="action" value="cancel" formnovalidate>Cancelar</button>{% else %}<a href="{% url 'customer_category_list' %}">Cancelar</a>{% endif %}
+</form></section>
+{% endblock %}

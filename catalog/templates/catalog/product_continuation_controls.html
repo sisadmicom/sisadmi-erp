@@ -1,0 +1,4 @@
+{% if request.product_continuation %}
+<input type="hidden" name="draft" value="{{ request.product_continuation.token }}">
+<button type="submit" name="action" value="cancel" formnovalidate>Cancelar</button>
+{% endif %}

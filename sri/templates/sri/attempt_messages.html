@@ -1,0 +1,18 @@
+{% if sri_reception_attempt %}
+<section aria-label="Respuesta de recepción SRI">
+<h2>Recepción SRI</h2>
+<p>Resultado: {% if sri_reception_attempt.status == "RECEIVED" %}RECIBIDA{% elif sri_reception_attempt.status == "REJECTED" %}DEVUELTA{% else %}{{ sri_reception_attempt.status }}{% endif %}</p>
+{% for message in sri_reception_attempt.messages.all %}
+<p>{{ message.identifier }} — {{ message.message_type }}: {{ message.message }}{% if message.additional_information %} — {{ message.additional_information }}{% endif %}</p>
+{% endfor %}
+</section>
+{% endif %}
+{% if sri_authorization_attempt %}
+<section aria-label="Respuesta de autorización SRI">
+<h2>Autorización SRI</h2>
+<p>Resultado: {% if sri_authorization_attempt.status == "AUTHORIZED" %}AUTORIZADO{% elif sri_authorization_attempt.status == "NOT_AUTHORIZED" %}NO AUTORIZADO{% else %}{{ sri_authorization_attempt.status }}{% endif %}</p>
+{% for message in sri_authorization_attempt.messages.all %}
+<p>{{ message.identifier }} — {{ message.message_type }}: {{ message.message }}{% if message.additional_information %} — {{ message.additional_information }}{% endif %}</p>
+{% endfor %}
+</section>
+{% endif %}

@@ -1,0 +1,7 @@
+{% if action.url %}
+<a class="entity-action" href="{{ action.url }}" aria-label="{{ action.label }}" title="{{ action.label }}">
+{% else %}
+<button class="entity-action" type="submit"{% if action.name %} name="{{ action.name }}" value="{{ action.value }}" formnovalidate{% endif %} aria-label="{{ action.label }}" title="{{ action.label }}">
+{% endif %}
+    <img src="{{ action.icon_url }}" width="24" height="24" alt="" aria-hidden="true">
+{% if action.url %}</a>{% else %}</button>{% endif %}

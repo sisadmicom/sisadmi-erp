@@ -7,9 +7,12 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class SriCertificateStorage(FileSystemStorage):
-    """
-    Almacenamiento privado de certificados SRI.
-    """
+    """Almacenamiento privado de certificados SRI."""
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("file_permissions_mode", 0o600)
+        kwargs.setdefault("directory_permissions_mode", 0o700)
+        super().__init__(*args, **kwargs)
 
     @property
     def base_location(self):

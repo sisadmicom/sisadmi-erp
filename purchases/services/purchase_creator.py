@@ -42,11 +42,12 @@ class PurchaseCreator:
             pk=dto.branch_id
         )
 
-        supplier = Supplier.objects.get(
+        supplier = Supplier.objects.select_for_update().get(
             pk=dto.supplier_id
         )
 
         OperationalContextValidator.validate_company_branch(company, branch)
+        PurchaseValidator.validate_supplier_for_document(supplier, company.pk)
         products = []
         for item in dto.details:
             product = Product.objects.get(pk=item.product_id)
@@ -72,10 +73,12 @@ class PurchaseCreator:
 
             product = products[line - 1]
 
-            subtotal = CommercialLineCalculator.calculate_subtotal(
-                item.quantity,
-                item.unit_price,
-                item.discount,
+            subtotal = CommercialLineCalculator.monetary_amount(
+                CommercialLineCalculator.calculate_subtotal(
+                    item.quantity,
+                    item.unit_price,
+                    item.discount,
+                )
             )
             tax_amount = Decimal("0")
             total = CommercialLineCalculator.calculate_total(
@@ -90,7 +93,7 @@ class PurchaseCreator:
                     product=product,
                     quantity=item.quantity,
                     unit_price=item.unit_price,
-                    discount=item.discount,
+                    discount=CommercialLineCalculator.monetary_amount(item.discount),
                     subtotal=subtotal,
                     tax_amount=tax_amount,
                     total=total,
@@ -101,7 +104,7 @@ class PurchaseCreator:
             details
         )
 
-        totals = CommercialTotalsCalculator.calculate(details)
+        totals = CommercialTotalsCalculator.calculate(purchase.details.all())
         purchase.subtotal = totals.subtotal
         purchase.tax = totals.tax
         purchase.total = totals.total

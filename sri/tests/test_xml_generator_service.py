@@ -221,10 +221,11 @@ class XmlGeneratorServiceTest(TestCase):
             xml,
         )
 
-        self.assertIn(
-            "IVA",
-            xml,
-        )
+        from xml.etree.ElementTree import fromstring
+        tax = fromstring(xml).find("detalles/detalle/impuestos/impuesto")
+        self.assertEqual(tax.findtext("codigo"), "2")
+        self.assertEqual(tax.findtext("codigoPorcentaje"), "4")
+        self.assertIsNone(tax.find("nombre"))
 
         self.assertIn(
             "15",

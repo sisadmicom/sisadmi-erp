@@ -72,14 +72,14 @@ class Product(BaseModel):
     )
 
     cost_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
+        max_digits=18,
+        decimal_places=6,
         default=0
     )
 
     sale_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
+        max_digits=18,
+        decimal_places=6,
         default=0
     )
 

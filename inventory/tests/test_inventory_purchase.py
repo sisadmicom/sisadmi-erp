@@ -62,6 +62,7 @@ class InventoryPurchaseTest(TestCase):
         )
 
         self.supplier = Supplier.objects.create(
+            company=self.company,
             person=supplier_person,
         )
 

@@ -1,14 +1,25 @@
 {% extends "core/base.html" %}
-
+{% block title %}Inicio | SISADMI ERP{% endblock %}
 {% block content %}
-
-<h1>Dashboard</h1>
-<p>Bienvenido a SISADMI ERP</p>
-
-<p>Usuario: {{ request.user.username }}</p>
-
-<p>Empresa: {{ current_company }}</p>
-
-<p>Sucursal: {{ current_branch }}</p>
-
+<h1>Inicio</h1>
+<p class="muted">Seleccione una acción para comenzar.</p>
+<section class="panel">
+    <h2>Contexto de trabajo</h2>
+    <dl class="context-summary">
+        <div><dt>Empresa</dt><dd>{{ current_company }}</dd></div>
+        <div><dt>Sucursal</dt><dd>{{ current_branch }}</dd></div>
+    </dl>
+    <div class="action-row">
+        <a href="{% url 'select_company' %}">Cambiar empresa</a>
+        <a href="{% url 'select_branch' %}">Cambiar sucursal</a>
+    </div>
+</section>
+<h2>Acciones frecuentes</h2>
+<div class="action-grid">
+    {% if perms.people.view_person %}<a class="action-card" href="{% url 'person_list' %}"><strong>Personas</strong><span>Buscar, consultar y registrar personas.</span></a>{% endif %}
+    <a class="action-card" href="{% url 'sale_create' %}"><strong>Nueva venta</strong><span>Crear un borrador de venta.</span></a>
+    <a class="action-card" href="{% url 'product_list' %}"><strong>Productos</strong><span>Consultar el catálogo de la empresa.</span></a>
+</div>
+<h2>Módulos pendientes</h2>
+<p class="muted">Inventario · Compras</p>
 {% endblock %}

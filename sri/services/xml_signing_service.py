@@ -1,150 +1,51 @@
 from django.db import transaction
 
 from sri.constants.document_status import SriDocumentStatus
-from sri.services.sri_document_status_service import (
-    SriDocumentStatusService,
+from sri.models import ElectronicDocument
+from sri.services.invoice_validation import (
+    FiscalValidationError, SIGNING_ERROR, validate_document_invoice, verify_signed_invoice, company_signer,
 )
+from sri.services.sri_document_status_service import SriDocumentStatusService
 
 
 class XmlSigningService:
-    """
-    Servicio responsable del proceso de firma electrónica.
-
-    El servicio no conoce la implementación criptográfica.
-
-    El objeto signer solamente debe proporcionar:
-
-        sign(xml)
-
-    Puede ser:
-    - un firmador real
-    - un firmador de pruebas
-    - un mock
-    - una implementación futura con certificado .p12
-    """
+    """Sign and verify the exact persisted invoice; failures keep GENERATED."""
 
     @staticmethod
-    def sign(
-        electronic_document,
-        signer,
-    ):
-
-        # --------------------------------------------------
-        # 1. Validar estado
-        # --------------------------------------------------
-
-        if (
-            electronic_document.status
-            != SriDocumentStatus.GENERATED
-        ):
-            raise ValueError(
-                "Solo se pueden firmar documentos "
-                "con XML generado."
-            )
-
-        # --------------------------------------------------
-        # 2. Validar XML
-        # --------------------------------------------------
-
-        if not electronic_document.xml:
-            raise ValueError(
-                "El documento electrónico no tiene XML "
-                "para firmar."
-            )
-
-        # --------------------------------------------------
-        # 3. Validar interfaz del firmador
-        # --------------------------------------------------
-
-        if not hasattr(signer, "sign"):
-
-            raise TypeError(
-                "El firmador debe proporcionar "
-                "un método sign(xml)."
-            )
-
-        # --------------------------------------------------
-        # 4. Ejecutar firma
-        # --------------------------------------------------
-
+    def sign(electronic_document, signer, *, certificate=None):
+        locked = None
+        source_xml = None
         try:
-
-            signed_xml = signer.sign(
-                electronic_document.xml
-            )
-
+            with transaction.atomic():
+                locked = ElectronicDocument.objects.select_for_update().get(pk=electronic_document.pk)
+                if locked.status != SriDocumentStatus.GENERATED:
+                    raise FiscalValidationError("Solo se pueden firmar documentos con XML generado.")
+                source_xml = locked.xml
+                if not source_xml:
+                    raise FiscalValidationError("El documento electrónico no tiene XML para firmar.")
+                validate_document_invoice(locked)
+                expected_certificate = certificate
+                if expected_certificate is None:
+                    expected_certificate = company_signer(locked.company).certificate_data.certificate
+                signed_xml = signer.sign(source_xml)
+                verify_signed_invoice(signed_xml, certificate=expected_certificate,
+                                      source_xml=source_xml)
+                locked.xml = signed_xml
+                locked.error_message = ""
+                locked.save(update_fields=["xml", "error_message"])
+                SriDocumentStatusService.change_status(locked, SriDocumentStatus.SIGNED)
+                return locked
         except Exception as error:
-
-            XmlSigningService._register_error(
-                electronic_document,
-                error,
-            )
-
-            raise
-
-        # --------------------------------------------------
-        # 5. Validar resultado
-        # --------------------------------------------------
-
-        if not signed_xml:
-
-            error = ValueError(
-                "El proceso de firma no devolvió XML."
-            )
-
-            XmlSigningService._register_error(
-                electronic_document,
-                error,
-            )
-
-            raise error
-
-        # --------------------------------------------------
-        # 6. Guardar XML firmado
-        # --------------------------------------------------
-
-        electronic_document.xml = signed_xml
-
-        electronic_document.save(
-            update_fields=[
-                "xml",
-            ]
-        )
-
-        # --------------------------------------------------
-        # 7. Cambiar estado
-        # --------------------------------------------------
-
-        SriDocumentStatusService.change_status(
-            electronic_document,
-            SriDocumentStatus.SIGNED,
-        )
-
-        return electronic_document
+            if locked is not None and source_xml is not None:
+                XmlSigningService._register_error(locked.pk, source_xml)
+            if isinstance(error, FiscalValidationError):
+                raise
+            raise FiscalValidationError(SIGNING_ERROR) from None
 
     @staticmethod
-    @transaction.atomic
-    def _register_error(
-        electronic_document,
-        error,
-    ):
-        """
-        Registra el error en una transacción independiente.
-        """
-
-        electronic_document.refresh_from_db()
-
-        electronic_document.error_message = str(
-            error
-        )
-
-        electronic_document.save(
-            update_fields=[
-                "error_message",
-            ]
-        )
-
-        SriDocumentStatusService.change_status(
-            electronic_document,
-            SriDocumentStatus.ERROR,
-        )
+    def _register_error(document_id, source_xml):
+        # Conditional update does not overwrite a concurrently signed/edited
+        # version. No raw certificate/transport exception is persisted.
+        ElectronicDocument.objects.filter(
+            pk=document_id, status=SriDocumentStatus.GENERATED, xml=source_xml,
+        ).update(error_message=SIGNING_ERROR)

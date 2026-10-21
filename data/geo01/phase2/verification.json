@@ -1,0 +1,134 @@
+{
+  "execution_authorized": false,
+  "actual_database_writes": 0,
+  "database_name": "sisadmi_erp_dev",
+  "database_before": {
+    "Continent": [
+      {
+        "id": 1,
+        "name": "America"
+      }
+    ],
+    "Country": [
+      {
+        "id": 1,
+        "name": "ECUADOR",
+        "code": "593",
+        "continent_id": 1
+      }
+    ],
+    "Province": [
+      {
+        "id": 1,
+        "name": "MANABI",
+        "country_id": 1
+      }
+    ],
+    "Canton": [
+      {
+        "id": 1,
+        "name": "PORTOVIEJO",
+        "province_id": 1
+      }
+    ],
+    "Parish": [
+      {
+        "id": 1,
+        "name": "RIOCHICO",
+        "canton_id": 1
+      },
+      {
+        "id": 2,
+        "name": "SAN ALEJO",
+        "canton_id": 1
+      }
+    ]
+  },
+  "database_after": {
+    "Continent": [
+      {
+        "id": 1,
+        "name": "America"
+      }
+    ],
+    "Country": [
+      {
+        "id": 1,
+        "name": "ECUADOR",
+        "code": "593",
+        "continent_id": 1
+      }
+    ],
+    "Province": [
+      {
+        "id": 1,
+        "name": "MANABI",
+        "country_id": 1
+      }
+    ],
+    "Canton": [
+      {
+        "id": 1,
+        "name": "PORTOVIEJO",
+        "province_id": 1
+      }
+    ],
+    "Parish": [
+      {
+        "id": 1,
+        "name": "RIOCHICO",
+        "canton_id": 1
+      },
+      {
+        "id": 2,
+        "name": "SAN ALEJO",
+        "canton_id": 1
+      }
+    ]
+  },
+  "database_sha256": "e7fa0ab594e9f3d0cf0004299f1eea26aacb2e3650fcc26e02f52241f14095bd",
+  "protected_artifact_hashes": {
+    "data/geo01/model_contract.json": "1b9d33db5b90720ba679027f5c5baaf849d07cc7bb33aae47f806ccb995bbe7f",
+    "data/geo01/development_audit.json": "514d9a3ab8f16932d1cf96b10ff9882441bcddfb68e58497630742ddac7cb27e",
+    "data/geo01/ecuador_2016.csv": "8a5ee6152635567c3cb2e7f5c6c8c0ec5e329a6ab10808376428a3190c6c5fb2",
+    "data/geo01/development_dry_run.json": "93beed88db9f38c0cb8480c519f93739cd5d3eddce27cfdb777fb6ed5caa365e",
+    "data/geo01/REPORT.md": "37d3dd6d10adc5123655ce7f172a1971ba970666c171c9a07d86ba4c65c6b67b",
+    "data/geo01/source_report.json": "ffee04f6fc38599b36538c9c97cc3cec96069fe2edf26df1bd4da5ce4d2de063",
+    "data/geo01/parishes_by_canton.csv": "251006d62696a840168eee81f219ecccbacb177e75971c14456d9f9bb7c8e2e1",
+    "data/geo01/verification.json": "55526e631f57e5769816e3d548f7edd33f95433c6d253e8b6f68a07d1a1bae37",
+    "data/geo01/phase1/regression_result.json": "6085ee7bbab724c4657ced40f5a85b5f2bfe2f6ffffc6740c98a29b6271749c2",
+    "data/geo01/phase1/repeat_simulation.json": "1be8d104eb5ccdca308694298299ad3e290c4b143b897fa7af13751120993c8c",
+    "data/geo01/phase1/source_lineage.json": "effb6283007c11fc9fb359e568d19a96d3b69c4ad66354234560b6e39954856e",
+    "data/geo01/phase1/PLAN.md": "f3cfcd10b95fda842dbd6d08a2cb9bc877c6b9cc84f22718f47995e666032277",
+    "data/geo01/phase1/original_artifact_hashes.json": "73485444d1a92634595fc15a6f6ddd05b6aff9708300d470d6c91042067724c8",
+    "data/geo01/phase1/final_audit.json": "318964ff134fd240d94fb43ab3df8c5d7ef7509afe9673fe66f87a5a09ed1b4c",
+    "data/geo01/phase1/source_lineage.csv": "32bb9d4270fd704000cd566a6b9caf89a6c0c0b0b4210f8002f159dc4712cc80",
+    "data/geo01/phase1/development_plan.json": "bf1007e64aaf171d33b3775db4bc6480c3a9ac6512465fc1f78e2ac6ae3e66a6",
+    "data/geo01/phase1/database_before.json": "6f91fbe13d48c11231a86efbede3a4d56bb22420d5d4c2c53bdd03420909d569",
+    "data/geo01/phase1/entity_counts.csv": "019257ad1dd4fe697a5577d30e72529987de0287fe764475aa4913a8505173a6",
+    "data/geo01/phase1/import_decisions.json": "443349863159b0acccb9c89091dcad80af90010d33b510f09272061ac0d57334",
+    "data/geo01/phase1/decisions_table.csv": "e12061fd505d660a11f8aa0c0d44112d225ecbec3d4f5ec4de0725e63b9bba25"
+  },
+  "subset_sha256": "07f80efd52a70964d2795f016d9eb3d220f7e3eaca431bda95c84e482c70f2cc",
+  "parent_counts": {
+    "provinces": 24,
+    "cantons": 221
+  },
+  "source_counts": {
+    "source_rows": 1398,
+    "unique_original_rows": 1367,
+    "exact_duplicate_rows_consolidated": 31,
+    "equivalent_rows_consolidated": 2,
+    "alias_rows_consolidated": 0,
+    "excluded_source_rows": 11,
+    "excluded_distinct_rows": 11,
+    "eligible_distinct_rows": 1354,
+    "pending_cases": 10
+  },
+  "operations": {
+    "CREATE": 1596,
+    "REUSE": 5,
+    "SKIP": 44,
+    "CONFLICT": 0
+  }
+}

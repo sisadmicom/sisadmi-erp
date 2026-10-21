@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Consultar grupo</h1>
+{% if group.company_id %}<p>Empresa: {{ company.commercial_name }}</p>{% else %}<p>Solo consulta</p>{% endif %}
+<dl>
+  <dt>Nombre</dt><dd>{{ group.name }}</dd>
+  <dt>Estado</dt><dd>{% if group.is_active %}Activo{% else %}Inactivo{% endif %}</dd>
+  <dt>Fecha de creación</dt><dd>{{ group.created_at }}</dd>
+  {% if group.created_by %}<dt>Creado por</dt><dd>{{ group.created_by.get_username }}</dd>{% endif %}
+  <dt>Última actualización</dt><dd>{{ group.updated_at }}</dd>
+  {% if group.updated_by %}<dt>Actualizado por</dt><dd>{{ group.updated_by.get_username }}</dd>{% endif %}
+  {% if group.deleted_at %}<dt>Fecha de desactivación</dt><dd>{{ group.deleted_at }}</dd>{% endif %}
+</dl>
+<div class="entity-actions">
+  {% for action in actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+{% if request.product_continuation %}
+<a href="{{ request.product_continuation.return_url }}">Volver al producto</a>
+{% else %}
+<a href="{% url 'group_list' %}">Volver al listado</a>
+{% endif %}
+{% endblock %}

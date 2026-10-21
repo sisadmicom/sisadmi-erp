@@ -8,6 +8,7 @@ from html.parser import HTMLParser
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, tag
 from django.urls import reverse
@@ -49,6 +50,10 @@ class NavigationHTML(HTMLParser):
 class FiscalWorkflowNavigationTests(FiscalPreparationTriggerFixtureMixin, TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username="c14e-operator")
+        self.user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sri",
+            codename__in=["view_electronicdocument", "change_electronicdocument"],
+        ))
         self.user.profile.companies.add(self.company, self.other_company)
         self.user.profile.branches.add(self.branch, self.other_branch, self.other_company_branch)
         self.client.force_login(self.user)

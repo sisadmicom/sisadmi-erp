@@ -1,0 +1,45 @@
+decision_id,action,status,province_code,province,canton,original_names,planned_name,source_refs,evidence
+EL-ANGEL,equivalent,verified,04,CARCHI,ESPEJO,EL ÁNGEL | EL ANGEL,EL ÁNGEL,3/59 | 3/61,"PDF página 3 filas 59 y 61: mismo código 04, provincia CARCHI y cantón ESPEJO. Solo cambia la tilde. Imagen y celdas verificadas; la grafía seleccionada ya existe en la fuente."
+SANGOLQUI,equivalent,verified,17,PICHINCHA,RUMIÑAHUI,SANGOLQUÍ | SANGOLQUI,SANGOLQUÍ,17/25 | 17/28,"PDF página 17 filas 25 y 28: mismo código 17, provincia PICHINCHA y cantón RUMIÑAHUI. Solo cambia la tilde. Imagen y celdas verificadas; la grafía seleccionada ya existe en la fuente."
+RIOCHICO,reuse_existing,verified,13,MANABI,PORTOVIEJO,RIOCHICO (RÍO CHICO),RIOCHICO,12/62,"PDF página 12 fila 62: código 13, MANABI, PORTOVIEJO, RIOCHICO (RÍO CHICO). ORM confirma Parish RIOCHICO vinculada a Canton PORTOVIEJO, Province MANABI, Country ECUADOR (593) y Continent America. La anotación presenta el alias RÍO CHICO; coincide también el nombre base RIOCHICO. Se conserva íntegro el registro existente."
+TIPITINI-TIPUTINI,review,pending,22,ORELLANA,AGUARICO,TIPITINI | TIPUTINI,,19/66 | 19/71,"PDF página 19 filas 66 y 71, ORELLANA / AGUARICO. Difieren en una vocal; no hay código parroquial ni evidencia suficiente para afirmar identidad. Ambas filas quedan fuera del subconjunto elegible y mantienen el bloqueo global."
+TRUNCADA-4-31,review,pending,05,COTOPAXI,LA MANÁ,GUASAGANDA (CAB.EN GUASAGANDA,,4/31,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+TRUNCADA-9-71,review,pending,10,IMBABURA,COTACACHI,VACAS GALINDO (EL CHURO) (CAB.EN SAN MIGUEL ALTO,,9/71,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+TRUNCADA-13-12,review,pending,13,MANABI,FLAVIO ALFARO,SAN FRANCISCO DE NOVILLO (CAB. EN,,13/12,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+TRUNCADA-14-49,review,pending,14,MORONA SANTIAGO,LIMÓN INDANZA,SAN ANTONIO (CAB. EN SAN ANTONIO CENTRO,,14/49,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+TRUNCADA-14-50,review,pending,14,MORONA SANTIAGO,LIMÓN INDANZA,SAN CARLOS DE LIMÓN (SAN CARLOS DEL,,14/50,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+TRUNCADA-19-63,review,pending,22,ORELLANA,ORELLANA,NUEVO PARAÍSO (CAB. EN UNIÓN,,19/63,Anotación truncada en la fuente; no se completa ni se inventa el nombre.
+CODIGO-90-20-49,review,pending,90,ZONAS NO DELIMITADAS,LAS GOLONDRINAS,LAS GOLONDRINAS,,20/49,Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana.
+CODIGO-90-20-50,review,pending,90,ZONAS NO DELIMITADAS,MANGA DEL CURA,MANGA DEL CURA,,20/50,Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana.
+CODIGO-90-20-51,review,pending,90,ZONAS NO DELIMITADAS,EL PIEDRERO,EL PIEDRERO,,20/51,Código 90 ZONAS NO DELIMITADAS; no se convierte en provincia ni se asigna territorio sin decisión humana.
+EXACT-001,consolidate_exact,verified,02,BOLIVAR,GUARANDA,GUANUJO,GUANUJO,2/37 | 2/40,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-002,consolidate_exact,verified,02,BOLIVAR,LAS NAVES,LAS NAVES,LAS NAVES,2/67 | 2/68,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-003,consolidate_exact,verified,03,CAÑAR,AZOGUES,AZOGUES,AZOGUES,2/70 | 3/2,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-004,consolidate_exact,verified,04,CARCHI,TULCÁN,TULCÁN,TULCÁN,3/40 | 3/41,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-005,consolidate_exact,verified,05,COTOPAXI,LA MANÁ,LA MANÁ,LA MANÁ,4/28 | 4/30,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-006,consolidate_exact,verified,07,EL ORO,MACHALA,MACHALA,MACHALA,5/56 | 5/60,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-007,consolidate_exact,verified,07,EL ORO,MACHALA,EL CAMBIO,EL CAMBIO,5/59 | 5/61,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-008,consolidate_exact,verified,07,EL ORO,SANTA ROSA,SANTA ROSA,SANTA ROSA,6/45 | 6/50,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-009,consolidate_exact,verified,07,EL ORO,LAS LAJAS,LA VICTORIA,LA VICTORIA,6/68 | 6/71,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-010,consolidate_exact,verified,08,ESMERALDAS,ESMERALDAS,ESMERALDAS,ESMERALDAS,7/6 | 7/9,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-011,consolidate_exact,verified,09,GUAYAS,GUAYAQUIL,PASCUALES,PASCUALES,8/29 | 8/34,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-012,consolidate_exact,verified,09,GUAYAS,DAULE,DAULE,DAULE,8/44 | 8/52,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-013,consolidate_exact,verified,09,GUAYAS,DURÁN,ELOY ALFARO (DURÁN),ELOY ALFARO (DURÁN),8/60 | 8/62,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-014,consolidate_exact,verified,09,GUAYAS,SAMBORONDÓN,SAMBORONDÓN,SAMBORONDÓN,9/11 | 9/13,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-015,consolidate_exact,verified,10,IMBABURA,ANTONIO ANTE,ATUNTAQUI,ATUNTAQUI,9/55 | 9/56,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-016,consolidate_exact,verified,11,LOJA,CALVAS,CARIAMANGA,CARIAMANGA,10/41 | 10/44,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-017,consolidate_exact,verified,11,LOJA,PALTAS,CATACOCHA,CATACOCHA,11/19 | 11/21,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-018,consolidate_exact,verified,12,LOS RIOS,QUEVEDO,QUEVEDO,QUEVEDO,12/12 | 12/22,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-019,consolidate_exact,verified,12,LOS RIOS,BUENA FÉ,SAN JACINTO DE BUENA FÉ,SAN JACINTO DE BUENA FÉ,12/40 | 12/43,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-020,consolidate_exact,verified,13,MANABI,PORTOVIEJO,PORTOVIEJO,PORTOVIEJO,12/48 | 12/57,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-021,consolidate_exact,verified,13,MANABI,EL CARMEN,EL CARMEN,EL CARMEN,13/6 | 13/8,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-022,consolidate_exact,verified,13,MANABI,MANTA,MANTA,MANTA,13/29 | 13/33,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-023,consolidate_exact,verified,13,MANABI,MONTECRISTI,MONTECRISTI,MONTECRISTI,13/37 | 13/41,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-024,consolidate_exact,verified,13,MANABI,SUCRE,BAHÍA DE CARÁQUEZ,BAHÍA DE CARÁQUEZ,13/61 | 13/63,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-025,consolidate_exact,verified,14,MORONA SANTIAGO,GUALAQUIZA,GUALAQUIZA,GUALAQUIZA,14/35 | 14/37,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-026,consolidate_exact,verified,17,PICHINCHA,CAYAMBE,CAYAMBE,CAYAMBE,17/4 | 17/6,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-027,consolidate_exact,verified,18,TUNGURAHUA,SAN PEDRO DE PELILEO,PELILEO,PELILEO,18/9 | 18/11,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-028,consolidate_exact,verified,18,TUNGURAHUA,SANTIAGO DE PÍLLARO,PÍLLARO,PÍLLARO,18/21 | 18/22,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-029,consolidate_exact,verified,19,ZAMORA CHINCHIPE,ZAMORA,ZAMORA,ZAMORA,18/33 | 18/34,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-030,consolidate_exact,verified,23,SANTO DOMINGO DE LOS TSACHILAS,SANTO DOMINGO,SANTO DOMINGO DE LOS COLORADOS,SANTO DOMINGO DE LOS COLORADOS,20/22 | 20/24,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."
+EXACT-031,consolidate_exact,verified,24,SANTA ELENA,SANTA ELENA,SANTA ELENA,SANTA ELENA,20/33 | 20/34,"Mismo código, provincia, cantón y parroquia; se conservan todas las referencias originales."

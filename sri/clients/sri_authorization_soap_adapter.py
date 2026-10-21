@@ -34,6 +34,7 @@ class SriAuthorizationSoapAdapter:
 
     def query_authorization(self, *, access_key, environment):
         wsdl = self._resolve_wsdl(environment)
+        self._validate_access_key(access_key)
         try:
             client = self.client_factory(
                 wsdl=wsdl,
@@ -56,20 +57,24 @@ class SriAuthorizationSoapAdapter:
     def _resolve_wsdl(environment):
         if environment == SriEnvironment.TEST:
             return TEST_AUTHORIZATION_WSDL
-        if environment == SriEnvironment.PRODUCTION:
-            return PRODUCTION_AUTHORIZATION_WSDL
-        raise ValueError("El ambiente SRI no es válido.")
+        raise ValueError("Esta etapa permite únicamente el ambiente de pruebas del SRI.")
 
     @staticmethod
     def _create_client(*, wsdl, verify, connect_timeout, operation_timeout):
+        if wsdl != TEST_AUTHORIZATION_WSDL or verify is not True:
+            raise ValueError("El cliente SOAP requiere destino TEST y verificación TLS.")
         session = requests.Session()
         session.verify = verify
+        session.max_redirects = 0
         transport = Transport(
             session=session,
             timeout=connect_timeout,
             operation_timeout=operation_timeout,
         )
-        return Client(wsdl=wsdl, transport=transport)
+        client = Client(wsdl=wsdl, transport=transport)
+        if client.service._binding_options.get("address") != TEST_AUTHORIZATION_WSDL.removesuffix("?wsdl"):
+            raise ValueError("El endpoint SOAP de autorización no corresponde al ambiente TEST.")
+        return client
 
     @classmethod
     def _normalize_response(cls, response, *, requested_environment):

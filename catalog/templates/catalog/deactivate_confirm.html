@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Desactivar</h1>
+<p>¿Desea desactivar {{ object }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Desactivar</button>
+    <a href="{% url cancel_url %}">Cancelar</a>
+</form>
+{% endblock %}

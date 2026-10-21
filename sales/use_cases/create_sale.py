@@ -48,9 +48,11 @@ class CreateSale:
             pk=dto.warehouse_id
         )
 
-        customer = Customer.objects.get(
+        customer = Customer.objects.select_for_update().get(
             pk=dto.customer_id
         )
+
+        SaleValidator.validate_customer_for_document(customer, company.pk)
 
         OperationalContextValidator.validate_company_branch(company, branch)
         OperationalContextValidator.validate_warehouse(company, branch, warehouse)
@@ -70,8 +72,6 @@ class CreateSale:
             notes=dto.notes,
             payment_method=dto.payment_method,
         )
-
-        calculated_details = []
 
         for line_number, item in enumerate(
             dto.details,
@@ -96,8 +96,8 @@ class CreateSale:
                 product=product,
                 quantity=item.quantity,
                 unit_price=item.unit_price,
-                discount=item.discount,
-                subtotal=line_subtotal,
+                discount=CommercialLineCalculator.monetary_amount(item.discount),
+                subtotal=CommercialLineCalculator.monetary_amount(line_subtotal),
             )
 
             # -------------------------------------------------
@@ -119,6 +119,8 @@ class CreateSale:
             # -------------------------------------------------
 
             tax_results = TaxCalculationService.calculate(
+                # Preserve the existing fiscal input; commercial rounding is
+                # confined to monetary persistence and header aggregation.
                 line_subtotal,
                 taxes,
             )
@@ -155,7 +157,7 @@ class CreateSale:
             detail.tax_amount = line_tax
 
             detail.total = CommercialLineCalculator.calculate_total(
-                line_subtotal,
+                detail.subtotal,
                 line_tax,
             )
 
@@ -167,9 +169,7 @@ class CreateSale:
                 ]
             )
 
-            calculated_details.append(detail)
-
-        totals = CommercialTotalsCalculator.calculate(calculated_details)
+        totals = CommercialTotalsCalculator.calculate(sale.details.all())
         sale.subtotal = totals.subtotal
         sale.tax = totals.tax
         sale.total = totals.total

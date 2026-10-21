@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 """C-13D external contract; production routing, middleware and templates.
 
 No app namespace: match core/catalog URL conventions. GET/HEAD are safe;
@@ -56,6 +57,8 @@ class AuthorizationTriggerFixture:
             company=self.company, code="002", name="Second active branch",
         )
         self.user = get_user_model().objects.create_user(username="authorization-trigger")
+        self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label="sri",
+            codename__in=["view_electronicdocument", "change_electronicdocument"]))
         self.user.profile.companies.add(self.company)
         self.user.profile.branches.add(self.branch, self.second_branch)
         self.client.force_login(self.user)

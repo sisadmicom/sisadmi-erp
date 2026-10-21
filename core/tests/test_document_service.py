@@ -58,6 +58,7 @@ class DocumentServiceTest(TestCase):
         )
 
         self.customer = Customer.objects.create(
+            company=self.company,
             person=customer_person,
         )
 

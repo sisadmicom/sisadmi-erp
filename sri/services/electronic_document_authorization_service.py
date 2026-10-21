@@ -4,12 +4,14 @@ from datetime import datetime
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 
-from core.constants.sri import SriEnvironment
 from sri.constants.authorization_attempt_status import SriAuthorizationAttemptStatus
 from sri.constants.document_status import SriDocumentStatus
 from sri.models.electronic_document import ElectronicDocument
 from sri.models.sri_authorization_attempt import SriAuthorizationAttempt
 from sri.models.sri_authorization_message import SriAuthorizationMessage
+from sri.services.invoice_validation import (
+    require_test_environment, verify_signed_invoice, embedded_certificate,
+)
 
 
 class SriAuthorizationTransportError(RuntimeError):
@@ -50,6 +52,7 @@ class ElectronicDocumentAuthorizationService:
             raise ValueError("Se requiere un ElectronicDocument persistido.")
         with transaction.atomic():
             document = ElectronicDocument.objects.select_for_update().get(pk=electronic_document.pk)
+            require_test_environment(document.environment)
             if document.status == SriDocumentStatus.AUTHORIZED:
                 return document
             access_key, environment = ElectronicDocumentAuthorizationService._preflight(document)
@@ -84,9 +87,9 @@ class ElectronicDocumentAuthorizationService:
             raise ValueError("Solo se pueden autorizar documentos recibidos.")
         if not document.access_key:
             raise ValueError("El documento electrónico no tiene clave de acceso.")
-        valid = {value for value, _ in SriEnvironment.CHOICES}
-        if document.environment not in valid:
-            raise ValueError("El ambiente SRI no es válido.")
+        require_test_environment(document.environment)
+        if len(document.access_key) != 49 or not document.access_key.isdigit():
+            raise ValueError("La clave de acceso debe contener 49 dígitos.")
         return document.access_key, document.environment
 
     @staticmethod
@@ -103,6 +106,11 @@ class ElectronicDocumentAuthorizationService:
                 raise SriAuthorizationProtocolError("La autorización carece de evidencia oficial completa.")
             if timezone.is_naive(result.authorization_date):
                 raise SriAuthorizationProtocolError("La fecha de autorización debe tener zona horaria.")
+            try:
+                verify_signed_invoice(result.authorized_xml,
+                    certificate=embedded_certificate(document.xml), source_xml=document.xml)
+            except ValueError:
+                raise SriAuthorizationProtocolError("El comprobante autorizado no coincide con la factura firmada.") from None
         elif result.outcome not in (SriAuthorizationAttemptStatus.NOT_AUTHORIZED, SriAuthorizationAttemptStatus.PENDING):
             raise SriAuthorizationProtocolError("Outcome de autorización desconocido.")
 
@@ -147,5 +155,5 @@ class ElectronicDocumentAuthorizationService:
                 attempt.status = status
                 attempt.finished_at = timezone.now()
                 attempt.error_type = type(error).__name__
-                attempt.error_message = str(error)
+                attempt.error_message = "No se pudo confirmar la autorización SRI. Consulte el estado del intento."
                 attempt.save(update_fields=["status", "finished_at", "error_type", "error_message"])

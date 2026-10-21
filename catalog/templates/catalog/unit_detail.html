@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Consultar unidad</h1>
+<dl>
+  <dt>Código</dt><dd>{{ unit.code }}</dd>
+  <dt>Nombre</dt><dd>{{ unit.name }}</dd>
+  <dt>Estado</dt><dd>{% if unit.is_active %}Activa{% else %}Inactiva{% endif %}</dd>
+  <dt>Fecha de creación</dt><dd>{{ unit.created_at }}</dd>
+  {% if unit.created_by %}<dt>Creada por</dt><dd>{{ unit.created_by.get_username }}</dd>{% endif %}
+  <dt>Última actualización</dt><dd>{{ unit.updated_at }}</dd>
+  {% if unit.updated_by %}<dt>Actualizada por</dt><dd>{{ unit.updated_by.get_username }}</dd>{% endif %}
+  {% if unit.deleted_at %}<dt>Fecha de desactivación</dt><dd>{{ unit.deleted_at }}</dd>{% endif %}
+</dl>
+<div class="entity-actions">
+  {% for action in actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+{% if request.product_continuation %}
+<a href="{{ request.product_continuation.return_url }}">Volver al producto</a>
+{% else %}
+<a href="{% url 'unit_list' %}">Volver al listado</a>
+{% endif %}
+{% endblock %}

@@ -26,7 +26,7 @@ class SalesReturnFixture(TestCase):
                                     name="Devoluciones", prefix="DEV-", next_number=1)
         except DocumentType.DoesNotExist:
             pass
-        self.customer = Customer.objects.create(person=Person.objects.create(
+        self.customer = Customer.objects.create(company=self.company, person=Person.objects.create(
             identification="C02-C", person_type="NATURAL", full_name="Cliente C02"))
         self.product = Product.objects.create(company=self.company, code="P1", name="Producto")
         self.product2 = Product.objects.create(company=self.company, code="P2", name="Producto 2")

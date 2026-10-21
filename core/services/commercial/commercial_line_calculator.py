@@ -1,7 +1,12 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 
 class CommercialLineCalculator:
+
+    @staticmethod
+    def monetary_amount(value: Decimal) -> Decimal:
+        """Round commercial money at persistence boundaries, never unit values."""
+        return value.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
     @staticmethod
     def calculate_subtotal(

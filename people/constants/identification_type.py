@@ -6,3 +6,6 @@ class IdentificationType(models.TextChoices):
     CEDULA = "CEDULA", "Cédula"
     PASSPORT = "PASSPORT", "Pasaporte"
     FOREIGN_ID = "FOREIGN_ID", "Identificación del exterior"
+
+    OTHER = "OTHER", "Otro"
+    FINAL_CONSUMER = "FINAL_CONSUMER", "Consumidor Final"

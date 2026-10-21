@@ -5,6 +5,7 @@ from core.services.document_service import DocumentService
 from inventory.constants.movement_type import MovementType
 from inventory.models import Warehouse
 from inventory.services import IncreaseStock
+from people.models import Supplier
 from purchases.models import Purchase, PurchaseMovement
 from purchases.validators.purchase_validator import PurchaseValidator
 
@@ -16,6 +17,8 @@ class PurchaseConfirmationService:
         purchase = Purchase.objects.select_for_update().get(pk=purchase_id)
         DocumentService.ensure_can_confirm(purchase)
         PurchaseValidator.validate_confirmation(purchase)
+        supplier = Supplier.objects.select_for_update().get(pk=purchase.supplier_id)
+        PurchaseValidator.validate_supplier_for_document(supplier, purchase.company_id)
         warehouses = list(Warehouse.objects.filter(
             company=purchase.company, branch=purchase.branch, is_main=True,
         ))

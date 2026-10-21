@@ -1,0 +1,10 @@
+{
+  "data/geo01/model_contract.json": "1b9d33db5b90720ba679027f5c5baaf849d07cc7bb33aae47f806ccb995bbe7f",
+  "data/geo01/development_audit.json": "514d9a3ab8f16932d1cf96b10ff9882441bcddfb68e58497630742ddac7cb27e",
+  "data/geo01/ecuador_2016.csv": "8a5ee6152635567c3cb2e7f5c6c8c0ec5e329a6ab10808376428a3190c6c5fb2",
+  "data/geo01/development_dry_run.json": "93beed88db9f38c0cb8480c519f93739cd5d3eddce27cfdb777fb6ed5caa365e",
+  "data/geo01/REPORT.md": "37d3dd6d10adc5123655ce7f172a1971ba970666c171c9a07d86ba4c65c6b67b",
+  "data/geo01/source_report.json": "ffee04f6fc38599b36538c9c97cc3cec96069fe2edf26df1bd4da5ce4d2de063",
+  "data/geo01/parishes_by_canton.csv": "251006d62696a840168eee81f219ecccbacb177e75971c14456d9f9bb7c8e2e1",
+  "data/geo01/verification.json": "55526e631f57e5769816e3d548f7edd33f95433c6d253e8b6f68a07d1a1bae37"
+}

@@ -97,6 +97,7 @@ class PurchaseFixture:
         )
 
         self.supplier = Supplier.objects.create(
+            company=self.company,
             person=supplier_person,
         )
 

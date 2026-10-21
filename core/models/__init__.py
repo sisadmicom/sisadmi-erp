@@ -11,3 +11,5 @@ from .document_type import DocumentType
 from .point_of_emission import PointOfEmission
 from .sequence import Sequence
 from .sri_configuration import SriConfiguration
+
+from .audit import AuditLog

@@ -1,17 +1,21 @@
-<h1>Seleccione Sucursal</h1>
-
+{% extends "core/entity_base.html" %}
+{% block title %}Seleccionar sucursal | SISADMI{% endblock %}
+{% block content %}
+<h1>Seleccionar sucursal</h1>
+<p>Empresa<br><strong>{{ company.commercial_name }}</strong></p>
+<section class="panel selector-panel">
 <form method="post">
     {% csrf_token %}
-
-    <select name="branch_id">
-        {% for branch in branches %}
-            <option value="{{ branch.id }}">
-                {{ branch }}
-            </option>
-        {% endfor %}
+    <label for="branch_id">Sucursal <span aria-hidden="true">*</span></label>
+    <select id="branch_id" name="branch_id" required>
+        {% if branches %}
+        {% for branch in branches %}<option value="{{ branch.pk }}"{% if branch.pk == selected_branch_id %} selected{% endif %}>{{ branch.name }}</option>{% endfor %}
+        {% else %}
+        <option value="">{% if has_branches %}No tiene sucursales disponibles para esta empresa.{% else %}No existen sucursales{% endif %}</option>
+        {% endif %}
     </select>
-
-    <button type="submit">
-        Continuar
-    </button>
+    {% if can_add_branch %}<a class="button secondary" href="{% url 'branch_create' %}">+ Adicionar sucursal</a>{% endif %}
+    <button type="submit"{% if not branches %} disabled{% endif %}>Continuar</button>
 </form>
+</section>
+{% endblock %}

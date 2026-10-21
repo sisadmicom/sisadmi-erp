@@ -1,3 +1,4 @@
+from sri.tests.r05_support import official_xml
 from datetime import datetime, timezone
 from unittest import TestCase
 
@@ -58,14 +59,14 @@ class FakeAdapter:
         return self.result
 
 
-def authorized_result(document, xml=AUTHORIZED_XML):
+def authorized_result(document, xml=None):
     return SriAuthorizationResult(
         outcome=SriAuthorizationAttemptStatus.AUTHORIZED,
         access_key_consulted=document.access_key,
         authorization_number="AUTH-INTEGRATION-001",
         authorization_date=datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc),
         environment=document.environment,
-        authorized_xml=xml,
+        authorized_xml=xml if xml is not None else official_xml(document),
         messages=(SriAuthorizationMessageData("INFO", "60", "ok", None),),
     )
 
@@ -93,8 +94,9 @@ class AuthorizationEntrypointREDTests(TransactionTestCase):
         self.document.environment = SriEnvironment.PRODUCTION
         self.document.save(update_fields=["environment"])
         adapter = FakeAdapter(result=authorized_result(self.document))
-        self.invoke(adapter=adapter)
-        self.assertEqual(adapter.environments, [SriEnvironment.PRODUCTION])
+        with self.assertRaises(ValueError):
+            self.invoke(adapter=adapter)
+        self.assertEqual(adapter.environments, [])
 
     def test_authorized_result_is_finalized_through_c13a(self):
         original_xml = self.document.xml
@@ -106,7 +108,7 @@ class AuthorizationEntrypointREDTests(TransactionTestCase):
         self.assertEqual(self.document.status, SriDocumentStatus.AUTHORIZED)
         self.assertEqual(self.document.authorization_number, "AUTH-INTEGRATION-001")
         self.assertEqual(self.document.authorization_date, datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc))
-        self.assertEqual(self.document.authorized_xml, AUTHORIZED_XML)
+        self.assertEqual(self.document.authorized_xml, official_xml(self.document))
         self.assertEqual(self.document.xml, original_xml)
         self.assertEqual(attempt.status, SriAuthorizationAttemptStatus.AUTHORIZED)
         self.assertEqual(SriAuthorizationMessage.objects.filter(attempt=attempt).count(), 1)
@@ -199,7 +201,7 @@ class AuthorizationEntrypointREDTests(TransactionTestCase):
             operation=FakeSoapOperation(
                 response=response(
                     key=self.document.access_key,
-                    authorizations=[authorization(environment="PRUEBAS", comprobante=AUTHORIZED_XML)],
+                    authorizations=[authorization(environment="PRUEBAS", comprobante=official_xml(self.document))],
                 )
             )
         )

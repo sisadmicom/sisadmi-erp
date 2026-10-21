@@ -83,15 +83,8 @@ def _ensure_sales_invoice_type():
 
 
 def create_received_document():
-    _ensure_sales_invoice_type()
-    context = create_test_invoice_environment()
-    document = ElectronicInvoiceService.generate(
-        document=context["sale"],
-        document_type="01",
-        emission_point=context["emission_point"],
-        environment=SriEnvironment.TEST,
-        emission_type="1",
-    )
+    from sri.tests.reception_test_support import create_signed_document
+    context, document = create_signed_document()
     document.status = SriDocumentStatus.RECEIVED
     document.save(update_fields=["status"])
     document.refresh_from_db()
@@ -103,7 +96,7 @@ def create_authorized_document():
     document.status = SriDocumentStatus.AUTHORIZED
     document.authorization_number = document.access_key
     document.authorization_date = timezone.now()
-    document.authorized_xml = "<authorized/>"
+    document.authorized_xml = document.xml
     document.save(
         update_fields=[
             "status",

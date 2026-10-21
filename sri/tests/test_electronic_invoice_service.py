@@ -1,21 +1,12 @@
-from datetime import datetime, timedelta
 from xml.etree.ElementTree import fromstring
 
-from cryptography import x509
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.serialization import pkcs12
-from cryptography.x509.oid import NameOID
 from django.test import TestCase
 
 from sri.constants.document_status import SriDocumentStatus
-from sri.services.certificate_service import CertificateService
 from sri.services.electronic_invoice_service import ElectronicInvoiceService
-from sri.services.pkcs12_xml_signer import Pkcs12XmlSigner
 from sri.services.test_xml_signer import TestXmlSigner
 from sri.tests.helpers.invoice_factory import create_test_invoice_environment
 
-from signxml import SignatureConfiguration, XMLVerifier
 
 from unittest.mock import Mock, patch
 
@@ -76,208 +67,46 @@ class ElectronicInvoiceServiceTest(TestCase):
             "000000001",
         )
 
-    def test_sign_invoice_with_fake_signer(self):
+    def generated_with_certificate(self):
+        from sri.tests.electronic_document_signing_test_support import create_certificate_record
+        from sri.services.invoice_validation import company_signer
+        import os
 
         data = create_test_invoice_environment()
-
-        electronic_document = (
-            ElectronicInvoiceService.generate(
-                document=data["sale"],
-                document_type="01",
-                emission_point=data["emission_point"],
-                environment=data["environment"],
-                emission_type=data["emission_type"],
-            )
+        document = ElectronicInvoiceService.generate(
+            document=data["sale"], document_type="01",
+            emission_point=data["emission_point"], environment=data["environment"],
+            emission_type=data["emission_type"],
         )
+        record, _, certificate = create_certificate_record(data["company"])
+        self.addCleanup(os.environ.pop, record.secret_key, None)
+        return document, company_signer(data["company"]), certificate
 
-        self.assertEqual(
-            electronic_document.status,
-            SriDocumentStatus.GENERATED,
-        )
+    def test_fake_signature_is_rejected_with_company_certificate_configured(self):
+        from sri.services.invoice_validation import FiscalValidationError
 
-        signer = TestXmlSigner()
-
-        result = ElectronicInvoiceService.sign(
-            electronic_document,
-            signer,
-        )
-
-        result.refresh_from_db()
-
-        self.assertEqual(
-            result.status,
-            SriDocumentStatus.SIGNED,
-        )
-
-        self.assertTrue(
-            result.xml
-        )
-
-        self.assertIn(
-            "TEST-SIGNATURE",
-            result.xml,
-        )
+        document, _, _ = self.generated_with_certificate()
+        original_xml = document.xml
+        with self.assertRaisesMessage(FiscalValidationError, "XML fiscal inválido"):
+            ElectronicInvoiceService.sign(document, TestXmlSigner())
+        document.refresh_from_db()
+        self.assertEqual(document.status, SriDocumentStatus.GENERATED)
+        self.assertEqual(document.xml, original_xml)
 
     def test_sign_invoice_with_pkcs12_certificate(self):
+        from sri.services.invoice_validation import verify_signed_invoice
 
-        data = create_test_invoice_environment()
-
-        electronic_document = (
-            ElectronicInvoiceService.generate(
-                document=data["sale"],
-                document_type="01",
-                emission_point=data["emission_point"],
-                environment=data["environment"],
-                emission_type=data["emission_type"],
-            )
-        )
-
-        self.assertEqual(
-            electronic_document.status,
-            SriDocumentStatus.GENERATED,
-        )
-
-        private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048,
-        )
-
-        subject = issuer = x509.Name(
-            [
-                x509.NameAttribute(
-                    NameOID.COUNTRY_NAME,
-                    "EC",
-                ),
-                x509.NameAttribute(
-                    NameOID.ORGANIZATION_NAME,
-                    "Sisadmi Integration Test",
-                ),
-                x509.NameAttribute(
-                    NameOID.COMMON_NAME,
-                    "sisadmi.integration.test",
-                ),
-            ]
-        )
-
-        certificate = (
-            x509.CertificateBuilder()
-            .subject_name(subject)
-            .issuer_name(issuer)
-            .public_key(private_key.public_key())
-            .serial_number(
-                x509.random_serial_number()
-            )
-            .not_valid_before(
-                datetime.utcnow()
-            )
-            .not_valid_after(
-                datetime.utcnow()
-                + timedelta(days=365)
-            )
-            .add_extension(
-                x509.BasicConstraints(
-                    ca=False,
-                    path_length=None,
-                ),
-                critical=True,
-            )
-            .add_extension(
-                x509.KeyUsage(
-                    digital_signature=True,
-                    content_commitment=True,
-                    key_encipherment=False,
-                    data_encipherment=False,
-                    key_agreement=False,
-                    key_cert_sign=False,
-                    crl_sign=False,
-                    encipher_only=False,
-                    decipher_only=False,
-                ),
-                critical=True,
-            )
-            .sign(
-                private_key,
-                hashes.SHA256(),
-            )
-        )
-
-        password = "integration-password"
-
-        p12_data = (
-            pkcs12.serialize_key_and_certificates(
-                name=b"sisadmi-integration",
-                key=private_key,
-                cert=certificate,
-                cas=None,
-                encryption_algorithm=(
-                    serialization.BestAvailableEncryption(
-                        password.encode("utf-8")
-                    )
-                ),
-            )
-        )
-
-        certificate_data = CertificateService.load(
-            certificate_data=p12_data,
-            password=password,
-        )
-
-        self.assertIsNotNone(
-            certificate_data.private_key
-        )
-
-        self.assertIsNotNone(
-            certificate_data.certificate
-        )
-
-        signer = Pkcs12XmlSigner(
-            certificate_data
-        )
-
-        result = ElectronicInvoiceService.sign(
-            electronic_document,
-            signer,
-        )
-
+        document, signer, certificate = self.generated_with_certificate()
+        original_xml = document.xml
+        result = ElectronicInvoiceService.sign(document, signer)
         result.refresh_from_db()
-
-        self.assertEqual(
-            result.status,
-            SriDocumentStatus.SIGNED,
-        )
-
-        self.assertTrue(
-            result.xml
-        )
-
-        self.assertIn(
-            "<ds:Signature",
-            result.xml,
-        )
-
-        self.assertIn(
-            "QualifyingProperties",
-            result.xml,
-        )
-
-        self.assertIn(
-            "SignedProperties",
-            result.xml,
-        )
-
-        verified = XMLVerifier().verify(
-            result.xml.encode("utf-8"),
-            x509_cert=certificate.public_bytes(
-                serialization.Encoding.PEM
-            ),
-            expect_config=SignatureConfiguration(
-                expect_references=3
-            ),
-        )
-
-        self.assertTrue(
-            verified
-        )
+        self.assertEqual(result.status, SriDocumentStatus.SIGNED)
+        self.assertEqual(result.error_message, "")
+        self.assertTrue(result.xml)
+        self.assertIn("<ds:Signature", result.xml)
+        self.assertIn("QualifyingProperties", result.xml)
+        self.assertIn("SignedProperties", result.xml)
+        verify_signed_invoice(result.xml, certificate=certificate, source_xml=original_xml)
 
     def test_sign_rejects_document_not_generated(self):
 

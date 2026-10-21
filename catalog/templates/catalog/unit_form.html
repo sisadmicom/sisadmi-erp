@@ -1,21 +1,14 @@
 {% extends "core/base.html" %}
-
 {% block content %}
-
 <h1>{{ title }}</h1>
-
+<div class="entity-actions">
+  {% for action in actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
 <form method="post">
-
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit">
-
-        Guardar
-
-    </button>
-
+  {% csrf_token %}
+  {% include "core/components/entity_fields.html" with form=form %}
+  <button type="submit">Guardar</button>
+  {% if not request.product_continuation %}<a href="{% url 'unit_list' %}">Cancelar</a>{% endif %}
+  {% include "catalog/product_continuation_controls.html" %}
 </form>
-
 {% endblock %}

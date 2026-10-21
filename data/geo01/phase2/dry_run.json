@@ -1,0 +1,1577 @@
+{
+  "format": "GEO-01/v1",
+  "dry_run": true,
+  "database_name": "sisadmi_erp_dev",
+  "database_vendor": "postgresql",
+  "source_rows_sha256": "60ee1c6c8b04046ea076bf44d45d4b9b2a6c33344d222c3c3a7c7572629d7b70",
+  "database_snapshot_sha256": "e7fa0ab594e9f3d0cf0004299f1eea26aacb2e3650fcc26e02f52241f14095bd",
+  "requested_country_code": null,
+  "source": {
+    "rows": 1354,
+    "distinct_rows": 1354,
+    "provinces": [
+      {
+        "code": "01",
+        "names": [
+          "AZUAY"
+        ]
+      },
+      {
+        "code": "02",
+        "names": [
+          "BOLIVAR"
+        ]
+      },
+      {
+        "code": "03",
+        "names": [
+          "CAÑAR"
+        ]
+      },
+      {
+        "code": "04",
+        "names": [
+          "CARCHI"
+        ]
+      },
+      {
+        "code": "05",
+        "names": [
+          "COTOPAXI"
+        ]
+      },
+      {
+        "code": "06",
+        "names": [
+          "CHIMBORAZO"
+        ]
+      },
+      {
+        "code": "07",
+        "names": [
+          "EL ORO"
+        ]
+      },
+      {
+        "code": "08",
+        "names": [
+          "ESMERALDAS"
+        ]
+      },
+      {
+        "code": "09",
+        "names": [
+          "GUAYAS"
+        ]
+      },
+      {
+        "code": "10",
+        "names": [
+          "IMBABURA"
+        ]
+      },
+      {
+        "code": "11",
+        "names": [
+          "LOJA"
+        ]
+      },
+      {
+        "code": "12",
+        "names": [
+          "LOS RIOS"
+        ]
+      },
+      {
+        "code": "13",
+        "names": [
+          "MANABI"
+        ]
+      },
+      {
+        "code": "14",
+        "names": [
+          "MORONA SANTIAGO"
+        ]
+      },
+      {
+        "code": "15",
+        "names": [
+          "NAPO"
+        ]
+      },
+      {
+        "code": "16",
+        "names": [
+          "PASTAZA"
+        ]
+      },
+      {
+        "code": "17",
+        "names": [
+          "PICHINCHA"
+        ]
+      },
+      {
+        "code": "18",
+        "names": [
+          "TUNGURAHUA"
+        ]
+      },
+      {
+        "code": "19",
+        "names": [
+          "ZAMORA CHINCHIPE"
+        ]
+      },
+      {
+        "code": "20",
+        "names": [
+          "GALAPAGOS"
+        ]
+      },
+      {
+        "code": "21",
+        "names": [
+          "SUCUMBIOS"
+        ]
+      },
+      {
+        "code": "22",
+        "names": [
+          "ORELLANA"
+        ]
+      },
+      {
+        "code": "23",
+        "names": [
+          "SANTO DOMINGO DE LOS TSACHILAS"
+        ]
+      },
+      {
+        "code": "24",
+        "names": [
+          "SANTA ELENA"
+        ]
+      }
+    ],
+    "distinct_cantons": 221,
+    "parishes_by_canton": [
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "CAMILO PONCE ENRÍQUEZ",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "CHORDELEG",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "CUENCA",
+        "distinct_parishes": 37
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "EL PAN",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "GIRÓN",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "GUACHAPALA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "GUALACEO",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "NABÓN",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "OÑA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "PAUTE",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "PUCARA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "SAN FERNANDO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "SANTA ISABEL",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "SEVILLA DE ORO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "01",
+        "province": "AZUAY",
+        "canton": "SIGSIG",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "CALUMA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "CHILLANES",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "CHIMBO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "ECHEANDÍA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "GUARANDA",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "LAS NAVES",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "02",
+        "province": "BOLIVAR",
+        "canton": "SAN MIGUEL",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "AZOGUES",
+        "distinct_parishes": 14
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "BIBLIÁN",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "CAÑAR",
+        "distinct_parishes": 14
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "DÉLEG",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "EL TAMBO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "LA TRONCAL",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "03",
+        "province": "CAÑAR",
+        "canton": "SUSCAL",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "BOLÍVAR",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "ESPEJO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "MIRA",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "MONTÚFAR",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "SAN PEDRO DE HUACA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "04",
+        "province": "CARCHI",
+        "canton": "TULCÁN",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "LA MANÁ",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "LATACUNGA",
+        "distinct_parishes": 19
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "PANGUA",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "PUJILI",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "SALCEDO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "SAQUISILÍ",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "05",
+        "province": "COTOPAXI",
+        "canton": "SIGCHOS",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "ALAUSI",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "CHAMBO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "CHUNCHI",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "COLTA",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "CUMANDÁ",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "GUAMOTE",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "GUANO",
+        "distinct_parishes": 12
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "PALLATANGA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "PENIPE",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "06",
+        "province": "CHIMBORAZO",
+        "canton": "RIOBAMBA",
+        "distinct_parishes": 17
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "ARENILLAS",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "ATAHUALPA",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "BALSAS",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "CHILLA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "EL GUABO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "HUAQUILLAS",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "LAS LAJAS",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "MACHALA",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "MARCABELÍ",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "PASAJE",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "PIÑAS",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "PORTOVELO",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "SANTA ROSA",
+        "distinct_parishes": 12
+      },
+      {
+        "province_code": "07",
+        "province": "EL ORO",
+        "canton": "ZARUMA",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "ATACAMES",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "ELOY ALFARO",
+        "distinct_parishes": 15
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "ESMERALDAS",
+        "distinct_parishes": 23
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "LA CONCORDIA",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "MUISNE",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "QUININDÉ",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "RIOVERDE",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "08",
+        "province": "ESMERALDAS",
+        "canton": "SAN LORENZO",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "ALFREDO BAQUERIZO MORENO (JUJÁN)",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "BALAO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "BALZAR",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "COLIMES",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "CORONEL MARCELINO MARIDUEÑA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "DAULE",
+        "distinct_parishes": 15
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "DURÁN",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "EL EMPALME",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "EL TRIUNFO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "GENERAL ANTONIO ELIZALDE",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "GUAYAQUIL",
+        "distinct_parishes": 23
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "ISIDRO AYORA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "LOMAS DE SARGENTILLO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "MILAGRO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "NARANJAL",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "NARANJITO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "NOBOL",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "PALESTINA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "PEDRO CARBO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "PLAYAS",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "SALITRE (URBINA JADO)",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "SAMBORONDÓN",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "SAN JACINTO DE YAGUACHI",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "SANTA LUCÍA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "09",
+        "province": "GUAYAS",
+        "canton": "SIMÓN BOLÍVAR",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "ANTONIO ANTE",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "COTACACHI",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "IBARRA",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "OTAVALO",
+        "distinct_parishes": 12
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "PIMAMPIRO",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "10",
+        "province": "IMBABURA",
+        "canton": "SAN MIGUEL DE URCUQUÍ",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "CALVAS",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "CATAMAYO",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "CELICA",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "CHAGUARPAMBA",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "ESPÍNDOLA",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "GONZANAMÁ",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "LOJA",
+        "distinct_parishes": 18
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "MACARÁ",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "OLMEDO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "PALTAS",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "PINDAL",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "PUYANGO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "QUILANGA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "SARAGURO",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "SOZORANGA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "11",
+        "province": "LOJA",
+        "canton": "ZAPOTILLO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "BABA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "BABAHOYO",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "BUENA FÉ",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "MOCACHE",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "MONTALVO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "PALENQUE",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "PUEBLOVIEJO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "QUEVEDO",
+        "distinct_parishes": 15
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "QUINSALOMA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "URDANETA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "VALENCIA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "VENTANAS",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "12",
+        "province": "LOS RIOS",
+        "canton": "VÍNCES",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "24 DE MAYO",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "BOLÍVAR",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "CHONE",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "EL CARMEN",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "FLAVIO ALFARO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "JAMA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "JARAMIJÓ",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "JIPIJAPA",
+        "distinct_parishes": 13
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "JUNÍN",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "MANTA",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "MONTECRISTI",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "OLMEDO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "PAJÁN",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "PEDERNALES",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "PICHINCHA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "PORTOVIEJO",
+        "distinct_parishes": 16
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "PUERTO LÓPEZ",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "ROCAFUERTE",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "SAN VICENTE",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "SANTA ANA",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "SUCRE",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "13",
+        "province": "MANABI",
+        "canton": "TOSAGUA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "GUALAQUIZA",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "HUAMBOYA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "LIMÓN INDANZA",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "LOGROÑO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "MORONA",
+        "distinct_parishes": 15
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "PABLO SEXTO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "PALORA",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "SAN JUAN BOSCO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "SANTIAGO",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "SUCÚA",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "TAISHA",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "14",
+        "province": "MORONA SANTIAGO",
+        "canton": "TIWINTZA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "15",
+        "province": "NAPO",
+        "canton": "ARCHIDONA",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "15",
+        "province": "NAPO",
+        "canton": "CARLOS JULIO AROSEMENA TOLA",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "15",
+        "province": "NAPO",
+        "canton": "EL CHACO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "15",
+        "province": "NAPO",
+        "canton": "QUIJOS",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "15",
+        "province": "NAPO",
+        "canton": "TENA",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "16",
+        "province": "PASTAZA",
+        "canton": "ARAJUNO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "16",
+        "province": "PASTAZA",
+        "canton": "MERA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "16",
+        "province": "PASTAZA",
+        "canton": "PASTAZA",
+        "distinct_parishes": 17
+      },
+      {
+        "province_code": "16",
+        "province": "PASTAZA",
+        "canton": "SANTA CLARA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "CAYAMBE",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "MEJIA",
+        "distinct_parishes": 8
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "PEDRO MONCAYO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "PEDRO VICENTE MALDONADO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "PUERTO QUITO",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "QUITO",
+        "distinct_parishes": 70
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "RUMIÑAHUI",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "17",
+        "province": "PICHINCHA",
+        "canton": "SAN MIGUEL DE LOS BANCOS",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "AMBATO",
+        "distinct_parishes": 28
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "BAÑOS DE AGUA SANTA",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "CEVALLOS",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "MOCHA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "PATATE",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "QUERO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "SAN PEDRO DE PELILEO",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "SANTIAGO DE PÍLLARO",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "18",
+        "province": "TUNGURAHUA",
+        "canton": "TISALEO",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "CENTINELA DEL CÓNDOR",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "CHINCHIPE",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "EL PANGUI",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "NANGARITZA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "PALANDA",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "PAQUISHA",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "YACUAMBI",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "YANTZAZA (YANZATZA)",
+        "distinct_parishes": 4
+      },
+      {
+        "province_code": "19",
+        "province": "ZAMORA CHINCHIPE",
+        "canton": "ZAMORA",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "20",
+        "province": "GALAPAGOS",
+        "canton": "ISABELA",
+        "distinct_parishes": 2
+      },
+      {
+        "province_code": "20",
+        "province": "GALAPAGOS",
+        "canton": "SAN CRISTÓBAL",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "20",
+        "province": "GALAPAGOS",
+        "canton": "SANTA CRUZ",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "CASCALES",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "CUYABENO",
+        "distinct_parishes": 3
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "GONZALO PIZARRO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "LAGO AGRIO",
+        "distinct_parishes": 10
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "PUTUMAYO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "SHUSHUFINDI",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "21",
+        "province": "SUCUMBIOS",
+        "canton": "SUCUMBÍOS",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "22",
+        "province": "ORELLANA",
+        "canton": "AGUARICO",
+        "distinct_parishes": 5
+      },
+      {
+        "province_code": "22",
+        "province": "ORELLANA",
+        "canton": "LA JOYA DE LOS SACHAS",
+        "distinct_parishes": 9
+      },
+      {
+        "province_code": "22",
+        "province": "ORELLANA",
+        "canton": "LORETO",
+        "distinct_parishes": 6
+      },
+      {
+        "province_code": "22",
+        "province": "ORELLANA",
+        "canton": "ORELLANA",
+        "distinct_parishes": 11
+      },
+      {
+        "province_code": "23",
+        "province": "SANTO DOMINGO DE LOS TSACHILAS",
+        "canton": "SANTO DOMINGO",
+        "distinct_parishes": 14
+      },
+      {
+        "province_code": "24",
+        "province": "SANTA ELENA",
+        "canton": "LA LIBERTAD",
+        "distinct_parishes": 1
+      },
+      {
+        "province_code": "24",
+        "province": "SANTA ELENA",
+        "canton": "SALINAS",
+        "distinct_parishes": 7
+      },
+      {
+        "province_code": "24",
+        "province": "SANTA ELENA",
+        "canton": "SANTA ELENA",
+        "distinct_parishes": 8
+      }
+    ],
+    "duplicates": [],
+    "duplicate_extra_rows": 0,
+    "equivalent_names": [],
+    "possible_typographical_variants": [],
+    "ambiguities": []
+  },
+  "would_create": {
+    "Continent": 0,
+    "Country": 0,
+    "Province": 23,
+    "Canton": 220,
+    "Parish": 1353
+  },
+  "existing": {
+    "Continent": 1,
+    "Country": 1,
+    "Province": 1,
+    "Canton": 1,
+    "Parish": 1
+  },
+  "matches": [
+    {
+      "entity": "Continent",
+      "source_name": "América",
+      "existing_name": "America",
+      "match": "equivalent",
+      "parent": null
+    },
+    {
+      "entity": "Country",
+      "source_name": "Ecuador",
+      "existing_name": "ECUADOR",
+      "match": "equivalent",
+      "parent": [
+        "Continent",
+        "america"
+      ]
+    },
+    {
+      "entity": "Province",
+      "source_name": "MANABI",
+      "existing_name": "MANABI",
+      "match": "exact",
+      "parent": [
+        "Continent",
+        "america",
+        "Country",
+        "ecuador"
+      ]
+    },
+    {
+      "entity": "Canton",
+      "source_name": "PORTOVIEJO",
+      "existing_name": "PORTOVIEJO",
+      "match": "exact",
+      "parent": [
+        "Continent",
+        "america",
+        "Country",
+        "ecuador",
+        "Province",
+        "manabi"
+      ]
+    },
+    {
+      "entity": "Parish",
+      "source_name": "RIOCHICO",
+      "existing_name": "RIOCHICO",
+      "match": "exact",
+      "parent": [
+        "Continent",
+        "america",
+        "Country",
+        "ecuador",
+        "Province",
+        "manabi",
+        "Canton",
+        "portoviejo"
+      ]
+    }
+  ],
+  "conflicts": [],
+  "blocked": false,
+  "created": {
+    "Continent": 0,
+    "Country": 0,
+    "Province": 0,
+    "Canton": 0,
+    "Parish": 0
+  }
+}

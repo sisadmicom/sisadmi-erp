@@ -1,55 +1,19 @@
 {% extends "core/base.html" %}
-
 {% block content %}
-
-<h1>Unidades de Medida</h1>
-
-<a href="{% url 'unit_create' %}">
-    Nuevo
-</a>
-
-<table border="1">
-
-    <tr>
-
-        <th>ID</th>
-
-        <th>Codigo</th>
-
-        <th>Nombre</th>
-
-        <th>Acciones</th>
-
-    </tr>
-
-    {% for unit in units %}
-
-    <tr>
-
-        <td>{{ unit.id }}</td>
-
-        <td>{{ unit.code }}</td>
-
-        <td>{{ unit.name }}</td>
-
-        <td>
-
-            <a href="{% url 'unit_update' unit.id %}">
-                Editar
-            </a>
-
-            |
-
-            <a href="{% url 'unit_delete' unit.id %}">
-                Eliminar
-            </a>
-
-        </td>
-
-    </tr>
-
-    {% endfor %}
-
+<h1>Unidades de medida</h1>
+<div class="entity-actions">
+  {% for action in add_actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+<table>
+  <thead><tr><th scope="col">Código</th><th scope="col">Nombre</th><th scope="col">Acciones</th></tr></thead>
+  <tbody>
+  {% for row in unit_rows %}
+    <tr><td>{{ row.unit.code }}</td><td>{{ row.unit.name }}</td><td>
+      <div class="entity-actions">
+      {% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+      </div>
+    </td></tr>
+  {% empty %}<tr><td colspan="3">No existen unidades disponibles.</td></tr>{% endfor %}
+  </tbody>
 </table>
-
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Grupos de productos</h1>
+<p>Empresa: {{ company.commercial_name }}</p>
+<div class="entity-actions">
+  {% for action in add_actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+<table>
+  <thead><tr><th scope="col">Nombre</th><th scope="col">Acciones</th></tr></thead>
+  <tbody>
+  {% for row in group_rows %}
+    <tr><td>{{ row.group.name }}{% if not row.group.company_id %} <span class="muted">Solo consulta</span>{% endif %}</td><td>
+      <div class="entity-actions">
+      {% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+      </div>
+    </td></tr>
+  {% empty %}<tr><td colspan="2">No existen grupos disponibles.</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

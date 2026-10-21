@@ -81,7 +81,7 @@ class PurchaseReturnFixture:
         self.branch = Branch.objects.create(company=self.company, code="001", name="Matriz")
         self.warehouse = Warehouse.objects.create(
             company=self.company, branch=self.branch, code="A", name="Histórica A", is_main=True)
-        self.supplier = Supplier.objects.create(person=Person.objects.create(
+        self.supplier = Supplier.objects.create(company=self.company, person=Person.objects.create(
             identification="C03-SUPPLIER", person_type="LEGAL", full_name="Proveedor C03"))
         self.product = Product.objects.create(company=self.company, code="P1", name="Uno")
         self.product2 = Product.objects.create(company=self.company, code="P2", name="Dos")

@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Subgrupos de productos</h1>
+<p>Empresa: {{ company.commercial_name }}</p>
+<div class="entity-actions">
+  {% for action in add_actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
+<table>
+  <thead><tr><th scope="col">Nombre</th><th scope="col">Grupo</th><th scope="col">Acciones</th></tr></thead>
+  <tbody>
+  {% for row in subgroup_rows %}
+    <tr><td>{{ row.subgroup.name }}</td><td>{{ row.subgroup.group.name }}</td><td>
+      <div class="entity-actions">
+      {% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+      </div>
+    </td></tr>
+  {% empty %}<tr><td colspan="3">No existen subgrupos disponibles.</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

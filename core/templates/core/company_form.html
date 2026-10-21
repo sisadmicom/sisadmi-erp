@@ -1,0 +1,16 @@
+{% extends "core/entity_base.html" %}
+{% block title %}Adicionar empresa | SISADMI{% endblock %}
+{% block content %}
+<h1>Adicionar empresa</h1>
+<section class="panel selector-panel">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+    {% include "core/components/entity_fields.html" %}
+    <div class="action-row">
+        <button type="submit">Guardar</button>
+        <button type="submit" class="secondary" name="action" value="cancel" formnovalidate>Cancelar</button>
+    </div>
+</form>
+</section>
+{% endblock %}

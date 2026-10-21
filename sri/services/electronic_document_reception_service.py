@@ -3,13 +3,12 @@ from dataclasses import dataclass
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 
-from core.constants.sri import SriEnvironment
 from sri.constants.document_status import SriDocumentStatus
 from sri.constants.reception_attempt_status import SriReceptionAttemptStatus
 from sri.models.electronic_document import ElectronicDocument
 from sri.models.sri_reception_attempt import SriReceptionAttempt
 from sri.models.sri_reception_message import SriReceptionMessage
-from sri.services.xml_validation_service import XmlValidationService
+from sri.services.invoice_validation import validate_document_invoice
 
 
 @dataclass(frozen=True)
@@ -62,9 +61,7 @@ class ElectronicDocumentReceptionService:
             raise ValueError("Solo se pueden recibir documentos firmados.")
         if not document.xml:
             raise ValueError("El documento electrónico no tiene XML.")
-        if document.environment not in {value for value, _ in SriEnvironment.CHOICES}:
-            raise ValueError("El ambiente SRI no es válido.")
-        XmlValidationService.validate(document.xml)
+        validate_document_invoice(document, signed=True)
         return document.xml, document.environment
 
     @staticmethod
@@ -75,7 +72,7 @@ class ElectronicDocumentReceptionService:
                 attempt.status = SriReceptionAttemptStatus.UNCERTAIN
                 attempt.completed_at = timezone.now()
                 attempt.error_type = type(error).__name__
-                attempt.error_message = str(error)
+                attempt.error_message = "No se pudo confirmar la recepción del SRI. Revise el intento antes de reenviar."
                 attempt.save(update_fields=["status", "completed_at", "error_type", "error_message"])
             document = ElectronicDocument.objects.get(pk=document_id)
         if propagate:

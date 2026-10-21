@@ -94,8 +94,10 @@ def create_signed_document():
         environment=SriEnvironment.TEST,
         emission_type=SriEmissionType.NORMAL,
     )
-    document.status = SriDocumentStatus.SIGNED
-    document.save(update_fields=["status"])
+    from sri.tests.electronic_document_signing_test_support import create_certificate_record
+    from sri.services.electronic_document_signing_service import ElectronicDocumentSigningService
+    create_certificate_record(context["company"])
+    document = ElectronicDocumentSigningService.sign(electronic_document=document)
     document.refresh_from_db()
     return context, document
 
@@ -109,7 +111,7 @@ def fiscal_snapshot(document):
             "emission_type", "establishment", "emission_point",
             "sequential", "numeric_code", "company_id", "branch_id",
             "content_type_id", "object_id", "authorization_number",
-            "authorization_date",
+            "authorization_date", "error_message",
         )
     }
 

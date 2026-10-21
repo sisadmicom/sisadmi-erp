@@ -1,0 +1,24 @@
+{
+  "source_pdf_sha256": "f7cbf23e1427da5f0fae6f354abcd4d5ce75ac63c7b81e114136cb991819d617",
+  "csv_sha256": "8a5ee6152635567c3cb2e7f5c6c8c0ec5e329a6ab10808376428a3190c6c5fb2",
+  "verified_four_cell_rows": 1397,
+  "verified_merged_rows": [
+    {
+      "province_code": "09",
+      "province": "GUAYAS",
+      "canton": "CORONEL MARCELINO MARIDUEÑA",
+      "parish": "CORONEL MARCELINO MARIDUEÑA (SAN CARLOS)",
+      "source_page": "9",
+      "source_row": "35"
+    }
+  ],
+  "mismatches": 0,
+  "blank_fields": 0,
+  "max_name_lengths": {
+    "province": 30,
+    "canton": 32,
+    "parish": 57
+  },
+  "model_limit": 100,
+  "overlength_values": 0
+}

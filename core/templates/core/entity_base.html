@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block shell %}
+<header class="app-header">
+    <strong class="brand">SISADMI</strong>
+    {% if request.user.is_authenticated %}
+    <dl class="context-summary"><div><dt>Usuario</dt><dd>{{ request.user.username }}</dd></div></dl>
+    <div class="context-actions">
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="secondary">Cerrar sesión</button></form>
+    </div>
+    {% endif %}
+</header>
+{% endblock %}

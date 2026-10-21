@@ -34,7 +34,7 @@ class PurchaseManifestFixture(TestCase):
         supplier_person = Person.objects.create(
             identification="0999999999001", person_type="LEGAL", full_name="Proveedor C05"
         )
-        self.supplier = Supplier.objects.create(person=supplier_person)
+        self.supplier = Supplier.objects.create(company=self.company, person=supplier_person)
         self.product = Product.objects.create(company=self.company, code="P001", name="Producto C05")
         self.product_2 = Product.objects.create(company=self.company, code="P002", name="Producto C05-2")
         dtype = DocumentType.objects.get(code=DocumentTypeCodes.PURCHASE_INVOICE)

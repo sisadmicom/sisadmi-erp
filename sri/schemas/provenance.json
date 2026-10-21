@@ -1,0 +1,10 @@
+{
+  "invoice_source": "https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-internet/descargar/05546998-6f29-4870-be3b-62650f312a6c/XML%20y%20XSD%20Factura.zip",
+  "archive_sha256": "ba1ff0c4e329fe759c3f88dc75f2975780b315b6eb3d0069071b77c1f26fec03",
+  "invoice_version": "1.1.0",
+  "signature_schema_source": "Existing signxml distribution, W3C XMLDSig schema; copyright/license retained in file",
+  "files": {
+    "xmldsig-core-schema.xsd": "35cf8197da812c85e40d57891b35c94187569ed474a2dac813ce5090dafcd35c",
+    "factura_V1.1.0.xsd": "62db9bf0ecceb00ef2b7ed136e59224815e5e5e33c77efc6a0552001e052eb8b"
+  }
+}

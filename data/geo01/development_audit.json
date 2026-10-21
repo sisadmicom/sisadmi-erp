@@ -1,0 +1,45 @@
+{
+  "unchanged_since_dry_run": true,
+  "records": {
+    "Continent": [
+      {
+        "id": 1,
+        "name": "America"
+      }
+    ],
+    "Country": [
+      {
+        "id": 1,
+        "name": "ECUADOR",
+        "code": "593",
+        "continent_id": 1
+      }
+    ],
+    "Province": [
+      {
+        "id": 1,
+        "name": "MANABI",
+        "country_id": 1
+      }
+    ],
+    "Canton": [
+      {
+        "id": 1,
+        "name": "PORTOVIEJO",
+        "province_id": 1
+      }
+    ],
+    "Parish": [
+      {
+        "id": 1,
+        "name": "RIOCHICO",
+        "canton_id": 1
+      },
+      {
+        "id": 2,
+        "name": "SAN ALEJO",
+        "canton_id": 1
+      }
+    ]
+  }
+}

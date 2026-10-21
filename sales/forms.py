@@ -5,6 +5,7 @@ from catalog.models import Product
 from core.models import PointOfEmission
 from inventory.models import Warehouse
 from people.models import Customer
+from sales.constants.payment_method import PaymentMethod
 
 
 class SaleCreateForm(forms.Form):
@@ -22,10 +23,15 @@ class SaleCreateForm(forms.Form):
         label="Fecha",
     )
     notes = forms.CharField(required=False, label="Notas")
+    payment_method = forms.ChoiceField(
+        choices=[("", "Seleccione una forma de pago"), *PaymentMethod.choices],
+        required=False, label="Forma de pago",
+        help_text="Puede completar el borrador; la emisión electrónica requiere una forma de pago.",
+    )
 
     def __init__(self, *args, company, branch, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["customer_id"].queryset = Customer.objects.filter(is_active=True)
+        self.fields["customer_id"].queryset = Customer.objects.filter(company=company, is_active=True)
         self.fields["warehouse_id"].queryset = Warehouse.objects.filter(
             company=company,
             branch=branch,

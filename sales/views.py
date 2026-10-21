@@ -108,6 +108,7 @@ def sale_create(request):
                 warehouse_id=form.cleaned_data["warehouse_id"].pk,
                 issue_date=form.cleaned_data["issue_date"],
                 notes=form.cleaned_data["notes"],
+                payment_method=form.cleaned_data["payment_method"] or None,
                 details=[
                     SaleDetailDTO(
                         product_id=line.cleaned_data["product_id"].pk,

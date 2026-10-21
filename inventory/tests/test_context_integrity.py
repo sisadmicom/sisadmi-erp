@@ -49,9 +49,11 @@ class ContextIntegrityTests(TestCase):
         self.product = Product.objects.create(company=self.company, code="PA", name="A")
         self.other_product = Product.objects.create(company=self.other_company, code="PB", name="B")
         self.customer = Customer.objects.create(
+            company=self.company,
             person=Person.objects.create(identification="0999999999001", person_type="LEGAL", full_name="Cliente"),
         )
         self.supplier = Supplier.objects.create(
+            company=self.company,
             person=Person.objects.create(identification="0999999999002", person_type="LEGAL", full_name="Proveedor"),
         )
 

@@ -64,6 +64,8 @@ def associate_person(*, actor, company, person):
 
 def revoke_person_access(*, actor, company, person):
     _require_association_authority(actor, company)
+    from people.services.final_consumer import reject_reserved_role
+    reject_reserved_role(person)
     CompanyPersonAccess.objects.filter(company=company, person=person).delete()
 
 
@@ -86,6 +88,10 @@ def _identity_constraint_violation(error):
 def create_person(*, actor, company, data):
     if not can_create_person(actor=actor, company=company):
         raise PermissionDenied
+    from people.identification import FINAL_CONSUMER_ID
+    from people.services.final_consumer import PROTECTED_MESSAGE
+    if data.get("identification") == FINAL_CONSUMER_ID:
+        raise ValidationError(PROTECTED_MESSAGE, code="reserved_person")
     allowed_fields = {
         "identification", "identification_type", "person_type", "full_name",
         "email", "phone", "address",
@@ -108,4 +114,26 @@ def create_person(*, actor, company, data):
         if _identity_constraint_violation(error):
             raise IdentityUnavailable from None
         raise
+    return person
+
+
+@transaction.atomic
+def update_person(*, actor, company, person_id, data):
+    """Authorized descriptive edits; no privilege can override immutable identity."""
+    if not _company_access(actor, company) or not can_administer_person(actor=actor):
+        raise PermissionDenied
+    person = visible_people(actor=actor, company=company).select_for_update().filter(pk=person_id).first()
+    if person is None:
+        raise IdentityUnavailable
+    allowed = {'identification', 'identification_type', 'identification_kind_id',
+               'person_type', 'full_name', 'email', 'phone', 'address',
+               'country', 'province', 'canton', 'parish'}
+    if set(data) - allowed:
+        raise ValidationError('Se enviaron campos no permitidos.', code='invalid_fields')
+    for name, value in data.items():
+        setattr(person, name, value)
+    from people.identity_integrity import assert_unchanged
+    assert_unchanged(person)
+    person.updated_by = actor
+    person.save(update_fields=[*data, 'updated_by', 'updated_at'])
     return person

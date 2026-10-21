@@ -68,6 +68,7 @@ class CancelPurchaseTest(TestCase):
         )
 
         self.supplier = Supplier.objects.create(
+            company=self.company,
             person=supplier_person,
         )
 

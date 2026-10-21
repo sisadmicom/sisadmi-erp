@@ -1,3 +1,5 @@
+from sales.constants.payment_method import PaymentMethod
+from catalog.constants.tax_category import TaxCategory
 from decimal import Decimal
 from datetime import date
 from core.models.document_type import DocumentType
@@ -43,6 +45,7 @@ def create_test_invoice_environment():
 
     company_person = Person.objects.create(
         identification="1790000001001",
+        identification_type="RUC", address="Dirección matriz de prueba",
         person_type="LEGAL",
         full_name="Empresa Test",
     )
@@ -60,6 +63,7 @@ def create_test_invoice_environment():
         company=company,
         code="001",
         name="Sucursal Principal",
+        address="Dirección establecimiento de prueba",
     )
 
     # --------------------------------------------------
@@ -93,12 +97,13 @@ def create_test_invoice_environment():
 
     customer_person = Person.objects.create(
         identification="0999999999001",
+        identification_type="RUC",
         person_type="NATURAL",
         full_name="Cliente Test",
     )
 
     customer = Customer.objects.create(
-        person=customer_person,
+        company=company, person=customer_person,
     )
 
     # --------------------------------------------------
@@ -144,7 +149,7 @@ def create_test_invoice_environment():
     tax_model = Tax.objects.create(
         company=company,
         code="2",
-        name="IVA",
+        name="IVA", tax_type="IVA", tax_category=TaxCategory.VAT_STANDARD,
         rate=Decimal("15.00"),
     )
 
@@ -182,6 +187,7 @@ def create_test_invoice_environment():
         number="SAL-001-000000025",
         issue_date=date(2026, 8, 28),
         status=DocumentStatus.CONFIRMED,
+        payment_method=PaymentMethod.NON_FINANCIAL,
         subtotal=Decimal("100.00"),
         tax=Decimal("15.00"),
         total=Decimal("115.00"),
@@ -211,8 +217,7 @@ def create_test_invoice_environment():
         detail=detail,
         tax=tax_model,
         tax_code="2",
-        tax_name="IVA",
-        tax_type="IVA",
+        tax_name="IVA", tax_type="IVA", tax_category=TaxCategory.VAT_STANDARD,
         rate=Decimal("15.0000"),
         base=Decimal("100.00"),
         amount=Decimal("15.00"),

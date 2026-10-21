@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{% if editing %}Editar{% else %}Adicionar{% endif %} {{ title|lower }}</h1>
+{% if setup_company %}
+<nav aria-label="Progreso de configuración" class="setup-progress"><ol>
+    <li>1 — Datos de la empresa</li><li aria-current="step">2 — Ubicación</li>
+    <li>3 — Sucursal principal</li><li>4 — Revisar y crear</li>
+</ol></nav>
+<p class="muted">Registre este dato para la ubicación de su empresa. Al guardar o cancelar regresará a la configuración conservando el borrador.</p>
+{% else %}<p class="muted">Registre este dato para utilizarlo en la ubicación de Personas.{% if draft_token %} Al guardar o cancelar regresará al formulario que estaba completando.{% endif %}</p>{% endif %}
+<section class="panel form-panel"><form method="post">
+    {% csrf_token %}
+    {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+    {% if setup_company %}{% include "core/components/form_fields.html" %}
+    {% else %}{% include "people/components/grouped_fields.html" %}{% endif %}
+    <div class="action-row"><button type="submit">Guardar</button><button type="submit" name="action" value="cancel" class="secondary" formnovalidate>Cancelar</button></div>
+</form></section>
+{% if not setup_company %}{% include "people/components/catalog_navigation.html" %}{% endif %}
+{% endblock %}

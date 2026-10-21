@@ -1,3 +1,4 @@
+from sri.tests.r05_support import official_xml
 from datetime import datetime, timezone
 from unittest import TestCase
 
@@ -40,7 +41,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
                 authorization_number="AUTH-001",
                 authorization_date=datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc),
                 environment=self.document.environment,
-                authorized_xml="<authorized/>",
+                authorized_xml=official_xml(self.document),
             )
         )
 
@@ -103,7 +104,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
         self.assertEqual(self.document.status, SriDocumentStatus.AUTHORIZED)
         self.assertEqual(self.document.authorization_number, "AUTH-001")
         self.assertEqual(self.document.authorization_date, datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc))
-        self.assertEqual(self.document.authorized_xml, "<authorized/>")
+        self.assertEqual(self.document.authorized_xml, official_xml(self.document))
         self.assertEqual(attempt.status, AUTHORIZED)
         self.assertIsNotNone(attempt.finished_at)
 
@@ -186,7 +187,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
         self.assertEqual(self.document.status, SriDocumentStatus.RECEIVED)
 
     def test_result_access_key_mismatch_cannot_finalize_document(self):
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, "different", "AUTH-001", datetime.now(timezone.utc), self.document.environment, "<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, "different", "AUTH-001", datetime.now(timezone.utc), self.document.environment, official_xml(self.document))
         with self.assertRaises(SriAuthorizationProtocolError):
             self.submit()
         self.document.refresh_from_db()
@@ -195,24 +196,24 @@ class AuthorizationServiceREDTests(DjangoTestCase):
         self.assertIsNone(self.document.authorization_number)
 
     def test_result_environment_mismatch_cannot_finalize_document(self):
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", datetime.now(timezone.utc), "2", "<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", datetime.now(timezone.utc), "2", official_xml(self.document))
         with self.assertRaises(SriAuthorizationProtocolError):
             self.submit()
         self.assertEqual(self.attempts().get().status, PROTOCOL_ERROR)
 
     def test_authorized_result_requires_authorization_number(self):
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, environment=self.document.environment, authorization_date=datetime.now(timezone.utc), authorized_xml="<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, environment=self.document.environment, authorization_date=datetime.now(timezone.utc), authorized_xml=official_xml(self.document))
         with self.assertRaises(SriAuthorizationProtocolError):
             self.submit()
         self.assertEqual(self.document.status, SriDocumentStatus.RECEIVED)
 
     def test_authorized_result_requires_official_authorization_date(self):
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, authorization_number="AUTH-001", environment=self.document.environment, authorized_xml="<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, authorization_number="AUTH-001", environment=self.document.environment, authorized_xml=official_xml(self.document))
         with self.assertRaises(SriAuthorizationProtocolError):
             self.submit()
 
     def test_authorized_result_requires_timezone_aware_date(self):
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", datetime(2026, 9, 27, 15, 30), self.document.environment, "<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", datetime(2026, 9, 27, 15, 30), self.document.environment, official_xml(self.document))
         with self.assertRaises(SriAuthorizationProtocolError):
             self.submit()
 
@@ -223,7 +224,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
 
     def test_authorization_date_is_the_official_returned_date(self):
         official = datetime(2024, 1, 2, 3, 4, tzinfo=timezone.utc)
-        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", official, self.document.environment, "<authorized/>")
+        self.adapter.result = AuthorizationResultData(AUTHORIZED, self.document.access_key, "AUTH-001", official, self.document.environment, official_xml(self.document))
         self.submit()
         self.document.refresh_from_db()
         self.assertEqual(self.document.authorization_date, official)
@@ -232,7 +233,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
         self.document.status = SriDocumentStatus.AUTHORIZED
         self.document.authorization_number = self.document.access_key
         self.document.authorization_date = datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc)
-        self.document.authorized_xml = "<authorized/>"
+        self.document.authorized_xml = official_xml(self.document)
         self.document.save(update_fields=["status", "authorization_number", "authorization_date", "authorized_xml"])
         before = fiscal_snapshot(self.document)
         adapter = FakeAuthorizationAdapter()
@@ -258,7 +259,7 @@ class AuthorizationServiceREDTests(DjangoTestCase):
         self.submit()
         self.document.refresh_from_db()
         self.assertEqual(self.document.xml, original)
-        self.assertEqual(self.document.authorized_xml, "<authorized/>")
+        self.assertEqual(self.document.authorized_xml, official_xml(self.document))
 
     def test_unexpected_adapter_exception_marks_uncertain_and_reraises(self):
         self.adapter.error = RuntimeError("unexpected")
@@ -320,7 +321,7 @@ class AuthorizationAtomicBoundaryTests(TransactionTestCase):
                 authorization_number="AUTH-001",
                 authorization_date=datetime(2026, 9, 27, 15, 30, tzinfo=timezone.utc),
                 environment=self.document.environment,
-                authorized_xml="<authorized/>",
+                authorized_xml=official_xml(self.document),
             )
         )
 

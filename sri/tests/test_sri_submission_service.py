@@ -51,30 +51,8 @@ class SriSubmissionServiceTest(TestCase):
 
     def setUp(self):
 
-        self.electronic_document = (
-            create_test_electronic_document()
-        )
-
-        self.electronic_document.xml = """
-        <factura>
-            <infoTributaria/>
-            <infoFactura/>
-            <detalles>
-                <detalle/>
-            </detalles>
-        </factura>
-        """
-
-        self.electronic_document.status = (
-            SriDocumentStatus.SIGNED
-        )
-
-        self.electronic_document.save(
-            update_fields=[
-                "xml",
-                "status",
-            ]
-        )
+        from sri.tests.reception_test_support import create_signed_document
+        _, self.electronic_document = create_signed_document()
 
     def test_submit_signed_document(self):
 
@@ -185,5 +163,5 @@ class SriSubmissionServiceTest(TestCase):
 
         self.assertEqual(
             self.electronic_document.error_message,
-            "Error de comunicación con SRI.",
+            "No se pudo confirmar el envío SRI. Revise el documento antes de reintentar.",
         )

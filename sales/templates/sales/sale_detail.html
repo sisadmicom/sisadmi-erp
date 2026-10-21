@@ -1,7 +1,6 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-{% for message in messages %}<p>{{ message }}</p>{% endfor %}
 <h1>Venta {{ sale.number|default:sale.pk }}</h1>
 <p>Fecha: {{ sale.issue_date }}</p>
 <p>Cliente: {{ sale.customer }}</p>

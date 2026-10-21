@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<dl>
+    <dt>Código</dt><dd>{{ product.code }}</dd>
+    <dt>Código de barras</dt><dd>{{ product.barcode|default_if_none:"" }}</dd>
+    <dt>Descripción</dt><dd>{{ product.description|default_if_none:"" }}</dd>
+    <dt>Grupo</dt><dd>{{ product.group|default_if_none:"" }}</dd>
+    <dt>Subgrupo</dt><dd>{{ product.subgroup|default_if_none:"" }}</dd>
+    <dt>Marca</dt><dd>{{ product.brand|default_if_none:"" }}</dd>
+    <dt>Unidad</dt><dd>{{ product.unit_measure|default_if_none:"" }}</dd>
+    <dt>Costo</dt><dd>{{ product.cost_price }}</dd>
+    <dt>Precio</dt><dd>{{ product.sale_price }}</dd>
+</dl>
+<a href="{% url 'product_list' %}">Volver</a>
+{% endblock %}

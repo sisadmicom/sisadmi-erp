@@ -78,8 +78,8 @@ class SaleApplicationTriggerTests(TestCase):
             name="Otra empresa",
         )
         cls.customer = cls.make_customer("customer-main")
-        # Customer has no company relation and is intentionally valid globally.
-        cls.global_customer = cls.make_customer("customer-global")
+        # Another Customer belongs to the same active company.
+        cls.second_customer = cls.make_customer("customer-second")
         cls.product = Product.objects.create(
             company=cls.company, code="P1", name="Producto 1"
         )
@@ -119,7 +119,7 @@ class SaleApplicationTriggerTests(TestCase):
             person_type="NATURAL",
             full_name=f"Cliente {suffix}",
         )
-        return Customer.objects.create(person=person)
+        return Customer.objects.create(company=cls.company, person=person)
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
@@ -371,15 +371,15 @@ class SaleApplicationTriggerTests(TestCase):
         self.assertEqual(dto.details[0].unit_price, Decimal("12.50"))
         self.assertEqual(dto.details[1].unit_price, Decimal("7.25"))
 
-    def test_global_customer_without_company_relation_is_accepted(self):
+    def test_another_customer_in_active_company_is_accepted(self):
         self.create_use_case.return_value = self.sale()
         response = self.client.post(
             self.create_path(),
-            self.create_payload(customer_id=str(self.global_customer.pk)),
+            self.create_payload(customer_id=str(self.second_customer.pk)),
         )
         self.assertEqual(response.status_code, 302)
         dto = self.create_use_case.call_args.args[0]
-        self.assertEqual(dto.customer_id, self.global_customer.pk)
+        self.assertEqual(dto.customer_id, self.second_customer.pk)
 
     def test_product_company_and_active_scope_is_enforced(self):
         for product in (self.other_product, self.inactive_product):

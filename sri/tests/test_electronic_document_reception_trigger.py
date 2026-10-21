@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlencode, urlsplit
 
@@ -60,6 +61,8 @@ class ReceptionTriggerFixture:
         self.user = get_user_model().objects.create_user(
             username="reception-trigger",
         )
+        self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label="sri",
+            codename__in=["view_electronicdocument", "change_electronicdocument"]))
         self.user.profile.companies.add(self.company)
         self.user.profile.branches.add(self.branch, self.second_branch)
         self.client.force_login(self.user)

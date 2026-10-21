@@ -10,7 +10,7 @@
 <p>{{ authorization_message }}</p>
 {% endif %}
 
-{% if not authorization_state and can_authorize %}
+{% if can_authorize and can_operate %}
 <form method="post" action="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">
     {% csrf_token %}
     <button type="submit">Consultar autorización</button>
@@ -21,4 +21,5 @@
 {% if origin_sale %}
 <a href="{% url 'sale_detail' sale_id=origin_sale.pk %}">Volver a la venta</a>
 {% endif %}
+{% include "sri/attempt_messages.html" %}
 {% endblock %}

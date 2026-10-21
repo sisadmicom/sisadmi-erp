@@ -92,7 +92,7 @@ class FiscalPreparationTriggerFixtureMixin:
             person_type="NATURAL",
             full_name=f"Cliente {suffix}",
         )
-        return Customer.objects.create(person=person)
+        return Customer.objects.create(company=cls.company, person=person)
 
     def setUp(self):
         if not hasattr(self, "company"):

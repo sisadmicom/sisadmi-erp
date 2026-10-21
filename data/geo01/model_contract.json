@@ -1,0 +1,92 @@
+{
+  "Continent": {
+    "name": {
+      "max_length": 100,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    }
+  },
+  "Country": {
+    "continent": {
+      "max_length": null,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": "Continent",
+      "on_delete": "PROTECT"
+    },
+    "code": {
+      "max_length": 5,
+      "unique": true,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    },
+    "name": {
+      "max_length": 100,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    }
+  },
+  "Province": {
+    "country": {
+      "max_length": null,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": "Country",
+      "on_delete": "PROTECT"
+    },
+    "name": {
+      "max_length": 100,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    }
+  },
+  "Canton": {
+    "province": {
+      "max_length": null,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": "Province",
+      "on_delete": "PROTECT"
+    },
+    "name": {
+      "max_length": 100,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    }
+  },
+  "Parish": {
+    "canton": {
+      "max_length": null,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": "Canton",
+      "on_delete": "PROTECT"
+    },
+    "name": {
+      "max_length": 100,
+      "unique": false,
+      "blank": false,
+      "null": false,
+      "relationship": null,
+      "on_delete": null
+    }
+  }
+}

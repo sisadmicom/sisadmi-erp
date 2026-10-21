@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<p class="muted">Catálogo compartido de ubicación. Sus cambios pueden afectar otras personas que utilizan este dato.</p>
+{% if add_action %}<p>{% include "core/components/entity_action.html" with action=add_action only %}</p>{% endif %}
+{% if rows %}<ul class="catalog-list">{% for row in rows %}<li><span>{{ row.name }}</span><span class="entity-actions">{% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}</span></li>{% endfor %}</ul>
+{% else %}<p class="panel">No existen datos disponibles.{% if can_add %} Pulse «Adicionar» para registrar el primero.{% else %} Solicite a un usuario autorizado que registre el dato.{% endif %}</p>{% endif %}
+{% include "people/components/catalog_navigation.html" %}
+{% if request.active_company and perms.people.view_person %}<p><a href="{% url 'person_list' %}">Volver a Personas</a></p>{% endif %}
+{% endblock %}

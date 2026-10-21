@@ -1,9 +1,24 @@
+from django.core.exceptions import ValidationError
+
 from core.exceptions import ValidationException
 from core.validators.document_detail_validator import DocumentDetailValidator
 from core.validators.commercial_line_validator import CommercialLineValidator
 
 
 class PurchaseValidator:
+
+    @staticmethod
+    def validate_supplier_company(supplier, company_id):
+        if supplier.company_id is None:
+            raise ValidationError("El proveedor debe tener una empresa clasificada para esta compra.")
+        if supplier.company_id != company_id:
+            raise ValidationError("El proveedor no pertenece a la empresa de la compra.")
+
+    @staticmethod
+    def validate_supplier_for_document(supplier, company_id):
+        PurchaseValidator.validate_supplier_company(supplier, company_id)
+        if not supplier.is_active:
+            raise ValidationError("El proveedor no está activo para esta compra.")
 
     @staticmethod
     def validate_create(dto):

@@ -1,0 +1,6 @@
+{% if can_change %}
+<form method="post" action="{{ activity_url }}">
+    {% csrf_token %}
+    <button type="submit">{% if relation.is_active %}Desactivar{% else %}Reactivar{% endif %}</button>
+</form>
+{% endif %}

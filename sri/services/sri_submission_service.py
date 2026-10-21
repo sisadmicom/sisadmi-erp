@@ -4,9 +4,7 @@ from sri.constants.document_status import SriDocumentStatus
 from sri.services.sri_document_status_service import (
     SriDocumentStatusService,
 )
-from sri.services.xml_validation_service import (
-    XmlValidationService,
-)
+from sri.services.invoice_validation import validate_document_invoice
 
 
 class SriSubmissionService:
@@ -64,9 +62,7 @@ class SriSubmissionService:
         # 3. Validar XML
         # --------------------------------------------------
 
-        XmlValidationService.validate(
-            electronic_document.xml
-        )
+        validate_document_invoice(electronic_document, signed=True)
 
         # --------------------------------------------------
         # 4. Intentar comunicación con SRI
@@ -113,9 +109,7 @@ class SriSubmissionService:
         Esta operación se ejecuta en una transacción propia.
         """
 
-        electronic_document.error_message = str(
-            error
-        )
+        electronic_document.error_message = "No se pudo confirmar el envío SRI. Revise el documento antes de reintentar."
 
         electronic_document.save(
             update_fields=[

@@ -1,0 +1,31 @@
+{% extends entity_base|default:"core/base.html" %}
+{% load static %}
+{% block title %}{% if editing %}Editar persona{% else %}Nueva persona{% endif %} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{% if editing %}Editar persona{% else %}Nueva persona{% endif %}</h1>
+{% if not company_continuation %}<p class="muted">Complete la identidad, los datos de contacto y la ubicación. Puede adicionar un dato de ubicación y regresar sin perder lo escrito.</p>{% endif %}
+<section class="panel form-panel">
+{% url 'person_identification_detect' as identification_detection_url %}
+<form method="post" data-person-form data-identification-url="{{ identification_detection_url }}">
+    <p role="status" aria-live="polite" data-identification-status>El tipo se detecta al ingresar la identificación.</p>
+    {% csrf_token %}
+    {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+    {% if company_continuation %}
+    {% include "core/components/entity_fields.html" %}
+    {% else %}
+    {% include "people/components/grouped_fields.html" %}
+    <p class="form-help">Seleccione la ubicación en orden: Continente → País → Provincia → Cantón → Parroquia. Pulse «Actualizar opciones» después de cambiar una selección si no se actualizan automáticamente.</p>
+    {% endif %}
+    <div class="action-row">
+        <button class="secondary" type="submit" name="action" value="refresh" formnovalidate data-refresh-geography>Actualizar opciones</button>
+        <button type="submit">Guardar persona</button>
+        <button class="secondary" type="submit" name="action" value="cancel" formnovalidate>Cancelar</button>
+        {% if not company_continuation and not customer_continuation %}<a href="{% url 'person_list' %}">Volver a Personas</a>{% endif %}
+    </div>
+</form>
+</section>
+{% if not company_continuation %}{% include "people/components/catalog_navigation.html" %}{% endif %}
+<script src="{% static 'people/js/geography_selects.js' %}" defer></script>
+
+<script src="{% static 'people/js/identification.js' %}" defer></script>
+{% endblock %}

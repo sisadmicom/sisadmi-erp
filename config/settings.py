@@ -58,6 +58,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+LOGIN_URL = 'login'
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -157,3 +159,5 @@ SRI_PRIVATE_STORAGE_ROOT = (
     / "sri"
     / "certificates"
 )
+# Solo dos clases históricas Customer requieren el estado people.0005.
+TEST_RUNNER = "core.testing.runner.MigrationIsolationRunner"

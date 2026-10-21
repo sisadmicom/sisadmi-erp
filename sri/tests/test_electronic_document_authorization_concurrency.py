@@ -1,3 +1,4 @@
+from sri.tests.r05_support import official_xml
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier, Event
 
@@ -32,7 +33,7 @@ class ElectronicDocumentAuthorizationConcurrencyREDTests(TransactionTestCase):
                 authorization_number="AUTH-001",
                 authorization_date=__import__("datetime").datetime(2026, 9, 27, tzinfo=__import__("datetime").timezone.utc),
                 environment=self.document.environment,
-                authorized_xml="<authorized/>",
+                authorized_xml=official_xml(self.document),
             )
         )
         self.barrier = Barrier(2)

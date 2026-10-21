@@ -1,0 +1,16 @@
+{% extends "core/entity_base.html" %}
+{% block title %}Adicionar sucursal | SISADMI{% endblock %}
+{% block content %}
+<h1>Adicionar sucursal</h1>
+<p>Empresa<br><strong>{{ company.commercial_name }}</strong></p>
+<section class="panel form-panel">
+<form method="post">
+    {% csrf_token %}
+    {% include "core/components/entity_fields.html" %}
+    <div class="action-row">
+        <button type="submit">Guardar</button>
+        <button class="secondary" type="submit" name="action" value="cancel" formnovalidate>Cancelar</button>
+    </div>
+</form>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<p class="muted">Relaciones comerciales de la empresa seleccionada.</p>
+<form method="get" action="{{ list_url }}" role="search">
+    <label for="commercial-search">Buscar por identificación, nombre o correo</label>
+    <input type="search" id="commercial-search" name="q" value="{{ query }}" maxlength="250">
+    <label><input type="checkbox" name="include_inactive" value="1" {% if include_inactive %}checked{% endif %}>Incluir inactivos</label>
+    <button type="submit">Buscar</button>
+</form>
+{% if can_add %}<p><a href="{{ create_url }}">Adicionar {{ singular|lower }}</a></p>{% elif is_customer %}<p><button disabled title="Requiere permiso para adicionar clientes">Adicionar cliente</button></p>{% endif %}
+<div class="table-scroll">
+<table>
+<thead><tr><th>Identificación</th><th>Nombre / Razón social</th><th>Correo</th>{% if is_customer %}<th>Categoría de cliente</th>{% endif %}<th>Estado</th><th>Acciones</th></tr></thead>
+<tbody>
+{% for row in rows %}
+<tr><td>{{ row.relation.person.identification }}</td><td>{{ row.relation.person.full_name }}</td><td>{{ row.relation.person.email }}</td>
+{% if is_customer %}<td>{{ row.relation.category|default:"Sin categoría" }}{% if row.relation.category and not row.relation.category.is_active %} (inactiva){% endif %}</td>{% endif %}
+<td>{{ row.relation.is_active|yesno:"Activo,Inactivo" }}</td>
+<td><a href="{{ row.detail_url }}">Consultar</a>
+{% if is_customer %}
+{% if can_change %}<a href="{{ row.edit_url }}">Editar</a>{% else %}<button disabled title="Requiere permiso para editar clientes">Editar</button>{% endif %}
+{% if can_delete %}<a href="{{ row.delete_url }}">Borrar</a>{% else %}<button disabled title="Requiere permiso para borrar clientes">Borrar</button>{% endif %}
+{% endif %}
+{% include "people/commercial_activity.html" with relation=row.relation activity_url=row.activity_url %}</td></tr>
+{% empty %}<tr><td colspan="{% if is_customer %}6{% else %}5{% endif %}">No se encontraron relaciones comerciales disponibles.</td></tr>{% endfor %}
+</tbody></table>
+</div>
+{% endblock %}

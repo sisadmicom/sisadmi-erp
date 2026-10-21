@@ -1,19 +1,25 @@
-<!-- templates/core/select_company.html -->
-
-<h1>Seleccione Empresa</h1>
-
-<form method="post">
-    {% csrf_token %}
-
-    <select name="company_id">
-        {% for company in companies %}
-            <option value="{{ company.id }}">
-                {{ company.commercial_name }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <button type="submit">
-        Continuar
-    </button>
-</form>
+{% extends "core/base.html" %}
+{% block title %}Seleccionar empresa | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{% if can_configure_company and not companies %}Bienvenido a SISADMI{% else %}Seleccionar empresa{% endif %}</h1>
+<section class="panel selector-panel">
+    {% if companies %}
+    <form method="post">
+        {% csrf_token %}
+        <p><label for="company_id">Empresa</label>
+        <select id="company_id" name="company_id" required>
+            {% for company in companies %}
+            <option value="{{ company.id }}">{{ company.commercial_name }}</option>
+            {% endfor %}
+        </select></p>
+        <button type="submit">Continuar</button>
+    </form>
+    {% elif can_configure_company %}
+    <p>Todavía no ha configurado su empresa.</p>
+    <p>Registre los datos de su empresa, su ubicación y su sucursal principal.</p>
+    <a class="action-card" href="{% url 'initial_setup' %}">Configurar empresa</a>
+    {% else %}
+    <p>No tiene empresas disponibles. Solicite acceso al administrador.</p>
+    {% endif %}
+</section>
+{% endblock %}

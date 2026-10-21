@@ -1,0 +1,36 @@
+{
+  "kind": "memory_projection_only",
+  "actual_writes": 0,
+  "database_before_sha256": "e7fa0ab594e9f3d0cf0004299f1eea26aacb2e3650fcc26e02f52241f14095bd",
+  "projected_snapshot_sha256": "5c615c677bde331210308bfda6e9e8d827fdfd72b895d6828da174cee3bcb8d6",
+  "first_would_create": {
+    "Continent": 0,
+    "Country": 0,
+    "Province": 23,
+    "Canton": 220,
+    "Parish": 1353
+  },
+  "second_would_create": {
+    "Continent": 0,
+    "Country": 0,
+    "Province": 0,
+    "Canton": 0,
+    "Parish": 0
+  },
+  "second_existing": {
+    "Continent": 1,
+    "Country": 1,
+    "Province": 24,
+    "Canton": 221,
+    "Parish": 1354
+  },
+  "second_blocked": false,
+  "idempotent": true,
+  "projected_database_counts": {
+    "Continent": 1,
+    "Country": 1,
+    "Province": 24,
+    "Canton": 221,
+    "Parish": 1355
+  }
+}

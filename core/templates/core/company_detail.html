@@ -1,0 +1,12 @@
+{% extends "core/entity_base.html" %}
+{% block title %}{{ company.commercial_name }} | SISADMI{% endblock %}
+{% block content %}
+<h1>{{ company.commercial_name }}</h1>
+<section class="panel selector-panel">
+    <dl>
+        <dt>Persona</dt><dd>{{ company.person.full_name }}</dd>
+        <dt>Nombre comercial</dt><dd>{{ company.commercial_name }}</dd>
+        {% if company.logo %}<dt>Logo</dt><dd><img src="{{ company.logo.url }}" alt="Logo de {{ company.commercial_name }}" width="160"></dd>{% endif %}
+    </dl>
+</section>
+{% endblock %}

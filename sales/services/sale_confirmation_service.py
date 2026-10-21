@@ -5,6 +5,7 @@ from core.services.document_service import DocumentService
 from inventory.constants.movement_type import MovementType
 from inventory.services.stock.decrease_stock import DecreaseStock
 
+from people.models import Customer
 from sales.models import Sale, SaleMovement
 from sales.services.sale_validator import SaleValidator
 
@@ -22,6 +23,8 @@ class SaleConfirmationService:
 
         DocumentService.ensure_can_confirm(sale)
         SaleValidator.validate_confirmation(sale)
+        customer = Customer.objects.select_for_update().get(pk=sale.customer_id)
+        SaleValidator.validate_customer_for_document(customer, sale.company_id)
 
         DocumentService.confirm(
             document=sale,

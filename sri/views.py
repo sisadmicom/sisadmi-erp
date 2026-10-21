@@ -2,8 +2,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
+from django.http import HttpResponseForbidden
+from functools import wraps
+from sri.services.invoice_validation import FiscalValidationError
+
+
+def sri_permissions(view):
+    @wraps(view)
+    def protected(request, *args, **kwargs):
+        if not request.user.has_perm("sri.view_electronicdocument") or (
+            request.method == "POST" and not request.user.has_perm("sri.change_electronicdocument")
+        ):
+            return HttpResponseForbidden("No tiene permiso para consultar u operar comprobantes electrónicos.")
+        return view(request, *args, **kwargs)
+    return protected
 
 from sales.models import Sale
+from core.constants.sri import SriEnvironment
 
 from sri.constants.authorization_attempt_status import SriAuthorizationAttemptStatus
 from sri.constants.document_status import SriDocumentStatus
@@ -77,12 +92,18 @@ def _workflow_presentation(document):
         else:
             message = "El SRI rechazó la recepción del documento."
 
+    if document.environment != SriEnvironment.TEST:
+        can_sign = can_receive = can_authorize = False
+        message = "Esta etapa permite únicamente el ambiente de pruebas del SRI."
+
     return {
         "workflow_state": state,
         "workflow_message": message,
         "can_sign": can_sign,
         "can_receive": can_receive,
         "can_authorize": can_authorize,
+        "sri_reception_attempt": document.reception_attempts.prefetch_related("messages").first(),
+        "sri_authorization_attempt": document.authorization_attempts.prefetch_related("messages").first(),
     }
 
 
@@ -102,6 +123,7 @@ def _sale_return(request, document):
 
 
 @login_required(login_url="login")
+@sri_permissions
 @require_http_methods(["GET", "HEAD", "POST"])
 def electronic_document_authorize(request, electronic_document_id):
     if request.active_company is None:
@@ -121,6 +143,9 @@ def electronic_document_authorize(request, electronic_document_id):
     if request.method == "POST":
         try:
             document = authorize_electronic_document(electronic_document=document)
+        except FiscalValidationError as error:
+            state = "INVALID"
+            message = str(error)
         except SriAuthorizationTransportError:
             state = "UNCERTAIN"
             message = "No se pudo confirmar el resultado por un problema de comunicación con el SRI."
@@ -145,6 +170,7 @@ def electronic_document_authorize(request, electronic_document_id):
             "authorization_message": message,
             **_workflow_presentation(document),
             "origin_sale": _sale_return(request, document),
+            "can_operate": request.user.has_perm("sri.change_electronicdocument"),
         },
     )
 
@@ -162,6 +188,7 @@ def _authorization_result(document):
 
 
 @login_required(login_url="login")
+@sri_permissions
 @require_http_methods(["GET", "HEAD", "POST"])
 def electronic_document_receive(request, electronic_document_id):
     if request.active_company is None:
@@ -183,6 +210,9 @@ def electronic_document_receive(request, electronic_document_id):
             document = submit_electronic_document(
                 electronic_document=document,
             )
+        except FiscalValidationError as error:
+            state = "INVALID"
+            message = str(error)
         except SriReceptionTransportError:
             state = "UNCERTAIN"
             message = "No se pudo confirmar el resultado de la recepción por un problema de comunicación."
@@ -210,6 +240,7 @@ def electronic_document_receive(request, electronic_document_id):
             "reception_message": message,
             **_workflow_presentation(document),
             "origin_sale": _sale_return(request, document),
+            "can_operate": request.user.has_perm("sri.change_electronicdocument"),
         },
     )
 
@@ -223,6 +254,7 @@ def _reception_result(document):
 
 
 @login_required(login_url="login")
+@sri_permissions
 @require_http_methods(["GET", "HEAD", "POST"])
 def electronic_document_sign(request, electronic_document_id):
     if request.active_company is None:
@@ -244,6 +276,9 @@ def electronic_document_sign(request, electronic_document_id):
             document = ElectronicDocumentSigningService.sign(
                 electronic_document=document,
             )
+        except FiscalValidationError as error:
+            state = "INVALID"
+            message = str(error)
         except ValueError:
             state = "INVALID"
             message = "No se pudo completar la firma de este documento electrónico."
@@ -260,5 +295,6 @@ def electronic_document_sign(request, electronic_document_id):
             "signing_message": message,
             **_workflow_presentation(document),
             "origin_sale": _sale_return(request, document),
+            "can_operate": request.user.has_perm("sri.change_electronicdocument"),
         },
     )

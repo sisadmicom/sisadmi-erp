@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}Identidad legal | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>Identidad legal de la empresa</h1>
+<p>{{ company }}. Complete los datos de la Person vinculada a esta empresa.</p>
+<section class="panel form-panel">
+    <form method="post">
+        {% csrf_token %}
+        {% include "core/components/form_fields.html" with form=form only %}
+        <button type="submit">Guardar datos</button>
+        <a href="{% url 'dashboard' %}">Volver a Inicio</a>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block title %}Consultar persona | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{{ person.full_name }}</h1>
+<section class="panel"><h2>Identidad</h2><dl class="person-data">
+    <dt>Tipo de persona</dt><dd>{{ person.get_person_type_display }}</dd>
+    <dt>Tipo de identificación</dt><dd>{{ person.get_identification_type_display|default:"Sin registrar" }}</dd>
+    <dt>Identificación</dt><dd>{{ person.identification }}</dd>
+    <dt>Nombre / Razón social</dt><dd>{{ person.full_name }}</dd>
+</dl></section>
+<section class="panel"><h2>Contacto</h2><dl class="person-data">
+    <dt>Correo</dt><dd>{{ person.email|default:"Sin registrar" }}</dd>
+    <dt>Teléfono</dt><dd>{{ person.phone|default:"Sin registrar" }}</dd>
+</dl></section>
+<section class="panel"><h2>Ubicación</h2><dl class="person-data">
+    <dt>Continente</dt><dd>{{ person.country.continent|default:"Sin registrar" }}</dd>
+    <dt>País</dt><dd>{{ person.country|default:"Sin registrar" }}</dd>
+    <dt>Provincia</dt><dd>{{ person.province|default:"Sin registrar" }}</dd>
+    <dt>Cantón</dt><dd>{{ person.canton|default:"Sin registrar" }}</dd>
+    <dt>Parroquia</dt><dd>{{ person.parish|default:"Sin registrar" }}</dd>
+    <dt>Dirección</dt><dd>{{ person.address|default:"Sin registrar"|linebreaksbr }}</dd>
+</dl></section>
+<div class="action-row">{% if edit_action %}{% include "core/components/entity_action.html" with action=edit_action only %}{% endif %}<a href="{% url 'person_list' %}">Volver a Personas</a></div>
+{% endblock %}

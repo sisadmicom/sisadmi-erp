@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}{{ category.code }} | Categorías de clientes{% endblock %}
+{% block content %}
+<h1>Categoría de cliente</h1>
+<dl><dt>Código</dt><dd>{{ category.code }}</dd><dt>Descripción</dt><dd>{{ category.name }}</dd>
+<dt>Estado</dt><dd>{{ category.is_active|yesno:"Activo,Inactivo" }}</dd>
+<dt>Creada</dt><dd>{{ category.created_at }}</dd><dt>Actualizada</dt><dd>{{ category.updated_at }}</dd></dl>
+{% if perms.people.change_customercategory %}
+<p><a href="{% url 'customer_category_update' category.pk %}">Editar</a></p>
+{% include "people/customer_category_activity.html" %}
+{% endif %}
+<p>Desactivar conserva la categoría. No se ofrece eliminación de registros.</p>
+<a href="{% url 'customer_category_list' %}">Volver a categorías</a>
+{% endblock %}

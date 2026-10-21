@@ -17,7 +17,7 @@
 {% if not reception_state and not can_receive %}
     {% csrf_token %}
 {% endif %}
-{% if not reception_state and can_receive %}
+{% if can_receive and can_operate %}
 <form method="post" action="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">
     {% csrf_token %}
     <button type="submit">Enviar a recepción SRI</button>
@@ -31,4 +31,5 @@
 {% if origin_sale %}
 <a href="{% url 'sale_detail' sale_id=origin_sale.pk %}">Volver a la venta</a>
 {% endif %}
+{% include "sri/attempt_messages.html" %}
 {% endblock %}

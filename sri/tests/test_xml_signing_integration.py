@@ -123,11 +123,8 @@ class XmlSigningIntegrationTest(TestCase):
             SriDocumentStatus.GENERATED
         )
 
-        electronic_document.xml = """
-<factura id="comprobante">
-    <datos>SISADMI INTEGRATION TEST</datos>
-</factura>
-""".strip()
+        from sri.services.xml_generator_service import XmlGeneratorService
+        electronic_document.xml = XmlGeneratorService.generate_invoice(electronic_document)
 
         electronic_document.save(
             update_fields=[
@@ -167,7 +164,7 @@ class XmlSigningIntegrationTest(TestCase):
 
         result = XmlSigningService.sign(
             electronic_document,
-            signer,
+            signer, certificate=certificate_data.certificate,
         )
 
         result.refresh_from_db()

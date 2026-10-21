@@ -38,10 +38,12 @@ class PurchaseService:
         details = list(purchase.details.all())
 
         for detail in details:
-            detail.subtotal = CommercialLineCalculator.calculate_subtotal(
-                detail.quantity,
-                detail.unit_price,
-                detail.discount,
+            detail.subtotal = CommercialLineCalculator.monetary_amount(
+                CommercialLineCalculator.calculate_subtotal(
+                    detail.quantity,
+                    detail.unit_price,
+                    detail.discount,
+                )
             )
             detail.total = CommercialLineCalculator.calculate_total(
                 detail.subtotal,
@@ -55,7 +57,7 @@ class PurchaseService:
                 ]
             )
 
-        totals = CommercialTotalsCalculator.calculate(details)
+        totals = CommercialTotalsCalculator.calculate(purchase.details.all())
         purchase.subtotal = totals.subtotal
         purchase.tax = totals.tax
         purchase.total = totals.total

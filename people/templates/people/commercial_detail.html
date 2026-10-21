@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% block title %}{{ singular }} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{{ singular }}</h1>
+<dl>
+<dt>Nombre / Razón social</dt><dd>{{ relation.person.full_name }}</dd>
+<dt>Identificación</dt><dd>{{ relation.person.identification }}</dd>
+<dt>Correo</dt><dd>{{ relation.person.email|default:"—" }}</dd>
+<dt>Estado</dt><dd>{{ relation.is_active|yesno:"Activo,Inactivo" }}</dd>
+{% if is_customer %}<dt>Categoría de cliente</dt><dd>{{ relation.category|default:"Sin categoría" }}{% if relation.category and not relation.category.is_active %} (inactiva){% endif %}</dd>{% endif %}
+{% if relation.credit_limit != None %}<dt>Límite de crédito</dt><dd>{{ relation.credit_limit }}</dd>{% endif %}
+<dt>Notas</dt><dd>{{ relation.notes|default:"—"|linebreaksbr }}</dd>
+</dl>
+{% if can_change %}<p><a href="{{ edit_url }}">Editar</a></p>{% endif %}
+{% if is_customer and can_delete %}<p><a href="{{ delete_url }}">Borrar</a></p>{% endif %}
+{% include "people/commercial_activity.html" %}
+<p><a href="{{ list_url }}">Volver a {{ title|lower }}</a></p>
+{% endblock %}

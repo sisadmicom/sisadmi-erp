@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% block title %}Personas | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>Personas</h1>
+<p class="muted">Consulte las personas disponibles para la empresa seleccionada.</p>
+<form method="get" class="action-row" role="search">
+    <div><label for="person-search">Buscar por identificación, nombre o correo</label><input id="person-search" name="q" value="{{ query }}" maxlength="250" type="search"></div>
+    <button type="submit">Buscar</button>
+    {% if query %}<a href="{% url 'person_list' %}">Limpiar búsqueda</a>{% endif %}
+</form>
+{% if add_action %}<p>{% include "core/components/entity_action.html" with action=add_action only %}</p>{% endif %}
+{% if people %}
+<div class="table-scroll" role="region" aria-label="Resultados de Personas" tabindex="0">
+<table>
+    <thead><tr><th>Identificación</th><th>Nombre / Razón social</th><th>Correo</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr></thead>
+    <tbody>{% for row in people %}{% with person=row.person %}<tr>
+        <td>{{ person.identification }}</td><td>{{ person.full_name }}</td><td>{{ person.email|default:"—" }}</td><td>{{ person.phone|default:"—" }}</td><td>Activa</td>
+        <td><div class="entity-actions">{% for action in row.actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}</div></td>
+    </tr>{% endwith %}{% endfor %}</tbody>
+</table>
+</div>
+{% elif query %}<p class="panel">No se encontraron coincidencias. Revise la búsqueda o límpiela para ver las personas disponibles.</p>
+{% else %}<p class="panel">No existen personas disponibles en esta empresa.{% if can_create %} Pulse «Adicionar persona» para registrar una.{% else %} Solicite ayuda a un usuario autorizado.{% endif %}</p>{% endif %}
+{% include "people/components/catalog_navigation.html" %}
+{% endblock %}

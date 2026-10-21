@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}{{ singular }} | SISADMI ERP{% endblock %}
+{% block content %}
+<h1>{% if editing %}Editar{% else %}Adicionar{% endif %} {{ singular|lower }}</h1>
+<section class="panel form-panel">
+<form method="post" action="{{ form_url }}">
+    {% csrf_token %}
+    {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+    {{ form.non_field_errors }}
+    {% if person_documents_message %}<p role="status">{{ person_documents_message }}</p>{% endif %}
+    {% if form.current_category and not form.current_category.is_active %}
+    <p>Categoría actual: {{ form.current_category }} (inactiva). Puede conservarla o seleccionar una categoría activa.</p>
+    {% endif %}
+    {% for field in form %}
+    <div>{{ field.label_tag }}<div class="related-control">{{ field }}
+    {% if is_customer and field.name == 'person' %}
+    <button type="submit" name="related" value="add:person" formnovalidate aria-label="Adicionar Persona" title="Adicionar Persona" {% if not can_add_person or person_blocked %}disabled{% endif %}>+</button>
+    {% elif is_customer and field.name == 'category' %}
+    <button type="submit" name="related" value="add:category" formnovalidate aria-label="Adicionar categoría de cliente" title="Adicionar categoría de cliente" {% if not can_add_category %}disabled{% endif %}>+</button>
+    {% endif %}
+    </div>{{ field.errors }}</div>
+    {% endfor %}
+    <button type="submit">Guardar</button>
+</form>
+</section>
+<p><a href="{{ list_url }}">Volver a {{ title|lower }}</a></p>
+{% endblock %}

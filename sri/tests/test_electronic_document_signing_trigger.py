@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 """C-14C HTTP contract for explicitly signing an electronic document.
 
 The signing service is mocked at the future sri.views import boundary. These
@@ -66,6 +67,8 @@ class SigningTriggerFixture:
             name="Sucursal no autorizada",
         )
         self.user = get_user_model().objects.create_user(username="signing-trigger")
+        self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label="sri",
+            codename__in=["view_electronicdocument", "change_electronicdocument"]))
         self.user.profile.companies.add(self.company, self.other_company)
         self.user.profile.branches.add(
             self.branch,

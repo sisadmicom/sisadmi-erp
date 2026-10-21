@@ -1,0 +1,5 @@
+{% if catalogs %}
+<nav class="action-row" aria-label="Catálogos de ubicación">
+    {% for catalog in catalogs %}<a href="{{ catalog.url }}">{{ catalog.label }}</a>{% endfor %}
+</nav>
+{% endif %}

@@ -101,7 +101,7 @@ class ElectronicDocumentSigningBoundaryREDTests(TestCase):
         current = ElectronicDocument.objects.get(pk=self.electronic.pk)
         self.assertEqual(current.status, SriDocumentStatus.GENERATED)
         self.assertEqual(current.xml, snapshot.xml)
-        self.assertEqual(current.error_message, snapshot.error_message)
+        self.assertTrue(current.error_message)
 
     def test_expired_certificate_is_rejected_without_mutation(self):
         self.certificate.delete()
@@ -118,7 +118,7 @@ class ElectronicDocumentSigningBoundaryREDTests(TestCase):
         current = ElectronicDocument.objects.get(pk=self.electronic.pk)
         self.assertEqual(current.status, SriDocumentStatus.GENERATED)
         self.assertEqual(current.xml, snapshot.xml)
-        self.assertEqual(current.error_message, snapshot.error_message)
+        self.assertTrue(current.error_message)
 
     def test_not_yet_valid_certificate_is_rejected_without_mutation(self):
         self.certificate.delete()
@@ -135,7 +135,7 @@ class ElectronicDocumentSigningBoundaryREDTests(TestCase):
         current = ElectronicDocument.objects.get(pk=self.electronic.pk)
         self.assertEqual(current.status, SriDocumentStatus.GENERATED)
         self.assertEqual(current.xml, snapshot.xml)
-        self.assertEqual(current.error_message, snapshot.error_message)
+        self.assertTrue(current.error_message)
 
     def test_document_cannot_use_certificate_from_another_company(self):
         self.certificate.delete()
@@ -176,19 +176,22 @@ class ElectronicDocumentSigningBoundaryREDTests(TestCase):
         snapshot = {
             field: getattr(self.electronic, field)
             for field in (
-                "status", "xml", "error_message", "access_key", "sequential",
+                "status", "xml", "access_key", "sequential",
                 "environment", "emission_type", "establishment", "emission_point",
             )
         }
         from sri.services.pkcs12_xml_signer import Pkcs12XmlSigner
 
         with patch.object(Pkcs12XmlSigner, "sign", side_effect=RuntimeError("c11 signing failure")):
-            with self.assertRaises(RuntimeError):
+            with self.assertRaises(ValueError):
                 self._sign()
 
         current = ElectronicDocument.objects.get(pk=self.electronic.pk)
         for field, value in snapshot.items():
             self.assertEqual(getattr(current, field), value)
+
+        self.assertTrue(current.error_message)
+        self.assertNotIn("c11 signing failure", current.error_message)
 
     def test_signing_does_not_change_fiscal_identity(self):
         before = {

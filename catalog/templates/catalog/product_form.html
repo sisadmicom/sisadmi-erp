@@ -1,27 +1,12 @@
 {% extends "core/base.html" %}
-
 {% block content %}
-
 <h1>{{ title }}</h1>
-
 <form method="post">
-
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit">
-
-        Guardar
-
-    </button>
-
+  {% csrf_token %}
+  <input type="hidden" name="continuation_nonce" value="{{ continuation_nonce }}">
+  {% if draft_token %}<input type="hidden" name="draft" value="{{ draft_token }}">{% endif %}
+  {% include "core/components/entity_fields.html" with form=form %}
+  <button type="submit">Guardar</button>
 </form>
-
-<a href="{% url 'product_list' %}">
-
-    Volver
-
-</a>
-
+<a href="{% url 'product_list' %}">Volver</a>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% load static %}
+<div class="form-ux" data-form-ux>
+    <div class="form-fields">
+        <p class="form-required-note">* Campo obligatorio. Correo y teléfono son opcionales al registrar una persona.</p>
+        {% if form.non_field_errors %}<div class="form-errors" role="alert"><strong>Revise los datos del formulario.</strong>{{ form.non_field_errors }}</div>{% endif %}
+        {% for group in sections %}
+        <fieldset class="form-section">
+            <legend>{{ group.title }}</legend>
+            {% for row in group.rows %}
+            {% with field=row.field %}
+            <div class="form-field" data-form-field data-help-title="{{ field.label }}">
+                <label for="{{ field.id_for_label }}">{{ field.label }} {% if field.field.required %}<span aria-hidden="true">*</span>{% else %}<span class="form-optional">(opcional)</span>{% endif %}</label>
+                {% include "core/components/related_control.html" with actions=row.actions %}
+                {% if field.help_text %}<p class="form-help" id="{{ field.auto_id }}_helptext" data-help-for="{{ field.id_for_label }}">{{ field.help_text }}</p>{% endif %}
+                {{ field.errors }}
+                {% if row.empty %}
+                <p class="form-help">No hay opciones disponibles para {{ row.label }} en esta selección.
+                    {% if row.can_add %}Seleccione primero el dato anterior, si corresponde, y pulse «Adicionar {{ row.label }}».{% else %}Solicite a un administrador o usuario autorizado que registre el dato necesario.{% endif %}
+                </p>
+                {% endif %}
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+    </div>
+    <aside class="form-contextual-help" data-contextual-help aria-label="Ayuda del campo" aria-live="polite" aria-atomic="true" hidden>
+        <h2 data-contextual-help-title>Ayuda del campo</h2>
+        <p data-contextual-help-text>Seleccione un campo para consultar su ayuda.</p>
+    </aside>
+</div>
+<script src="{% static 'core/js/form_help.js' %}" defer></script>

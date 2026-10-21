@@ -32,6 +32,7 @@ class SaleManifestFixture(TestCase):
         Sequence.objects.create(company=self.company, branch=self.branch, document_type=sale_type,
                                 name="Ventas C06", prefix="V06-", next_number=1)
         self.customer = Customer.objects.create(
+            company=self.company,
             person=Person.objects.create(identification="C06-CUSTOMER", person_type="NATURAL", full_name="Cliente C06"),
         )
         self.product = Product.objects.create(company=self.company, code="P1", name="Producto 1")

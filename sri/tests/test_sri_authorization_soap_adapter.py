@@ -31,9 +31,11 @@ class SriAuthorizationSoapAdapterREDTests(TestCase):
         result, factory, _ = self.run_adapter(response_obj=response())
         self.assertEqual(factory.calls[0]["wsdl"], TEST_WSDL)
 
-    def test_production_environment_uses_official_authorization_wsdl(self):
-        _, factory, _ = self.run_adapter(environment=SriEnvironment.PRODUCTION, response_obj=response(authorizations=[authorization(environment="PRODUCCIÓN")]))
-        self.assertEqual(factory.calls[0]["wsdl"], PRODUCTION_WSDL)
+    def test_production_environment_is_rejected_before_client_creation(self):
+        factory = FakeClientFactory(operation=FakeSoapOperation(response=response()))
+        with self.assertRaises(ValueError):
+            production_adapter(factory).query_authorization(access_key=ACCESS_KEY, environment=SriEnvironment.PRODUCTION)
+        self.assertEqual(factory.call_count, 0)
 
     def test_calls_autorizacion_comprobante_with_exact_access_key(self):
         _, _, operation = self.run_adapter(response_obj=response())
@@ -142,8 +144,8 @@ class SriAuthorizationSoapAdapterREDTests(TestCase):
     def test_environment_normalization(self):
         result, _, _ = self.run_adapter(response_obj=response(authorizations=[authorization(environment="PRUEBAS")]))
         self.assertEqual(result.environment, SriEnvironment.TEST)
-        result, _, _ = self.run_adapter(environment=SriEnvironment.PRODUCTION, response_obj=response(authorizations=[authorization(environment="PRODUCCIÓN")]))
-        self.assertEqual(result.environment, SriEnvironment.PRODUCTION)
+        with self.assertRaises(ValueError):
+            self.run_adapter(environment=SriEnvironment.PRODUCTION, response_obj=response(authorizations=[authorization(environment="PRODUCCIÓN")]))
 
     def test_unknown_response_environment_is_protocol_error(self):
         with self.assertRaises(SriAuthorizationProtocolError):

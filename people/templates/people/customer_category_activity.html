@@ -1,0 +1,4 @@
+<form method="post" action="{% if category.is_active %}{% url 'customer_category_deactivate' category.pk %}{% else %}{% url 'customer_category_reactivate' category.pk %}{% endif %}">
+    {% csrf_token %}
+    <button type="submit" class="secondary">{% if category.is_active %}Desactivar{% else %}Activar{% endif %}</button>
+</form>

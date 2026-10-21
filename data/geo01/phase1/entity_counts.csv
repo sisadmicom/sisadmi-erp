@@ -1,0 +1,6 @@
+entity,current_database,reused_by_plan,new_in_eligible_projection,untouched_existing,created_in_development
+Continent,1,1,0,0,0
+Country,1,1,0,0,0
+Province,1,1,23,0,0
+Canton,1,1,220,0,0
+Parish,2,1,1353,1,0

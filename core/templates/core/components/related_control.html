@@ -1,0 +1,4 @@
+<div class="related-control">
+    {{ field }}
+    {% for action in actions %}{% include "core/components/entity_action.html" with action=action only %}{% endfor %}
+</div>
