@@ -33,10 +33,12 @@ class HumanInvoiceWorkflowTests(TestCase):
                              product=self.env['product'], quantity=Decimal('10'))
         self.certificate, self.password, self.public_certificate = create_certificate_record(self.company)
         self.user = get_user_model().objects.create_user('r05-operator')
+        self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label='sales',
+            codename__in=['view_sale', 'add_sale', 'change_sale']))
         self.user.profile.companies.add(self.company)
         self.user.profile.branches.add(self.branch)
         self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label='sri',
-            codename__in=['view_electronicdocument', 'change_electronicdocument']))
+            codename__in=['view_electronicdocument', 'add_electronicdocument', 'change_electronicdocument']))
         self.client = Client(enforce_csrf_checks=True)
         self.client.force_login(self.user)
         session = self.client.session

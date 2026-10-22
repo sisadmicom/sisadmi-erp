@@ -5,6 +5,7 @@ from unittest.mock import patch
 from xml.etree import ElementTree as ET
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
@@ -68,6 +69,12 @@ class InvoiceXMLFromHTTPTests(TestCase):
                                 name="R04 sales", prefix="VEN-", series="001", padding=6)
         Stock.objects.create(company=company, branch=branch, warehouse=self.env["warehouse"], product=self.env["product"], quantity=Decimal("10"))
         user = get_user_model().objects.create_user("r04-invoice")
+        user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sales", codename__in=["view_sale", "add_sale", "change_sale"],
+        ))
+        user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sri", codename__in=["view_electronicdocument", "add_electronicdocument"],
+        ))
         user.profile.companies.add(company)
         user.profile.branches.add(branch)
         self.client.force_login(user)

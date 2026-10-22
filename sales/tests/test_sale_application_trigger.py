@@ -11,6 +11,7 @@ from urllib.parse import parse_qs, urlsplit
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.db import connection
 from django.test import Client, TestCase
 from django.urls import NoReverseMatch, resolve, reverse
@@ -125,6 +126,10 @@ class SaleApplicationTriggerTests(TestCase):
         self.user = get_user_model().objects.create_user(
             username="sale-trigger-user", password="test-password"
         )
+        self.user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sales",
+            codename__in=["view_sale", "add_sale", "change_sale"],
+        ))
         self.user.profile.companies.add(self.company)
         self.user.profile.branches.add(self.branch, self.other_branch)
         self.client.force_login(self.user)

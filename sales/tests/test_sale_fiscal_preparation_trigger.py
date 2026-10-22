@@ -3,6 +3,7 @@
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.contrib.messages import SUCCESS
 from django.db import connection
 from django.test import Client, TestCase, TransactionTestCase
@@ -103,6 +104,13 @@ class FiscalPreparationTriggerFixtureMixin:
             username=f"fiscal-trigger-{self.__class__.__name__}",
             password="test-password",
         )
+        self.user.user_permissions.add(Permission.objects.get(
+            content_type__app_label="sales", codename="view_sale",
+        ))
+        self.user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sri",
+            codename__in=["view_electronicdocument", "add_electronicdocument"],
+        ))
         self.user.profile.companies.add(self.company, self.other_company)
         self.user.profile.branches.add(
             self.branch, self.other_branch, self.other_company_branch
@@ -448,7 +456,8 @@ class SaleFiscalPreparationTriggerTests(FiscalPreparationTriggerFixtureMixin, Te
 class SaleFiscalPreparationTransactionBoundaryTests(
     FiscalPreparationTriggerFixtureMixin, TransactionTestCase
 ):
-    reset_sequences = True
+    # Resetting to 1 collides with the Person initialized by migration PEOPLE 0010.
+    reset_sequences = False
 
     def test_prepare_is_called_outside_an_external_atomic_block(self):
         sale = self.sale()

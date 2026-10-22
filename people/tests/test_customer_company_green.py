@@ -2,6 +2,7 @@
 from datetime import date
 from decimal import Decimal
 
+from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.db import connection
 from django.db.migrations.exceptions import IrreversibleError
@@ -25,6 +26,9 @@ class CustomerCompanyGreenTests(PersonUIFixture):
     def setUp(self):
         require_isolated_postgresql(self)
         super().setUp()
+        self.actor.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label='sales', codename__in=['view_sale', 'add_sale'],
+        ))
         self.customer = Customer.objects.create(person=self.visible_person)
         self.document_type = DocumentType.objects.get(code=Sale.DOCUMENT_TYPE_CODE)
         self.warehouse = Warehouse.objects.create(company=self.a, branch=self.branch, code='W', name='W')

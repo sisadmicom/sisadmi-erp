@@ -22,6 +22,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.apps import apps
+from django.contrib.auth.models import Permission
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied, ValidationError
 from django.db import IntegrityError, connection, models, transaction
 from django.db.migrations.loader import MigrationLoader
@@ -34,6 +35,7 @@ from core.constants.document_type_codes import DocumentTypeCodes
 from core.models import DocumentType
 from core.services.context_service import clear_context
 from inventory.models import Warehouse
+from people.identification import FINAL_CONSUMER_ID
 from people.models import Customer, Person
 from people.tests.person_ui_support import PersonUIFixture
 from sales.dto.sale_create_dto import SaleCreateDTO
@@ -59,6 +61,9 @@ class CustomerCompanyRedTests(PersonUIFixture):
         # Guard before shared fixture writes, independently of the runner.
         require_isolated_postgresql(self)
         super().setUp()
+        self.actor.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label='sales', codename__in=['view_sale', 'add_sale'],
+        ))
         self.addCleanup(clear_context)
         self.grant(self.actor, 'view_customer', 'add_customer', 'change_customer')
         DocumentType.objects.get_or_create(
@@ -80,6 +85,11 @@ class CustomerCompanyRedTests(PersonUIFixture):
     def customer(self, company, person=None):
         self.company_field()
         return Customer.objects.create(company=company, person=person or self.visible_person)
+
+    def final_consumer(self, company):
+        return Customer.objects.get(
+            company=company, person__identification=FINAL_CONSUMER_ID,
+        )
 
     def dto(self, customer, **changes):
         values = dict(company_id=self.a.pk, branch_id=self.branch.pk,
@@ -122,13 +132,22 @@ class CustomerCompanyRedTests(PersonUIFixture):
     def test_04_sales_customer_options_are_scoped_and_switch_with_company(self):
         first = self.customer(self.a)
         second = self.customer(self.b, self.hidden_person)
-        for company, branch, expected in ((self.a, self.branch, first), (self.b, self.branch_b, second)):
+        for company, branch, expected, excluded in (
+                (self.a, self.branch, first, second),
+                (self.b, self.branch_b, second, first)):
             with self.subTest(company=company.pk):
+                final_consumer = self.final_consumer(company)
+                foreign_final_consumer = self.final_consumer(excluded.company)
                 self.context(self.client, company, branch)
                 response = self.client.get(reverse('sale_create'))
                 self.assertEqual(response.status_code, 200)
                 choices = response.context['form'].fields['customer_id'].queryset
-                self.assertEqual(set(choices.values_list('pk', flat=True)), {expected.pk})
+                choice_ids = set(choices.values_list('pk', flat=True))
+                self.assertEqual(choice_ids, {expected.pk, final_consumer.pk})
+                self.assertNotIn(excluded.pk, choice_ids)
+                self.assertNotIn(foreign_final_consumer.pk, choice_ids)
+                self.assertNotContains(response, f'<option value="{excluded.pk}">')
+                self.assertNotContains(response, f'<option value="{foreign_final_consumer.pk}">')
 
     def business_snapshot(self):
         # Compare existing rows too, not only counts of newly created Sales.
@@ -151,12 +170,18 @@ class CustomerCompanyRedTests(PersonUIFixture):
                 (self.a, self.branch, first, second),
                 (self.b, self.branch_b, second, first)):
             with self.subTest(company=company.pk):
+                final_consumer = self.final_consumer(company)
+                foreign_final_consumer = self.final_consumer(excluded.company)
                 self.context(self.client, company, branch)
                 response = self.client.get(reverse('sale_create'))
                 self.assertEqual(response.status_code, 200)
-                self.assertEqual(set(response.context['form'].fields['customer_id'].queryset
-                                     .values_list('pk', flat=True)), {selected.pk})
+                choices = response.context['form'].fields['customer_id'].queryset
+                choice_ids = set(choices.values_list('pk', flat=True))
+                self.assertEqual(choice_ids, {selected.pk, final_consumer.pk})
+                self.assertNotIn(excluded.pk, choice_ids)
+                self.assertNotIn(foreign_final_consumer.pk, choice_ids)
                 self.assertNotContains(response, f'<option value="{excluded.pk}">')
+                self.assertNotContains(response, f'<option value="{foreign_final_consumer.pk}">')
 
     def test_04_foreign_customer_information_is_absent_from_rendered_html(self):
         local = self.customer(self.a)

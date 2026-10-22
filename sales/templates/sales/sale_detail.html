@@ -29,11 +29,16 @@
 
 {% if confirmation_error %}<p>{{ confirmation_error }}</p>{% endif %}
 {% if sale.status == "DRAFT" %}
+{% if can_confirm_sale %}
 <form method="post" action="{% url 'sale_confirm' sale_id=sale.pk %}">
     {% csrf_token %}
     <button type="submit">Confirmar venta</button>
 </form>
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para confirmar ventas.">Confirmar venta</button>
 {% endif %}
+{% endif %}
+{% if can_prepare_fiscal %}
 <form method="post" action="{% url 'sale_prepare_fiscal' sale_id=sale.pk %}">
     {% csrf_token %}
     {{ fiscal_preparation_form.non_field_errors }}
@@ -42,17 +47,36 @@
     {{ fiscal_preparation_form.point_of_emission }}
     <button type="submit">Preparar documento fiscal</button>
 </form>
-{% if electronic_document %}
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para preparar documentos fiscales.">Preparar documento fiscal</button>
+{% endif %}
+{% if can_view_fiscal and electronic_document %}
 <p>Documento electrónico: {{ electronic_document.pk }}</p>
 <p>Estado fiscal: {{ workflow_state }}</p>
 {% if workflow_message %}<p>{{ workflow_message }}</p>{% endif %}
 {% if can_sign %}
+{% if can_operate_fiscal %}
 <a href="{% url 'electronic_document_sign' electronic_document_id=electronic_document.pk %}">Firmar documento</a>
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para operar documentos fiscales.">Firmar documento</button>
+{% endif %}
 {% elif can_receive %}
+{% if can_operate_fiscal %}
 <a href="{% url 'electronic_document_receive' electronic_document_id=electronic_document.pk %}">Recepción SRI</a>
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para operar documentos fiscales.">Recepción SRI</button>
+{% endif %}
 {% elif can_authorize %}
+{% if can_operate_fiscal %}
 <a href="{% url 'electronic_document_authorize' electronic_document_id=electronic_document.pk %}">Consultar autorización</a>
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para operar documentos fiscales.">Consultar autorización</button>
 {% endif %}
 {% endif %}
+{% endif %}
+{% if can_create_sale %}
 <a href="{% url 'sale_create' %}">Nueva venta</a>
+{% else %}
+<button type="button" disabled aria-disabled="true" title="No tiene permiso para crear ventas.">Nueva venta</button>
+{% endif %}
 {% endblock %}

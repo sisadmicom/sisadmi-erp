@@ -46,6 +46,8 @@ class ShellFixture(FiscalPreparationTriggerFixtureMixin):
     """Reuse C-14B model fixtures, but never its mutation mocks or test methods."""
     def setUp(self):
         self.user = get_user_model().objects.create_user(username="d01-operator", password="d01-test-password")
+        self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label="sales",
+            codename__in=["view_sale", "add_sale"]))
         self.user.user_permissions.add(*Permission.objects.filter(content_type__app_label="sri",
             codename__in=["view_electronicdocument", "change_electronicdocument"]))
         self.user.user_permissions.add(Permission.objects.get(

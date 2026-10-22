@@ -1,6 +1,6 @@
 from functools import wraps
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
@@ -54,19 +54,26 @@ def _sale_detail_response(
     confirmation_error=None,
     fiscal_preparation_form=None,
 ):
-    if fiscal_preparation_form is None:
-        fiscal_preparation_form = FiscalPreparationForm(branch=request.active_branch)
-    electronic_document = ElectronicDocument.objects.filter(
-        company=request.active_company,
-        branch=request.active_branch,
-        content_type=ContentType.objects.get_for_model(Sale),
-        object_id=sale.pk,
-        document_type=SriDocumentType.INVOICE,
-    ).first()
-    workflow = (
-        _workflow_presentation(electronic_document)
-        if electronic_document is not None else {}
-    )
+    can_view_fiscal = request.user.has_perm("sri.view_electronicdocument")
+    can_prepare_fiscal = can_view_fiscal and request.user.has_perm("sri.add_electronicdocument")
+    if can_prepare_fiscal:
+        if fiscal_preparation_form is None:
+            fiscal_preparation_form = FiscalPreparationForm(branch=request.active_branch)
+    else:
+        fiscal_preparation_form = None
+
+    electronic_document = None
+    workflow = {}
+    if can_view_fiscal:
+        electronic_document = ElectronicDocument.objects.filter(
+            company=request.active_company,
+            branch=request.active_branch,
+            content_type=ContentType.objects.get_for_model(Sale),
+            object_id=sale.pk,
+            document_type=SriDocumentType.INVOICE,
+        ).first()
+        if electronic_document is not None:
+            workflow = _workflow_presentation(electronic_document)
     return render(
         request,
         "sales/sale_detail.html",
@@ -76,12 +83,18 @@ def _sale_detail_response(
             **workflow,
             "confirmation_error": confirmation_error,
             "fiscal_preparation_form": fiscal_preparation_form,
+            "can_confirm_sale": request.user.has_perm("sales.change_sale"),
+            "can_create_sale": request.user.has_perm("sales.add_sale"),
+            "can_view_fiscal": can_view_fiscal,
+            "can_prepare_fiscal": can_prepare_fiscal,
+            "can_operate_fiscal": can_view_fiscal and request.user.has_perm("sri.change_electronicdocument"),
         },
     )
 
 
 @_login_with_path_only
 @login_required(login_url="login")
+@permission_required(("sales.view_sale", "sales.add_sale"), raise_exception=True)
 @require_http_methods(["GET", "HEAD", "POST"])
 def sale_create(request):
     context_response = _active_context_or_redirect(request)
@@ -144,6 +157,7 @@ def sale_create(request):
 
 @_login_with_path_only
 @login_required(login_url="login")
+@permission_required("sales.view_sale", raise_exception=True)
 @require_http_methods(["GET", "HEAD"])
 def sale_detail(request, sale_id):
     context_response = _active_context_or_redirect(request)
@@ -161,6 +175,10 @@ def sale_detail(request, sale_id):
 
 @_login_with_path_only
 @login_required(login_url="login")
+@permission_required(
+    ("sales.view_sale", "sri.view_electronicdocument", "sri.add_electronicdocument"),
+    raise_exception=True,
+)
 @require_http_methods(["POST"])
 def sale_prepare_fiscal(request, sale_id):
     context_response = _active_context_or_redirect(request)
@@ -192,6 +210,7 @@ def sale_prepare_fiscal(request, sale_id):
 
 @_login_with_path_only
 @login_required(login_url="login")
+@permission_required(("sales.view_sale", "sales.change_sale"), raise_exception=True)
 @require_http_methods(["POST"])
 def sale_confirm(request, sale_id):
     context_response = _active_context_or_redirect(request)

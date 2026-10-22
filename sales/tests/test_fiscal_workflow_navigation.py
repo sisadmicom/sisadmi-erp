@@ -51,8 +51,12 @@ class FiscalWorkflowNavigationTests(FiscalPreparationTriggerFixtureMixin, TestCa
     def setUp(self):
         self.user = get_user_model().objects.create_user(username="c14e-operator")
         self.user.user_permissions.add(*Permission.objects.filter(
+            content_type__app_label="sales",
+            codename__in=["view_sale", "add_sale", "change_sale"],
+        ))
+        self.user.user_permissions.add(*Permission.objects.filter(
             content_type__app_label="sri",
-            codename__in=["view_electronicdocument", "change_electronicdocument"],
+            codename__in=["view_electronicdocument", "add_electronicdocument", "change_electronicdocument"],
         ))
         self.user.profile.companies.add(self.company, self.other_company)
         self.user.profile.branches.add(self.branch, self.other_branch, self.other_company_branch)
